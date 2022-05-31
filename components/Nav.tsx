@@ -1,10 +1,13 @@
 import { SearchIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
-import React from 'react';
-import styled from 'styled-components';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
 import Show from './Show';
+import { Button } from './styled components/Button';
+import { containerStyles } from './styled components/Container';
 
 const links = [
 	{ label: 'Home', route: routes.home },
@@ -15,38 +18,72 @@ const links = [
 ];
 
 function Nav() {
+	const { asPath } = useRouter();
+	const [scrolled, setScrolled] = useState(false);
+
+	useEffect(() => {
+		const handleScroll = () => setScrolled(window.scrollY > 0);
+		window.addEventListener('scroll', handleScroll);
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
+
 	return (
-		<Container>
-			<Logo alt='' src='https://rb.gy/ulxxee' />
+		<Container scrolled={scrolled}>
+			<Content>
+				<Logo alt='' src='https://rb.gy/ulxxee' />
 
-			<Show on={Breakpoints.tabletUp}>
-				<Links>
-					{links.map(({ label, route }) => (
-						<li key={route}>
-							<Link href={route}>
-								<StyledLink>{label}</StyledLink>
-							</Link>
-						</li>
-					))}
-				</Links>
-			</Show>
+				<Show on={Breakpoints.tabletUp}>
+					<Links>
+						{links.map(({ label, route }) => (
+							<li key={route}>
+								<Link href={route}>
+									<StyledLink active={asPath === route}>
+										{label}
+									</StyledLink>
+								</Link>
+							</li>
+						))}
+					</Links>
+				</Show>
 
-			<Show on={Breakpoints.tabletDown}>
-				<button>Browse</button>
-			</Show>
+				<Show on={Breakpoints.tabletDown}>
+					<Button transparent>Browse</Button>
+				</Show>
 
-			<Icons>
-				<Search>
-					<SearchIcon width={30} />
-				</Search>
-			</Icons>
+				<Icons>
+					<Search transparent>
+						<StyledSearchIcon />
+					</Search>
+					<Link href={routes.account}>
+						<ProfileIcon src='https://rb.gy/g1pwyx' alt='' />
+					</Link>
+				</Icons>
+			</Content>
 		</Container>
 	);
 }
 
 export default Nav;
 
-const Container = styled.div`
+interface ContainerProps {
+	scrolled: boolean;
+}
+
+const Container = styled.div<ContainerProps>`
+	position: fixed;
+	top: 0;
+	width: 100%;
+	transition: 0.2s;
+
+	${(p) =>
+		p.scrolled &&
+		css`
+			background: var(--dark);
+		`}
+`;
+
+const Content = styled.div`
+	${containerStyles}
 	display: grid;
 	align-items: center;
 	justify-items: left;
@@ -68,14 +105,35 @@ const Links = styled.ul`
 	list-style: none;
 `;
 
-const StyledLink = styled.a`
-	cursor: pointer;
+interface StyledLinkProps {
+	active: boolean;
+}
+
+const StyledLink = styled.a<StyledLinkProps>`
 	padding: 1rem;
+	font-weight: ${(p) => (p.active ? 500 : 300)};
 	:hover {
 		color: var(--gray);
 	}
 `;
 
-const Icons = styled.div``;
+const Icons = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+`;
 
-const Search = styled.button``;
+const Search = styled(Button)`
+	display: flex;
+	padding: 0;
+`;
+
+const StyledSearchIcon = styled(SearchIcon)`
+	width: 2rem;
+`;
+
+const ProfileIcon = styled.img`
+	border-radius: var(--radius-300);
+	width: 3rem;
+	cursor: pointer;
+`;

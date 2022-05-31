@@ -1,18 +1,24 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import styled from 'styled-components';
+import Hero from '../components/Hero';
 import Nav from '../components/Nav';
 
 const Home: NextPage = () => {
 	return (
-		<div>
+		<Container>
 			<Head>
 				<title>Home</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
+
 			<Nav />
-			<main></main>
-		</div>
+
+			<Hero />
+		</Container>
 	);
 };
 
 export default Home;
+
+const Container = styled.div``;
