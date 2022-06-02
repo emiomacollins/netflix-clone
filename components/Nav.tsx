@@ -17,7 +17,7 @@ const links = [
 	{ label: 'My List', route: routes.myList },
 ];
 
-function Nav() {
+export default function Nav() {
 	const { asPath } = useRouter();
 	const [scrolled, setScrolled] = useState(false);
 
@@ -63,8 +63,6 @@ function Nav() {
 	);
 }
 
-export default Nav;
-
 interface ContainerProps {
 	scrolled: boolean;
 }
@@ -74,6 +72,7 @@ const Container = styled.div<ContainerProps>`
 	top: 0;
 	width: 100%;
 	transition: 0.2s;
+	z-index: 1;
 
 	${(p) =>
 		p.scrolled &&
@@ -111,7 +110,14 @@ interface StyledLinkProps {
 
 const StyledLink = styled.a<StyledLinkProps>`
 	padding: 1rem;
-	font-weight: ${(p) => (p.active ? 500 : 300)};
+	font-weight: 300;
+
+	${(p) =>
+		p.active &&
+		css`
+			font-weight: 500;
+		`}
+
 	:hover {
 		color: var(--gray);
 	}
