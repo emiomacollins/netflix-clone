@@ -1,12 +1,34 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import Hero from '../components/Hero';
+import Category from '../components/home/Category';
+import Hero from '../components/home/Hero';
 import Nav from '../components/Nav';
+import { containerStyles } from '../components/styled components/Container';
 import { baseAxios } from '../constants/api';
-import { Props } from './types';
+import { Breakpoints } from '../constants/breakpoints';
+import { CategoryType, Props } from './types';
 
 export default function Home(props: Props) {
-	const { netflixOriginals } = props;
+	const {
+		netflixOriginals,
+		actionMovies,
+		comedyMovies,
+		documentaries,
+		horrorMovies,
+		romanceMovies,
+		topRated,
+		trending,
+	} = props;
+
+	const categories: CategoryType[] = [
+		{ heading: 'Trending Now', movies: trending },
+		{ heading: 'Top Rated', movies: topRated },
+		{ heading: 'Action Thrillers', movies: actionMovies },
+		{ heading: 'Comedy', movies: comedyMovies },
+		{ heading: 'Horror', movies: horrorMovies },
+		{ heading: 'Romance', movies: romanceMovies },
+		{ heading: 'documentaries', movies: documentaries },
+	];
 
 	return (
 		<Container>
@@ -16,13 +38,29 @@ export default function Home(props: Props) {
 			</Head>
 
 			<Nav />
+
 			<Hero netflixOriginals={netflixOriginals} />
+
+			<Categories>
+				{categories.map((category) => (
+					<Category key={category.heading} {...category} />
+				))}
+			</Categories>
 		</Container>
 	);
 }
 
 const Container = styled.div`
-	height: 500vh;
+	/* height: 500vh; */
+`;
+
+const Categories = styled.div`
+	${containerStyles}
+	display: grid;
+	gap: 4rem;
+	@media ${Breakpoints.tabletUp} {
+		padding-inline: 3rem;
+	}
 `;
 
 export async function getServerSideProps() {

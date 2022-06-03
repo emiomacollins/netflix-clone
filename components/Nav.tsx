@@ -73,6 +73,7 @@ const Container = styled.div<ContainerProps>`
 	width: 100%;
 	transition: 0.2s;
 	z-index: 1;
+	padding: var(--size-500) 0;
 
 	${(p) =>
 		p.scrolled &&
@@ -88,7 +89,6 @@ const Content = styled.div`
 	justify-items: left;
 	gap: 2rem;
 	grid-template-columns: auto 1fr auto;
-	padding: 2rem;
 
 	@media ${Breakpoints.tabletUp} {
 		gap: 4rem;
@@ -96,7 +96,7 @@ const Content = styled.div`
 `;
 
 const Logo = styled.img`
-	width: 100px;
+	width: clamp(10rem, 8vw, 20rem);
 `;
 
 const Links = styled.ul`
@@ -135,11 +135,11 @@ const Search = styled(Button)`
 `;
 
 const StyledSearchIcon = styled(SearchIcon)`
-	width: 2rem;
+	width: var(--size-600);
 `;
 
 const ProfileIcon = styled.img`
 	border-radius: var(--radius-300);
-	width: 3rem;
+	width: var(--size-650);
 	cursor: pointer;
 `;
