@@ -4,10 +4,10 @@ export interface Movie {
 	media_type?: string;
 	release_date?: string;
 	first_air_date: string;
-	genre_ids: [number];
+	genre_ids: number[];
 	id: number;
 	name: string;
-	origin_country: [string];
+	origin_country: string[];
 	original_language: string;
 	original_name: string;
 	overview: string;
@@ -18,12 +18,17 @@ export interface Movie {
 }
 
 export interface Props {
-	trending: [Movie];
-	topRated: [Movie];
-	netflixOriginals: [Movie];
-	actionMovies: [Movie];
-	comedyMovies: [Movie];
-	horrorMovies: [Movie];
-	romanceMovies: [Movie];
-	documentaries: [Movie];
+	trending: Movie[];
+	topRated: Movie[];
+	netflixOriginals: Movie[];
+	actionMovies: Movie[];
+	comedyMovies: Movie[];
+	horrorMovies: Movie[];
+	romanceMovies: Movie[];
+	documentaries: Movie[];
+}
+
+export interface CategoryType {
+	heading: string;
+	movies: Movie[];
 }
