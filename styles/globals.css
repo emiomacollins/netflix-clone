@@ -67,3 +67,7 @@ h3 {
 	margin: 0;
 	line-height: 1;
 }
+
+button {
+	cursor: pointer;
+}
