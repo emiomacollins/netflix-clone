@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const baseURL = 'https://api.themoviedb.org/3/';
-export const imageURL = `https://image.tmdb.org/t/p/original/`;
+export const imageURL = `https://image.tmdb.org/t/p`;
 const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 const language = 'en-US';
 

@@ -1,4 +1,5 @@
-import { InformationCircleIcon, PlayIcon } from '@heroicons/react/solid';
+import { InformationCircleIcon } from '@heroicons/react/outline';
+import { PlayIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
@@ -27,7 +28,7 @@ export default function Hero({ netflixOriginals }: Props) {
 			<BgImage>
 				<Image
 					layout='fill'
-					src={`${imageURL}${backdrop_path || poster_path}`}
+					src={`${imageURL}/original/${backdrop_path || poster_path}`}
 					alt=''
 				/>
 			</BgImage>
@@ -56,13 +57,15 @@ const Container = styled.div``;
 
 const Content = styled.div`
 	${containerStyles}
-	padding-block: 15rem;
+	--padding-bottom:clamp(7rem, 10vh, 10rem);
+	--padding-top: clamp(10rem, 15vh, 15rem);
+	padding-block: var(--padding-top) var(--padding-bottom);
 	display: grid;
 	gap: 2rem;
 
 	@media ${Breakpoints.tabletUp} {
-		padding-block: 20rem 15rem;
-		padding-inline: 3rem;
+		--padding-bottom: clamp(10rem, 20vh, 20rem);
+		--padding-top: clamp(15rem, 25vh, 25rem);
 	}
 `;
 

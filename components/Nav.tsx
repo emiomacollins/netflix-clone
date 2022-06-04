@@ -72,8 +72,8 @@ const Container = styled.div<ContainerProps>`
 	top: 0;
 	width: 100%;
 	transition: 0.2s;
-	z-index: 1;
-	padding: var(--size-500) 0;
+	z-index: 99;
+	padding-block: var(--size-400);
 
 	${(p) =>
 		p.scrolled &&
@@ -91,7 +91,7 @@ const Content = styled.div`
 	grid-template-columns: auto 1fr auto;
 
 	@media ${Breakpoints.tabletUp} {
-		gap: 4rem;
+		gap: 3rem;
 	}
 `;
 
@@ -110,7 +110,7 @@ interface StyledLinkProps {
 
 const StyledLink = styled.a<StyledLinkProps>`
 	padding: 1rem;
-	font-weight: 300;
+	color: var(--light);
 
 	${(p) =>
 		p.active &&
