@@ -64,7 +64,7 @@ const navigationBtnStyles = css`
 	transition: 0.2s;
 	opacity: 0;
 	padding: 1rem;
-	z-index: 99;
+	z-index: 3;
 
 	&:hover {
 		--scale: 1.2;
