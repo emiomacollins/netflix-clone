@@ -51,7 +51,6 @@ export default function Home(props: Props) {
 
 const Container = styled.div`
 	padding-bottom: 8rem;
-	/* height: 500vh; */
 `;
 
 const Categories = styled.div`
