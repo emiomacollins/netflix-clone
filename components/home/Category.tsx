@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { imageURL } from '../../constants/api';
-import { CategoryType } from '../../pages/types';
+import { CategoryType } from '../../constants/types';
 import { Button } from '../styled components/Button';
 
 export default function Category({ heading, movies }: CategoryType) {

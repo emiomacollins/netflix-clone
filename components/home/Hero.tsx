@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import { imageURL } from '../../constants/api';
 import { Breakpoints } from '../../constants/breakpoints';
-import { Movie } from '../../pages/types';
+import { Movie } from '../../constants/types';
 import { Button } from '../styled components/Button';
 import { containerStyles } from '../styled components/Container';
 import { flexStyles } from '../styled components/Flex';

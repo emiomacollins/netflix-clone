@@ -5,7 +5,7 @@ import Hero from '../components/home/Hero';
 import Nav from '../components/Nav';
 import { containerStyles } from '../components/styled components/Container';
 import { baseAxios } from '../constants/api';
-import { CategoryType, Props } from './types';
+import { CategoryType, Props } from '../constants/types';
 
 export default function Home(props: Props) {
 	const {
