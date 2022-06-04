@@ -5,7 +5,6 @@ import Hero from '../components/home/Hero';
 import Nav from '../components/Nav';
 import { containerStyles } from '../components/styled components/Container';
 import { baseAxios } from '../constants/api';
-import { Breakpoints } from '../constants/breakpoints';
 import { CategoryType, Props } from './types';
 
 export default function Home(props: Props) {
@@ -51,6 +50,7 @@ export default function Home(props: Props) {
 }
 
 const Container = styled.div`
+	padding-bottom: 8rem;
 	/* height: 500vh; */
 `;
 
@@ -58,9 +58,6 @@ const Categories = styled.div`
 	${containerStyles}
 	display: grid;
 	gap: 4rem;
-	@media ${Breakpoints.tabletUp} {
-		padding-inline: 3rem;
-	}
 `;
 
 export async function getServerSideProps() {
