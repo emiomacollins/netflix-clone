@@ -7,7 +7,7 @@ import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
 import Show from './Show';
 import { Button } from './styled components/Button';
-import { containerStyles } from './styled components/Container';
+import { contentStyles } from './styled components/Content';
 
 const links = [
 	{ label: 'Home', route: routes.home },
@@ -30,7 +30,11 @@ export default function Nav() {
 	return (
 		<Container scrolled={scrolled}>
 			<Content>
-				<Logo alt='' src='https://rb.gy/ulxxee' />
+				<Link href={routes.home}>
+					<a>
+						<Logo alt='' src='https://rb.gy/ulxxee' />
+					</a>
+				</Link>
 
 				<Show on={Breakpoints.tabletUp}>
 					<Links>
@@ -47,11 +51,11 @@ export default function Nav() {
 				</Show>
 
 				<Show on={Breakpoints.tabletDown}>
-					<Button transparent>Browse</Button>
+					<Button color='transparent'>Browse</Button>
 				</Show>
 
 				<Icons>
-					<Search transparent>
+					<Search color='transparent'>
 						<StyledSearchIcon />
 					</Search>
 					<Link href={routes.account}>
@@ -70,6 +74,7 @@ interface ContainerProps {
 const Container = styled.div<ContainerProps>`
 	position: fixed;
 	top: 0;
+	left: 0;
 	width: 100%;
 	transition: 0.2s;
 	z-index: 99;
@@ -83,7 +88,7 @@ const Container = styled.div<ContainerProps>`
 `;
 
 const Content = styled.div`
-	${containerStyles}
+	${contentStyles}
 	display: grid;
 	align-items: center;
 	justify-items: left;

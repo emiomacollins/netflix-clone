@@ -5,4 +5,6 @@ export const routes = {
 	new: '/?category=new',
 	myList: '/myList',
 	account: '/account',
+	signUp: '/signup',
+	login: '/login',
 };

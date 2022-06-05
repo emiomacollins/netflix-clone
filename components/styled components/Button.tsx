@@ -1,8 +1,7 @@
 import styled, { css } from 'styled-components';
 
 interface Props {
-	transparent?: boolean;
-	gray?: boolean;
+	color?: 'transparent' | 'gray' | 'red';
 }
 
 export const Button = styled.button<Props>`
@@ -13,21 +12,28 @@ export const Button = styled.button<Props>`
 	padding: 0.5em 1.4em;
 	white-space: nowrap;
 	transition: 0.2s;
+	font-weight: 500;
 
 	&:hover {
-		opacity: 0.8;
+		opacity: 0.9;
 	}
 
 	${(p) =>
-		p.transparent &&
+		p.color === 'transparent' &&
 		css`
 			background: transparent;
 			color: var(--light);
 		`}
 	${(p) =>
-		p.gray &&
+		p.color === 'gray' &&
 		css`
 			background: var(--gray-transparent);
+			color: var(--white);
+		`}
+	${(p) =>
+		p.color === 'red' &&
+		css`
+			background: var(--red);
 			color: var(--white);
 		`}
 `;

@@ -2,8 +2,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { useRef } from 'react';
 import styled, { css } from 'styled-components';
-import { imageURL } from '../../constants/api';
 import { CategoryType } from '../../constants/types';
+import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { Button } from '../styled components/Button';
 
 export default function Category({ heading, movies }: CategoryType) {
@@ -23,7 +23,7 @@ export default function Category({ heading, movies }: CategoryType) {
 			<Heading>{heading}</Heading>
 
 			<Gallery>
-				<LeftNavigationBtn transparent onClick={() => handleScroll(-1)}>
+				<LeftNavigationBtn color='transparent' onClick={() => handleScroll(-1)}>
 					<NavigationBtnIcon as={ChevronLeftIcon} />
 				</LeftNavigationBtn>
 
@@ -31,7 +31,9 @@ export default function Category({ heading, movies }: CategoryType) {
 					{movies.map(({ id, backdrop_path, poster_path }) => (
 						<Movie key={id}>
 							<Image
-								src={`${imageURL}/w500/${backdrop_path || poster_path}`}
+								src={`${TMDB_IMAGE_BASE_URL}/w500/${
+									backdrop_path || poster_path
+								}`}
 								alt=''
 								layout='fill'
 							/>
@@ -39,7 +41,7 @@ export default function Category({ heading, movies }: CategoryType) {
 					))}
 				</Slider>
 
-				<RightNavigationBtn transparent onClick={() => handleScroll(1)}>
+				<RightNavigationBtn color='transparent' onClick={() => handleScroll(1)}>
 					<NavigationBtnIcon as={ChevronRightIcon} />
 				</RightNavigationBtn>
 			</Gallery>

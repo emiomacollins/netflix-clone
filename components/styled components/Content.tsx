@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
 
-export const containerStyles = css`
+export const contentStyles = css`
 	width: 93%;
 	max-width: 1600px;
 	margin-inline: auto;
 `;
 
-export const Container = styled.div`
-	${containerStyles}
+export const Content = styled.div`
+	${contentStyles}
 `;

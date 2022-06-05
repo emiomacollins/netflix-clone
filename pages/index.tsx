@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Category from '../components/home/Category';
 import Hero from '../components/home/Hero';
 import Nav from '../components/Nav';
-import { containerStyles } from '../components/styled components/Container';
-import { baseAxios } from '../constants/api';
+import { contentStyles } from '../components/styled components/Content';
+import { baseAxios } from '../axios/config';
 import { CategoryType, Props } from '../constants/types';
 
 export default function Home(props: Props) {
@@ -54,7 +54,7 @@ const Container = styled.div`
 `;
 
 const Categories = styled.div`
-	${containerStyles}
+	${contentStyles}
 	display: grid;
 	gap: 4rem;
 `;

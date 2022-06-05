@@ -3,11 +3,11 @@ import { PlayIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import styled, { css } from 'styled-components';
-import { imageURL } from '../../constants/api';
 import { Breakpoints } from '../../constants/breakpoints';
 import { Movie } from '../../constants/types';
+import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { Button } from '../styled components/Button';
-import { containerStyles } from '../styled components/Container';
+import { contentStyles } from '../styled components/Content';
 import { flexStyles } from '../styled components/Flex';
 
 interface Props {
@@ -28,7 +28,9 @@ export default function Hero({ netflixOriginals }: Props) {
 			<BgImage>
 				<Image
 					layout='fill'
-					src={`${imageURL}/original/${backdrop_path || poster_path}`}
+					src={`${TMDB_IMAGE_BASE_URL}/original/${
+						backdrop_path || poster_path
+					}`}
 					alt=''
 				/>
 			</BgImage>
@@ -44,7 +46,7 @@ export default function Hero({ netflixOriginals }: Props) {
 						<PlayIcon width={'3.5rem'} />
 						Play
 					</StyledButton>
-					<StyledButton gray>
+					<StyledButton color='gray'>
 						<InformationCircleIcon width={'3.5rem'} /> More Info
 					</StyledButton>
 				</Buttons>
@@ -56,7 +58,7 @@ export default function Hero({ netflixOriginals }: Props) {
 const Container = styled.div``;
 
 const Content = styled.div`
-	${containerStyles}
+	${contentStyles}
 	--padding-bottom:clamp(7rem, 10vh, 10rem);
 	--padding-top: clamp(10rem, 15vh, 15rem);
 	padding-block: var(--padding-top) var(--padding-bottom);
@@ -130,6 +132,5 @@ const Buttons = styled.div`
 
 const StyledButton = styled(Button)`
 	${flexStyles}
-	font-weight: 500;
 	font-size: var(--size-500);
 `;
