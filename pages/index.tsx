@@ -1,10 +1,9 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import Category from '../components/home/Category';
+import { baseAxios } from '../axios/config';
+import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Nav from '../components/Nav';
-import { contentStyles } from '../components/styled components/Content';
-import { baseAxios } from '../axios/config';
 import { CategoryType, Props } from '../constants/types';
 
 export default function Home(props: Props) {
@@ -37,26 +36,14 @@ export default function Home(props: Props) {
 			</Head>
 
 			<Nav />
-
 			<Hero netflixOriginals={netflixOriginals} />
-
-			<Categories>
-				{categories.map((category) => (
-					<Category key={category.heading} {...category} />
-				))}
-			</Categories>
+			<CategoryList categories={categories} />
 		</Container>
 	);
 }
 
 const Container = styled.div`
 	padding-bottom: 8rem;
-`;
-
-const Categories = styled.div`
-	${contentStyles}
-	display: grid;
-	gap: 4rem;
 `;
 
 export async function getServerSideProps() {

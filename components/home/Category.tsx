@@ -2,6 +2,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { useRef } from 'react';
 import styled, { css } from 'styled-components';
+import { Breakpoints } from '../../constants/breakpoints';
 import { CategoryType } from '../../constants/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { Button } from '../styled components/Button';
@@ -104,7 +105,7 @@ const Gallery = styled.div`
 // to keep the navigation in place (relative to the gallery)
 const Slider = styled.div`
 	display: flex;
-	gap: 1.5rem;
+	gap: 1rem;
 	width: 100%;
 	overflow-x: scroll;
 	/* FIX FOR: transition: scale on image behaves like it's container has overflow-y: scroll so it cuts out the image on scroll */
@@ -112,6 +113,10 @@ const Slider = styled.div`
 
 	&::-webkit-scrollbar {
 		display: none;
+	}
+
+	@media ${Breakpoints.tabletUp} {
+		gap: 1.5rem;
 	}
 `;
 
