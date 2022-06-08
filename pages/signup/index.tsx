@@ -3,11 +3,10 @@ import { Form, Formik } from 'formik';
 import Head from 'next/head';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import * as yup from 'yup';
 import Textbox from '../../components/formik/Textbox';
-import Nav from '../../components/Nav';
-import Show from '../../components/Show';
 import { ErrorMessage } from '../../components/styled components/ErrorMessage';
 import { Grid } from '../../components/styled components/Grid';
 import { Link } from '../../components/styled components/Link';
@@ -15,27 +14,31 @@ import {
 	BgImage,
 	Container,
 	Form as StyledForm,
+	Header,
 	Heading,
 	Inputs,
+	Logo,
 	StyledOverlay,
 	SubmitBtn,
 	Text,
 } from '../../components/styled components/shared-styles/AuthPages';
-import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
-import { AuthPagesBackgroundImage } from '../../constants/urls/images';
+import { AuthPagesBgPath, logoPath } from '../../constants/urls/images';
 import { AuthProps, signUpWithEmailAndPassword } from '../../firebase/firebase';
 
 export default function SignUp() {
+	const router = useRouter();
 	const {
 		mutate: signUpMutation,
 		isLoading,
 		error,
-	} = useMutation<UserCredential, Error, AuthProps>( // <Return type, Error type, Parameters type>
+	} = useMutation<UserCredential, Error, AuthProps>( // <ReturnType, ErrorType, ParametersType>
 		'signInWithEmailAndPassword',
 		signUpWithEmailAndPassword,
 		{
-			onSuccess: () => {},
+			onSuccess: () => {
+				router.push(routes.home);
+			},
 		}
 	);
 
@@ -45,20 +48,23 @@ export default function SignUp() {
 				<title>Sign Up</title>
 			</Head>
 
-			<Nav />
+			<Header>
+				<Logo src={logoPath} alt='' />
+			</Header>
 
-			<Show on={Breakpoints.tabletUp}>
-				<BgImage>
-					<Image src={AuthPagesBackgroundImage} alt='' layout='fill' />
-				</BgImage>
-				<StyledOverlay />
-			</Show>
+			<BgImage>
+				<Image src={AuthPagesBgPath} alt='' layout='fill' />
+			</BgImage>
+			<StyledOverlay />
 
 			<Formik
 				initialValues={{ email: '', password: '', confirmPassword: '' }}
 				onSubmit={async (values) => signUpMutation(values)}
 				validationSchema={yup.object({
-					email: yup.string().required('email is required'),
+					email: yup
+						.string()
+						.email('invalid email')
+						.required('email is required'),
 					password: yup
 						.string()
 						.required('password is required')
@@ -83,7 +89,7 @@ export default function SignUp() {
 					</Inputs>
 					<Grid gap={0}>
 						{error && <ErrorMessage>{error.message}</ErrorMessage>}
-						<SubmitBtn color='red' loading={isLoading}>
+						<SubmitBtn color='red' isLoading={isLoading}>
 							Sign Up
 						</SubmitBtn>
 					</Grid>

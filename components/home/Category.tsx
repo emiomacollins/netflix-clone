@@ -105,7 +105,7 @@ const Gallery = styled.div`
 // to keep the navigation in place (relative to the gallery)
 const Slider = styled.div`
 	display: flex;
-	gap: 1rem;
+	gap: 0.5rem;
 	width: 100%;
 	overflow-x: scroll;
 	/* FIX FOR: transition: scale on image behaves like it's container has overflow-y: scroll so it cuts out the image on scroll */
@@ -116,7 +116,7 @@ const Slider = styled.div`
 	}
 
 	@media ${Breakpoints.tabletUp} {
-		gap: 1.5rem;
+		gap: 1rem;
 	}
 `;
 

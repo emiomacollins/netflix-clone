@@ -5,7 +5,7 @@ interface Props {
 }
 
 export const Textbox = styled.input<Props>`
-	padding: 0.7em 1em;
+	padding: 0.9em;
 	border-radius: var(--radius-300);
 	border: 0;
 	background: var(--gray-dark);

@@ -1,13 +1,17 @@
 import { SearchIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import ProfileIconPath from '../assets/images/profileIcon.jpg';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
+import { logoPath } from '../constants/urls/images';
 import Show from './Show';
 import Button from './styled components/Button';
 import { contentStyles } from './styled components/Content';
+import { Flex } from './styled components/Flex';
 
 const links = [
 	{ label: 'Home', route: routes.home },
@@ -32,7 +36,7 @@ export default function Nav() {
 			<Content>
 				<Link href={routes.home}>
 					<a>
-						<Logo alt='' src='https://rb.gy/ulxxee' />
+						<Logo alt='' src={logoPath} />
 					</a>
 				</Link>
 
@@ -54,14 +58,16 @@ export default function Nav() {
 					<Button color='transparent'>Browse</Button>
 				</Show>
 
-				<Icons>
+				<Flex gap={2}>
 					<Search color='transparent'>
 						<StyledSearchIcon />
 					</Search>
 					<Link href={routes.account}>
-						<ProfileIcon src='https://rb.gy/g1pwyx' alt='' />
+						<ProfileIcon>
+							<Image src={ProfileIconPath} alt='' />
+						</ProfileIcon>
 					</Link>
-				</Icons>
+				</Flex>
 			</Content>
 		</Container>
 	);
@@ -129,12 +135,6 @@ const StyledLink = styled.a<StyledLinkProps>`
 	}
 `;
 
-const Icons = styled.div`
-	display: flex;
-	align-items: center;
-	gap: 2rem;
-`;
-
 const Search = styled(Button)`
 	display: flex;
 	padding: 0;
@@ -144,8 +144,12 @@ const StyledSearchIcon = styled(SearchIcon)`
 	width: var(--size-600);
 `;
 
-const ProfileIcon = styled.img`
-	border-radius: var(--radius-300);
+const ProfileIcon = styled.div`
 	width: var(--size-650);
 	cursor: pointer;
+	display: flex;
+
+	img {
+		border-radius: var(--radius-300);
+	}
 `;

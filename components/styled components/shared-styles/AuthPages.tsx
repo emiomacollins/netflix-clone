@@ -21,6 +21,19 @@ export const StyledOverlay = styled(Overlay)`
 	z-index: -1;
 `;
 
+export const Header = styled.div`
+	${contentStyles}
+	position: fixed;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	padding-block: var(--size-400);
+`;
+
+export const Logo = styled.img`
+	height: 4rem;
+`;
+
 export const BgImage = styled.div`
 	position: fixed;
 	top: 0;
@@ -28,9 +41,14 @@ export const BgImage = styled.div`
 	width: 100vw;
 	height: 100vh;
 	z-index: -1;
+	display: none;
 
 	img {
 		object-fit: cover;
+	}
+
+	@media ${Breakpoints.tabletUp} {
+		display: unset;
 	}
 `;
 
@@ -47,7 +65,7 @@ export const Form = styled.form`
 	padding: 1rem;
 
 	@media ${Breakpoints.tabletUp} {
-		border-radius: var(--radius-500);
+		border-radius: var(--radius-400);
 		background: var(--black-transparent);
 		padding: 5rem 5.5rem;
 	}
@@ -63,5 +81,5 @@ export const Text = styled.p`
 `;
 
 export const SubmitBtn = styled(Button)`
-	padding-block: 0.7em;
+	padding-block: 0.9em;
 `;

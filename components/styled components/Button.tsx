@@ -1,15 +1,15 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import Spinner from './Spinner';
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	color?: 'transparent' | 'gray' | 'red';
-	loading?: boolean;
+	isLoading?: boolean;
 	children?: ReactNode;
 }
 
 export default function Button(props: Props) {
-	const { loading, children } = props;
-	return <Container {...props}>{loading ? <Spinner /> : children}</Container>;
+	const { isLoading, children } = props;
+	return <Container {...props}>{isLoading ? <Spinner /> : children}</Container>;
 }
 
 const Container = styled.button<Props>`

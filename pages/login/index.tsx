@@ -1,33 +1,51 @@
+import { UserCredential } from 'firebase/auth';
 import Head from 'next/head';
 import Image from 'next/image';
 import NextLink from 'next/link';
-import { ChangeEvent, FormEvent, useState } from 'react';
-import Nav from '../../components/Nav';
-import Show from '../../components/Show';
+import { useRouter } from 'next/router';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { useMutation } from 'react-query';
+import { ErrorMessage } from '../../components/styled components/ErrorMessage';
+import { Grid } from '../../components/styled components/Grid';
 import { Link } from '../../components/styled components/Link';
 import {
 	BgImage,
 	Container,
 	Form,
+	Header,
 	Heading,
 	Inputs,
+	Logo,
 	StyledOverlay,
 	SubmitBtn,
 	Text,
 } from '../../components/styled components/shared-styles/AuthPages';
 import { Textbox } from '../../components/styled components/Textbox';
-import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
-import { AuthPagesBackgroundImage } from '../../constants/urls/images';
-import { signInWithEmailAndPassword } from '../../firebase/firebase';
+import { AuthPagesBgPath, logoPath } from '../../constants/urls/images';
+import { auth, AuthProps, signInWithEmailAndPassword } from '../../firebase/firebase';
 
 export default function Login() {
+	const router = useRouter();
 	const [formData, setFormData] = useState({
 		email: '',
 		password: '',
 	});
-
 	const { email, password } = formData;
+
+	const {
+		error,
+		mutate: loginMutation,
+		isLoading,
+	} = useMutation<UserCredential, Error, AuthProps>(
+		'login',
+		signInWithEmailAndPassword,
+		{
+			onSuccess: () => {
+				router.push(routes.home);
+			},
+		}
+	);
 
 	function handleSetFormData(e: ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
@@ -36,8 +54,12 @@ export default function Login() {
 
 	async function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		await signInWithEmailAndPassword(formData);
+		loginMutation(formData);
 	}
+
+	useEffect(() => {
+		auth.signOut();
+	}, []);
 
 	return (
 		<Container>
@@ -45,14 +67,14 @@ export default function Login() {
 				<title>Login</title>
 			</Head>
 
-			<Show on={Breakpoints.tabletUp}>
-				<BgImage>
-					<Image src={AuthPagesBackgroundImage} alt='' layout='fill' />
-				</BgImage>
-				<StyledOverlay />
-			</Show>
+			<Header>
+				<Logo src={logoPath} alt='' />
+			</Header>
 
-			<Nav />
+			<BgImage>
+				<Image src={AuthPagesBgPath} alt='' layout='fill' />
+			</BgImage>
+			<StyledOverlay />
 
 			<Form onSubmit={handleSubmit}>
 				<Heading>Sign in</Heading>
@@ -74,7 +96,12 @@ export default function Login() {
 						onChange={handleSetFormData}
 					/>
 				</Inputs>
-				<SubmitBtn color='red'>Sign in</SubmitBtn>
+				<Grid gap={0}>
+					{error && <ErrorMessage>{error.message}</ErrorMessage>}
+					<SubmitBtn color='red' isLoading={isLoading}>
+						Sign in
+					</SubmitBtn>
+				</Grid>
 				<Text>
 					New to Netflix?{' '}
 					<NextLink href={routes.signUp}>
