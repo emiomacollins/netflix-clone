@@ -19,6 +19,7 @@ import { Textbox } from '../../components/styled components/Textbox';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { AuthPagesBackgroundImage } from '../../constants/urls/images';
+import { signInWithEmailAndPassword } from '../../firebase/firebase';
 
 export default function Login() {
 	const [formData, setFormData] = useState({
@@ -33,9 +34,9 @@ export default function Login() {
 		setFormData({ ...formData, [name]: value });
 	}
 
-	function handleSubmit(e: FormEvent<HTMLFormElement>) {
+	async function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
-		alert(JSON.stringify(formData));
+		await signInWithEmailAndPassword(formData);
 	}
 
 	return (

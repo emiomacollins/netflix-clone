@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { CategoryType } from '../../constants/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
-import { Button } from '../styled components/Button';
+import Button from '../styled components/Button';
 
 export default function Category({ heading, movies }: CategoryType) {
 	const SliderRef = useRef<HTMLDivElement | any>(null);

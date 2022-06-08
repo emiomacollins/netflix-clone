@@ -1,11 +1,15 @@
+import { UserCredential } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import Head from 'next/head';
 import Image from 'next/image';
 import NextLink from 'next/link';
+import { useMutation } from 'react-query';
 import * as yup from 'yup';
 import Textbox from '../../components/formik/Textbox';
 import Nav from '../../components/Nav';
 import Show from '../../components/Show';
+import { ErrorMessage } from '../../components/styled components/ErrorMessage';
+import { Grid } from '../../components/styled components/Grid';
 import { Link } from '../../components/styled components/Link';
 import {
 	BgImage,
@@ -20,9 +24,20 @@ import {
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { AuthPagesBackgroundImage } from '../../constants/urls/images';
+import { AuthProps, signUpWithEmailAndPassword } from '../../firebase/firebase';
 
 export default function SignUp() {
-	function handleSubmit() {}
+	const {
+		mutate: signUpMutation,
+		isLoading,
+		error,
+	} = useMutation<UserCredential, Error, AuthProps>( // <Return type, Error type, Parameters type>
+		'signInWithEmailAndPassword',
+		signUpWithEmailAndPassword,
+		{
+			onSuccess: () => {},
+		}
+	);
 
 	return (
 		<Container>
@@ -41,7 +56,7 @@ export default function SignUp() {
 
 			<Formik
 				initialValues={{ email: '', password: '', confirmPassword: '' }}
-				onSubmit={handleSubmit}
+				onSubmit={async (values) => signUpMutation(values)}
 				validationSchema={yup.object({
 					email: yup.string().required('email is required'),
 					password: yup
@@ -66,7 +81,12 @@ export default function SignUp() {
 							name='confirmPassword'
 						/>
 					</Inputs>
-					<SubmitBtn color='red'>Sign Up</SubmitBtn>
+					<Grid gap={0}>
+						{error && <ErrorMessage>{error.message}</ErrorMessage>}
+						<SubmitBtn color='red' loading={isLoading}>
+							Sign Up
+						</SubmitBtn>
+					</Grid>
 					<Text>
 						Already have an account?{' '}
 						<NextLink href={routes.login}>

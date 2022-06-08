@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Breakpoints } from '../../../constants/breakpoints';
-import { Button } from '../Button';
+import Button from '../Button';
 import { contentStyles } from '../Content';
 import { Overlay } from '../Overlay';
 
@@ -63,5 +63,5 @@ export const Text = styled.p`
 `;
 
 export const SubmitBtn = styled(Button)`
-	padding-block: 0.8em;
+	padding-block: 0.7em;
 `;

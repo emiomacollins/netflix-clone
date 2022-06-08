@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
 import Show from './Show';
-import { Button } from './styled components/Button';
+import Button from './styled components/Button';
 import { contentStyles } from './styled components/Content';
 
 const links = [
@@ -116,6 +116,7 @@ interface StyledLinkProps {
 const StyledLink = styled.a<StyledLinkProps>`
 	padding: 1rem;
 	color: var(--light);
+	font-weight: 300;
 
 	${(p) =>
 		p.active &&

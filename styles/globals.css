@@ -20,11 +20,11 @@
 	--gray-dark: #333333;
 
 	--dark-transparent: rgba(20, 20, 20, 0.5);
-	--black-transparent: rgba(0, 0, 0, 0.7);
+	--black-transparent: rgba(0, 0, 0, 0.75);
 	--gray-transparent: hsla(0, 0%, 50%, 0.7);
 
 	--size-300: clamp(1.2rem, 0.7vw, 1.7rem);
-	--size-400: clamp(1.5rem, 1vw, 2rem);
+	--size-400: clamp(1.5rem, 1vw, 2.5rem);
 	--size-500: clamp(1.7rem, 1.3vw, 3.5rem);
 	--size-600: clamp(2.5rem, 1.6vw, 6rem);
 	--size-650: clamp(3rem, 1.8vw, 6.5rem);

@@ -1,10 +1,18 @@
+import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-
+import Spinner from './Spinner';
 interface Props {
 	color?: 'transparent' | 'gray' | 'red';
+	loading?: boolean;
+	children?: ReactNode;
 }
 
-export const Button = styled.button<Props>`
+export default function Button(props: Props) {
+	const { loading, children } = props;
+	return <Container {...props}>{loading ? <Spinner /> : children}</Container>;
+}
+
+const Container = styled.button<Props>`
 	background: var(--light);
 	color: var(--dark);
 	border-radius: var(--radius-300);
