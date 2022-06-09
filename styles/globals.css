@@ -22,6 +22,7 @@
 	--dark-transparent: rgba(20, 20, 20, 0.5);
 	--black-transparent: rgba(0, 0, 0, 0.75);
 	--gray-transparent: hsla(0, 0%, 50%, 0.7);
+	--gray-transparent-200: hsla(0, 0%, 50%, 0.2);
 
 	--size-300: clamp(1.2rem, 0.7vw, 1.7rem);
 	--size-400: clamp(1.5rem, 1vw, 2.5rem);

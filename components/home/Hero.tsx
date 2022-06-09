@@ -2,10 +2,12 @@ import { InformationCircleIcon } from '@heroicons/react/outline';
 import { PlayIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { Movie } from '../../constants/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
+import { setModalMovie } from '../../redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 import { contentStyles } from '../styled components/Content';
 import { flexStyles } from '../styled components/Flex';
@@ -15,6 +17,7 @@ interface Props {
 }
 
 export default function Hero({ netflixOriginals }: Props) {
+	const dispatch = useDispatch();
 	const randomMovie = useMemo(() => {
 		const randomIndex = Math.floor(Math.random() * netflixOriginals.length);
 		return netflixOriginals[randomIndex];
@@ -22,6 +25,10 @@ export default function Hero({ netflixOriginals }: Props) {
 
 	const { backdrop_path, poster_path, title, name, original_name, overview } =
 		randomMovie;
+
+	function handleSetModalMovie() {
+		dispatch(setModalMovie(randomMovie));
+	}
 
 	return (
 		<Container>
@@ -43,11 +50,11 @@ export default function Hero({ netflixOriginals }: Props) {
 
 				<Buttons>
 					<StyledButton>
-						<PlayIcon width={'3.5rem'} />
+						<PlayIcon width={35} />
 						Play
 					</StyledButton>
-					<StyledButton color='gray'>
-						<InformationCircleIcon width={'3.5rem'} /> More Info
+					<StyledButton color='gray' onClick={handleSetModalMovie}>
+						<InformationCircleIcon width={35} /> More Info
 					</StyledButton>
 				</Buttons>
 			</Content>
@@ -113,7 +120,6 @@ const Heading = styled.h1`
 const Overview = styled.p`
 	font-size: var(--size-400);
 	text-shadow: var(--text-shadow);
-	max-width: 90%;
 
 	@media ${Breakpoints.tabletUp} {
 		font-size: var(--size-500);

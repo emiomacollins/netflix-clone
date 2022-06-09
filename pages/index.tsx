@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { baseAxios } from '../axios/config';
 import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
-import Modal from '../components/Modal';
+import Modal from '../components/modal/Modal';
 import Nav from '../components/Nav';
 import { CategoryType, Props } from '../constants/types';
 

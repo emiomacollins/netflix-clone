@@ -13,7 +13,13 @@ import '../styles/globals.css';
 
 // this is your index.js (providers go here)
 export default function MyApp({ Component, pageProps }: IndexProps) {
-	const queryClient = new QueryClient();
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				refetchOnWindowFocus: false,
+			},
+		},
+	});
 	return (
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>

@@ -5,6 +5,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	color?: 'transparent' | 'gray' | 'red';
 	isLoading?: boolean;
 	children?: ReactNode;
+	icon?: boolean;
 }
 
 export default function Button(props: Props) {
@@ -43,5 +44,26 @@ const Container = styled.button<Props>`
 		css`
 			background: var(--red);
 			color: var(--white);
+		`}
+	${(p) =>
+		p.icon &&
+		css`
+			background: var(--gray-transparent-200);
+			border-radius: 50%;
+			display: grid;
+			place-content: center;
+			border: 2px solid var(--gray-mid);
+			padding: 0.5em;
+			transition: 0.2s;
+
+			&:active {
+				transform: scale(0.9);
+			}
+
+			&:hover {
+				border-color: var(--light);
+				opacity: 1;
+				background: transparent;
+			}
 		`}
 `;
