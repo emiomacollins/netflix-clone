@@ -6,7 +6,7 @@ const initialState: State = {
 	user: null,
 };
 
-const user = createSlice({
+const userSlice = createSlice({
 	name: 'user',
 	initialState,
 	reducers: {
@@ -16,8 +16,8 @@ const user = createSlice({
 	},
 });
 
-export const userReducer = user.reducer;
-export const { setUser } = user.actions;
+export const userReducer = userSlice.reducer;
+export const { setUser } = userSlice.actions;
 
 const getState = (store: RootState) => store.user;
 export const getUser = createSelector(getState, ({ user }) => user);

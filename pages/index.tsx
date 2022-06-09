@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { baseAxios } from '../axios/config';
 import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
+import Modal from '../components/Modal';
 import Nav from '../components/Nav';
 import { CategoryType, Props } from '../constants/types';
 
@@ -36,6 +37,7 @@ export default function Home(props: Props) {
 			</Head>
 
 			<Nav />
+			<Modal />
 			<Hero netflixOriginals={netflixOriginals} />
 			<CategoryList categories={categories} />
 		</Container>

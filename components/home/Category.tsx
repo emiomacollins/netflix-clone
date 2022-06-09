@@ -1,14 +1,17 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { CategoryType } from '../../constants/types';
+import { CategoryType, Movie } from '../../constants/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
+import { setModalMovie } from '../../redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 
 export default function Category({ heading, movies }: CategoryType) {
 	const SliderRef = useRef<HTMLDivElement | any>(null);
+	const dispatch = useDispatch();
 
 	function handleScroll(increment: number) {
 		const widthOfVisibleSlider = SliderRef.current.offsetWidth;
@@ -17,6 +20,10 @@ export default function Category({ heading, movies }: CategoryType) {
 			behavior: 'smooth',
 			left: currentScrollPosition + increment * widthOfVisibleSlider,
 		});
+	}
+
+	function handleSetModalMovie(movie: Movie) {
+		dispatch(setModalMovie(movie));
 	}
 
 	return (
@@ -29,17 +36,20 @@ export default function Category({ heading, movies }: CategoryType) {
 				</LeftNavigationBtn>
 
 				<Slider ref={SliderRef}>
-					{movies.map(({ id, backdrop_path, poster_path }) => (
-						<Movie key={id}>
-							<Image
-								src={`${TMDB_IMAGE_BASE_URL}/w500/${
-									backdrop_path || poster_path
-								}`}
-								alt=''
-								layout='fill'
-							/>
-						</Movie>
-					))}
+					{movies.map((movie) => {
+						const { id, backdrop_path, poster_path } = movie;
+						return (
+							<Movie key={id} onClick={() => handleSetModalMovie(movie)}>
+								<Image
+									src={`${TMDB_IMAGE_BASE_URL}/w500/${
+										backdrop_path || poster_path
+									}`}
+									alt=''
+									layout='fill'
+								/>
+							</Movie>
+						);
+					})}
 				</Slider>
 
 				<RightNavigationBtn color='transparent' onClick={() => handleScroll(1)}>

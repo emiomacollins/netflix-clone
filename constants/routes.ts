@@ -8,3 +8,5 @@ export const routes = {
 	signUp: '/signup',
 	login: '/login',
 };
+
+export const unProctectedRoutes = [routes.login, routes.signUp];
