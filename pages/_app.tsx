@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import { Fragment, ReactNode, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider, useDispatch, useSelector } from 'react-redux';
+import ProgressBar from '../components/ProgressBar';
 import { routes } from '../constants/routes';
 import { auth } from '../firebase/firebase';
 import { getUser, setUser } from '../redux/slices/user/user';
@@ -23,6 +24,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
 			<QueryClientProvider client={queryClient}>
 				<Wrapper>
 					<ProtectRoutes exclude={[routes.login, routes.signUp]}>
+						<ProgressBar />
 						<Component {...pageProps} />
 					</ProtectRoutes>
 				</Wrapper>
