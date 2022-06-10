@@ -14,6 +14,7 @@
 	--gray: #b3b3b3;
 	--red: #e50814;
 	--error: #f97316;
+	--success: #4ade80;
 
 	--gray-mid: #454545;
 
@@ -22,9 +23,10 @@
 	--dark-transparent: rgba(20, 20, 20, 0.5);
 	--black-transparent: rgba(0, 0, 0, 0.75);
 	--gray-transparent: hsla(0, 0%, 50%, 0.7);
-	--gray-transparent-200: hsla(0, 0%, 50%, 0.2);
+	--gray-dark-transparent: hsla(0, 0%, 20%, 0.4);
 
 	--size-300: clamp(1.2rem, 0.7vw, 1.7rem);
+	--size-350: clamp(1.4rem, 0.85vw, 2rem);
 	--size-400: clamp(1.5rem, 1vw, 2.5rem);
 	--size-500: clamp(1.7rem, 1.3vw, 3.5rem);
 	--size-600: clamp(2.5rem, 1.6vw, 5rem);

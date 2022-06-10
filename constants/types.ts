@@ -3,7 +3,7 @@ export interface Movie {
 	backdrop_path: string;
 	media_type?: string;
 	release_date?: string;
-	first_air_date: string;
+	first_air_date?: string;
 	genre_ids: number[];
 	id: number;
 	name: string;

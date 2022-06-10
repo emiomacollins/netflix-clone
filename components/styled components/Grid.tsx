@@ -6,5 +6,5 @@ interface Props {
 
 export const Grid = styled.div<Props>`
 	display: grid;
-	gap: ${(p) => p.gap || 1}rem;
+	gap: ${(p) => p.gap ?? 1}rem;
 `;
