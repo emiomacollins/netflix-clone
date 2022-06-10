@@ -26,13 +26,31 @@ export default function Button(props: Props) {
 }
 
 const ToolTip = styled.div`
+	--scale: 1;
 	position: absolute;
-	top: -2em;
+	bottom: calc(100% + 1.3em);
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translateX(-50%) scale(var(--scale));
 	background: var(--light);
 	opacity: 0;
 	transition: 0.2s;
+	padding: 0.7em 1em;
+	z-index: 100;
+	border-radius: var(--radius-400);
+	white-space: nowrap;
+
+	::before {
+		content: '';
+		width: 0;
+		height: 0;
+		position: absolute;
+		bottom: 0;
+		left: 50%;
+		transform: translate(-50%, 40%) rotate(315deg);
+		border: 0.5em solid var(--light);
+		border-top-color: transparent;
+		border-right-color: transparent;
+	}
 `;
 
 const Container = styled.button<Props>`
@@ -86,7 +104,11 @@ const Container = styled.button<Props>`
 			transition: 0.2s;
 
 			&:active {
-				transform: scale(0.9);
+				transform: scale(0.95);
+
+				${ToolTip} {
+					--scale: 1.05;
+				}
 			}
 
 			&:hover {

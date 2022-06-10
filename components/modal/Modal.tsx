@@ -53,7 +53,7 @@ export default function Modal() {
 	}
 
 	return (
-		<StyledOverlay opacity={0.8} visible={visible} onClick={handleClose}>
+		<StyledOverlay opacity={0.7} visible={visible} onClick={handleClose}>
 			<Content visible={visible} onClick={stopPropagation}>
 				<CloseBtn color='transparent' onClick={handleClose}>
 					<CloseIcon />
@@ -69,14 +69,14 @@ export default function Modal() {
 					/>
 
 					<Buttons>
-						<Button icon toolTip='Add to your list'>
-							<Icon as={PlusIcon} color={'var(--light)'} />
-						</Button>
 						<Button icon onClick={toggleMuted}>
 							<Icon
 								as={muted ? VolumeOffIcon : VolumeUpIcon}
 								color={'var(--light)'}
 							/>
+						</Button>
+						<Button icon toolTip='Add to My list'>
+							<Icon as={PlusIcon} color={'var(--light)'} />
 						</Button>
 					</Buttons>
 				</VideoContainer>
@@ -96,12 +96,7 @@ export default function Modal() {
 							<Grid>
 								<p>
 									<Accent>Genres: </Accent>
-									{genres?.map((genre, i) => (
-										<span key={genre.id}>
-											{genre.name}
-											{i < genres.length - 1 ? ', ' : ''}
-										</span>
-									))}
+									{genres?.map(({ name }) => name).join(', ')}
 								</p>
 								<p>
 									<Accent>Original Language: </Accent>
@@ -109,7 +104,7 @@ export default function Modal() {
 								</p>
 								<p>
 									<Accent>Total Votes: </Accent>
-									{vote_count}
+									{vote_count?.toLocaleString()}
 								</p>
 							</Grid>
 						</Columns>
@@ -138,7 +133,7 @@ const StyledOverlay = styled(Overlay)<Props>`
 			pointer-events: visible;
 		`};
 
-	@media ${Breakpoints.mobileDown} {
+	@media ${Breakpoints.tabletDown} {
 		display: grid;
 		align-items: center;
 	}
@@ -150,13 +145,13 @@ const Content = styled.div<Props>`
 	max-width: 1000px;
 	background: var(--dark);
 	border-radius: var(--radius-400);
-	overflow: hidden;
 	margin-block: 3rem;
 	opacity: 0;
 	transform: scale(0.9);
 	transition: 0.1s;
 	font-size: var(--size-350);
 	letter-spacing: 0.03em;
+	overflow: hidden;
 
 	${(p) =>
 		p.visible &&
@@ -172,11 +167,9 @@ const CloseBtn = styled(Button)`
 	right: 0.5rem;
 	border-radius: 50%;
 	background: var(--dark);
-	padding: 0;
 	display: grid;
 	place-content: center;
-	width: 3.5rem;
-	aspect-ratio: 1;
+	padding: 0.8em;
 	z-index: 1;
 
 	&:hover {
@@ -234,7 +227,7 @@ const MatchPercentage = styled.p<MatchPercentageProps>`
 
 const Badge = styled.div`
 	border: 1.5px solid var(--gray-mid);
-	border-radius: var(--radius-500);
+	border-radius: var(--radius-400);
 	padding-inline: 0.6em;
 	letter-spacing: 0.05em;
 	font-weight: 400;
