@@ -4,16 +4,16 @@ import { useSelector } from 'react-redux';
 import { routes } from '../constants/routes';
 import { getUser } from '../redux/slices/user/userSlice';
 
-interface ProtectRoutesProps {
+interface Props {
 	children: ReactNode;
 	exclude?: string[];
 }
 
-export default function ProtectRoutes({ exclude, children }: ProtectRoutesProps) {
-	// auth will be initialized before this component renders
-	const router = useRouter();
+export default function WithSubscription({ children, exclude }: Props) {
 	const user = useSelector(getUser);
+	const router = useRouter();
+	const { plan } = user || {};
 	if (exclude?.includes(router.pathname)) return <Fragment>{children}</Fragment>;
-	if (!user) router.push(routes.login);
-	return <Fragment>{user ? children : null}</Fragment>;
+	if (!plan) router.push(routes.plans);
+	return <Fragment>{plan ? children : null}</Fragment>;
 }

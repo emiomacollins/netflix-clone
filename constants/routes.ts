@@ -7,6 +7,8 @@ export const routes = {
 	account: '/account',
 	signUp: '/signup',
 	login: '/login',
+	plans: '/plans',
 };
 
 export const unProctectedRoutes = [routes.login, routes.signUp];
+export const noSubscriptionRoutes = [...unProctectedRoutes, routes.account, routes.plans];

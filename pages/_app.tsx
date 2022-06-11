@@ -5,7 +5,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider, useDispatch } from 'react-redux';
 import ProgressBar from '../components/ProgressBar';
 import ProtectRoutes from '../components/ProtectRoutes';
-import { unProctectedRoutes } from '../constants/routes';
+import WithSubscription from '../components/WithSubscription';
+import { noSubscriptionRoutes, unProctectedRoutes } from '../constants/routes';
 import { auth } from '../firebase/firebase';
 import { setUser } from '../redux/slices/user/userSlice';
 import store from '../redux/store';
@@ -20,13 +21,16 @@ export default function MyApp({ Component, pageProps }: IndexProps) {
 			},
 		},
 	});
+
 	return (
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<App>
 					<ProtectRoutes exclude={unProctectedRoutes}>
-						<ProgressBar />
-						<Component {...pageProps} />
+						<WithSubscription exclude={noSubscriptionRoutes}>
+							<ProgressBar />
+							<Component {...pageProps} />
+						</WithSubscription>
 					</ProtectRoutes>
 				</App>
 			</QueryClientProvider>
@@ -45,7 +49,11 @@ const App = ({ children }: AppProps) => {
 
 	useEffect(() => {
 		const unsuscribe = auth.onAuthStateChanged((user) => {
-			dispatch(setUser(user ? { email: user.email } : null));
+			// TODO: fetch and append current subscription plan from firestore
+			const plan = null;
+
+			dispatch(setUser(user ? { email: user.email, plan } : null));
+
 			!authInitialized && setAuthInitialized(true);
 		});
 		return () => unsuscribe();

@@ -21,15 +21,11 @@ export default function Modal() {
 	const visible = !!modalMovie;
 	const { state: muted, toggle: toggleMuted } = useToggle(true);
 
-	const { data } = useQuery(
-		`fetchExtraInfo-${modalMovie?.id}`,
-		() => fetchExtraInfo(modalMovie),
-		{
-			enabled: visible,
-		}
+	const { data: extraInfo } = useQuery(`fetchExtraInfo-${modalMovie?.id}`, () =>
+		visible ? fetchExtraInfo(modalMovie) : null
 	);
 
-	const { video, genres } = data || {};
+	const { video, genres } = extraInfo || {};
 	const {
 		vote_average = 0,
 		first_air_date,
@@ -38,6 +34,7 @@ export default function Modal() {
 		original_language,
 		vote_count,
 	} = modalMovie || {};
+
 	const percentageMatch = vote_average * 10;
 
 	useEffect(() => {
@@ -70,13 +67,10 @@ export default function Modal() {
 
 					<Buttons>
 						<Button icon onClick={toggleMuted}>
-							<Icon
-								as={muted ? VolumeOffIcon : VolumeUpIcon}
-								color={'var(--light)'}
-							/>
+							<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
 						</Button>
 						<Button icon toolTip='Add to My list'>
-							<Icon as={PlusIcon} color={'var(--light)'} />
+							<Icon as={PlusIcon} />
 						</Button>
 					</Buttons>
 				</VideoContainer>
@@ -148,7 +142,7 @@ const Content = styled.div<Props>`
 	margin-block: 3rem;
 	opacity: 0;
 	transform: scale(0.9);
-	transition: 0.1s;
+	transition: 0.2s;
 	font-size: var(--size-350);
 	letter-spacing: 0.03em;
 	overflow: hidden;
@@ -203,7 +197,7 @@ const Buttons = styled.div`
 	padding-inline: 2rem;
 `;
 
-const Icon = styled.div`
+const Icon = styled.div.attrs(() => ({ color: 'var(--light)' }))`
 	width: 2.5rem;
 `;
 

@@ -38,6 +38,7 @@ const ToolTip = styled.div`
 	z-index: 100;
 	border-radius: var(--radius-400);
 	white-space: nowrap;
+	pointer-events: none;
 
 	::before {
 		content: '';

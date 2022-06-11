@@ -1,9 +1,15 @@
-interface UserType {
+export interface User {
 	email: string | null;
+	plan: Plan | null;
 }
 
-export type User = UserType | null;
-
 export interface State {
-	user: User;
+	user: User | null;
+}
+
+export interface Plan {
+	title: string;
+	price: number;
+	resolution: string;
+	otherDevice: boolean;
 }

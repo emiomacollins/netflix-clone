@@ -64,9 +64,7 @@ const Container = styled.div`
 	display: grid;
 `;
 
-const Heading = styled.h2`
-	font-weight: 500;
-`;
+const Heading = styled.h2``;
 
 const navigationBtnStyles = css`
 	--scale: 1;
@@ -112,13 +110,13 @@ const Gallery = styled.div`
 	}
 `;
 
-// to keep the navigation in place (relative to the gallery)
+// to keep the Navigation buttons in place slider should be it's own div
 const Slider = styled.div`
 	display: flex;
 	gap: 0.5rem;
 	width: 100%;
 	overflow-x: scroll;
-	/* FIX FOR: transition: scale on image behaves like it's container has overflow-y: scroll so it cuts out the image on scroll */
+	/* FIX FOR: transition: scale on Movie behaves like it's container has overflow-y: scroll so it cuts out the image when it's scaled */
 	padding: 2rem 0.5rem;
 
 	&::-webkit-scrollbar {

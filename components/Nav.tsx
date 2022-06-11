@@ -84,7 +84,7 @@ const Container = styled.div<ContainerProps>`
 	width: 100%;
 	transition: 0.2s;
 	z-index: 99;
-	padding-block: var(--size-400);
+	padding-block: var(--size-300);
 
 	${(p) =>
 		p.scrolled &&
@@ -107,7 +107,7 @@ const Content = styled.div`
 `;
 
 const Logo = styled.img`
-	width: clamp(10rem, 8vw, 20rem);
+	height: var(--size-650);
 `;
 
 const Links = styled.ul`
