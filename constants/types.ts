@@ -17,18 +17,12 @@ export interface Movie {
 	vote_count: number;
 }
 
-export interface Props {
-	trending: Movie[];
-	topRated: Movie[];
-	netflixOriginals: Movie[];
-	actionMovies: Movie[];
-	comedyMovies: Movie[];
-	horrorMovies: Movie[];
-	romanceMovies: Movie[];
-	documentaries: Movie[];
+export interface homePageDataType {
+	title: string;
+	url: string;
+	movies?: Movie[];
 }
 
-export interface CategoryType {
-	heading: string;
-	movies: Movie[];
+export interface homePageProps {
+	homePageData: homePageDataType[];
 }

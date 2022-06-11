@@ -13,11 +13,12 @@ import { contentStyles } from '../styled components/Content';
 import { flexStyles } from '../styled components/Flex';
 
 interface Props {
-	netflixOriginals: Movie[];
+	netflixOriginals: Movie[] | undefined;
 }
 
-export default function Hero({ netflixOriginals }: Props) {
+export default function Hero({ netflixOriginals = [] }: Props) {
 	const dispatch = useDispatch();
+
 	const randomMovie = useMemo(() => {
 		const randomIndex = Math.floor(Math.random() * netflixOriginals.length);
 		return netflixOriginals[randomIndex];

@@ -4,12 +4,12 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { CategoryType, Movie } from '../../constants/types';
+import { homePageDataType, Movie } from '../../constants/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { setModalMovie } from '../../redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 
-export default function Category({ heading, movies }: CategoryType) {
+export default function Category({ title, movies }: homePageDataType) {
 	const SliderRef = useRef<HTMLDivElement | any>(null);
 	const dispatch = useDispatch();
 
@@ -28,7 +28,7 @@ export default function Category({ heading, movies }: CategoryType) {
 
 	return (
 		<Container>
-			<Heading>{heading}</Heading>
+			<Heading>{title}</Heading>
 
 			<Gallery>
 				<LeftNavigationBtn color='transparent' onClick={() => handleScroll(-1)}>
@@ -36,7 +36,7 @@ export default function Category({ heading, movies }: CategoryType) {
 				</LeftNavigationBtn>
 
 				<Slider ref={SliderRef}>
-					{movies.map((movie) => {
+					{movies?.map((movie) => {
 						const { id, backdrop_path, poster_path } = movie;
 						return (
 							<Movie key={id} onClick={() => handleSetModalMovie(movie)}>
