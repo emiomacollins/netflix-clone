@@ -5,10 +5,14 @@ import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
 import Nav from '../components/Nav';
-import { homePageDataType, homePageProps } from '../constants/types';
+import { homePageData } from '../constants/types';
 
-export default function Home({ homePageData }: homePageProps) {
-	const [netflixOriginals, ...categories] = homePageData;
+interface Props {
+	data: homePageData[];
+}
+
+export default function Home({ data }: Props) {
+	const [netflixOriginals, ...categories] = data;
 
 	return (
 		<Container>
@@ -29,7 +33,7 @@ const Container = styled.div`
 `;
 
 export async function getServerSideProps() {
-	const homePageData: homePageDataType[] = [
+	const data: homePageData[] = [
 		{
 			title: 'Netflix Originals',
 			url: `/discover/movie?with_networks=213`,
@@ -43,12 +47,12 @@ export async function getServerSideProps() {
 		{ title: 'documentaries', url: `/discover/movie?with_genres=99` },
 	];
 
-	const results = await Promise.all(homePageData.map(({ url }) => baseAxios(url)));
-	results.forEach(({ data: { results } }, i) => (homePageData[i].movies = results));
+	const results = await Promise.all(data.map(({ url }) => baseAxios(url)));
+	results.forEach(({ data: { results } }, i) => (data[i].movies = results));
 
 	return {
 		props: {
-			homePageData,
+			data,
 		},
 	};
 }

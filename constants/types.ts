@@ -17,12 +17,8 @@ export interface Movie {
 	vote_count: number;
 }
 
-export interface homePageDataType {
+export interface homePageData {
 	title: string;
 	url: string;
 	movies?: Movie[];
-}
-
-export interface homePageProps {
-	homePageData: homePageDataType[];
 }

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { homePageDataType } from '../../constants/types';
+import { homePageData } from '../../constants/types';
 import { contentStyles } from '../styled components/Content';
 import Category from './Category';
 
 interface Props {
-	categories: homePageDataType[];
+	categories: homePageData[];
 }
 
 export default function CategoryList({ categories }: Props) {
