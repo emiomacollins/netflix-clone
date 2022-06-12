@@ -12,7 +12,7 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 export default function Button(props: Props) {
 	const { isLoading, children, toolTip } = props;
 	return (
-		<Container {...props}>
+		<Container {...props} disabled={isLoading}>
 			{isLoading ? (
 				<Spinner />
 			) : (
