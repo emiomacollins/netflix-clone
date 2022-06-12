@@ -1,6 +1,7 @@
 import { CheckIcon } from '@heroicons/react/solid';
+import { getProducts, Product } from '@stripe/firestore-stripe-payments';
+import Head from 'next/head';
 import NextLink from 'next/link';
-import { useMemo, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../components/styled components/Button';
 import { contentStyles } from '../../components/styled components/Content';
@@ -9,37 +10,44 @@ import { Link } from '../../components/styled components/Link';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { logoPath } from '../../constants/urls/images';
-import { Plan } from '../../redux/slices/user/types';
+import StripePayments from '../../stripe/stripe';
 
-export default function Plans() {
-	// TODO: replace with dynamic plans
-	const plans: Plan[] = useMemo(
-		() => [
-			{
-				title: 'basic',
-				price: 29,
-				resolution: 'Standard',
-				otherDevice: true,
-			},
-			{
-				title: 'standard',
-				price: 39,
-				resolution: 'HD',
-				otherDevice: true,
-			},
-			{
-				title: 'premium',
-				price: 49,
-				resolution: 'Ultra HD (4K)',
-				otherDevice: true,
-			},
-		],
-		[]
-	);
-	const [selectedPlan, setSelectedPlan] = useState(plans[1]);
+interface Props {
+	plans: Product;
+}
+
+export default function Plans({ plans }: Props) {
+	console.log(plans);
+	// const plans: Plan[] = useMemo(
+	// 	() => [
+	// 		{
+	// 			title: 'basic',
+	// 			price: 9.99,
+	// 			resolution: '480p',
+	// 			otherDevice: true,
+	// 		},
+	// 		{
+	// 			title: 'standard',
+	// 			price: 15.49,
+	// 			resolution: '1080p',
+	// 			otherDevice: true,
+	// 		},
+	// 		{
+	// 			title: 'premium',
+	// 			price: 19.99,
+	// 			resolution: '4K+HDR',
+	// 			otherDevice: true,
+	// 		},
+	// 	],
+	// 	[]
+	// );
+	// const [selectedPlan, setSelectedPlan] = useState(plans[1]);
 
 	return (
 		<Container>
+			<Head>
+				<title>Plans</title>
+			</Head>
 			<Header>
 				<HeaderContent>
 					<NextLink href={routes.home}>
@@ -68,7 +76,7 @@ export default function Plans() {
 				</BulletPoints>
 
 				<PlanDetails>
-					<Row>
+					{/* <Row>
 						<Category />
 						{plans.map((plan) => (
 							<PlanBox
@@ -117,8 +125,9 @@ export default function Plans() {
 								)}
 							</Bold>
 						))}
-					</Row>
+					</Row> */}
 				</PlanDetails>
+
 				<SubscribeBtn color='red'>Subscribe</SubscribeBtn>
 			</Content>
 		</Container>
@@ -248,3 +257,16 @@ const SubscribeBtn = styled(Button)`
 	justify-self: center;
 	padding: 0.8em 5em;
 `;
+
+export async function getServerSideProps() {
+	const plans = await getProducts(StripePayments, {
+		includePrices: true,
+		activeOnly: true,
+	}).catch((err) => console.log(err));
+
+	return {
+		props: {
+			plans: plans || null,
+		},
+	};
+}

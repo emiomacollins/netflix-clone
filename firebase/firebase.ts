@@ -17,7 +17,7 @@ const appConfig = {
 
 export const app = initializeApp(appConfig);
 export const auth = getAuth(app);
-export const firestore = getFirestore();
+export const firestore = getFirestore(app);
 
 export interface AuthProps {
 	email: string;

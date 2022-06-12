@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
+
+const transpiler = require('next-transpile-modules');
+const withTranspiledModules = transpiler(['@stripe/firestore-stripe-payments']);
+
 const nextConfig = {
 	reactStrictMode: true,
 	compiler: {
@@ -9,4 +13,4 @@ const nextConfig = {
 	},
 };
 
-module.exports = nextConfig;
+module.exports = withTranspiledModules(nextConfig);

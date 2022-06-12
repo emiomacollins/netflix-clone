@@ -48,7 +48,9 @@ export async function getServerSideProps() {
 	];
 
 	const results = await Promise.all(data.map(({ url }) => baseAxios(url)));
-	results.forEach(({ data: { results } }, i) => (data[i].movies = results));
+	results.forEach(({ data: { results } }, index) => {
+		data[index].movies = results;
+	});
 
 	return {
 		props: {
