@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { getApp, getApps, initializeApp } from 'firebase/app';
 import {
 	createUserWithEmailAndPassword,
 	getAuth,
@@ -15,8 +15,8 @@ const appConfig = {
 	appId: '1:820737027027:web:f90e6c2ab6fb3092819d26',
 };
 
-export const app = initializeApp(appConfig);
-export const auth = getAuth(app);
+export const app = getApps().length ? getApp() : initializeApp(appConfig);
+export const auth = getAuth();
 export const firestore = getFirestore(app);
 
 export interface AuthProps {

@@ -1,5 +1,5 @@
 import { CheckIcon } from '@heroicons/react/solid';
-import { getProducts, Product } from '@stripe/firestore-stripe-payments';
+import { Product } from '@stripe/firestore-stripe-payments';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import styled from 'styled-components';
@@ -10,7 +10,6 @@ import { Link } from '../../components/styled components/Link';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { logoPath } from '../../constants/urls/images';
-import StripePayments from '../../stripe/stripe';
 
 interface Props {
 	plans: Product;
@@ -259,14 +258,9 @@ const SubscribeBtn = styled(Button)`
 `;
 
 export async function getServerSideProps() {
-	const plans = await getProducts(StripePayments, {
-		includePrices: true,
-		activeOnly: true,
-	}).catch((err) => console.log(err));
+	// TODO: fetch plans
 
 	return {
-		props: {
-			plans: plans || null,
-		},
+		props: {},
 	};
 }
