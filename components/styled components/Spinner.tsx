@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const Icon = styled.div`
-	height: 1.2em;
+	height: 1.5em;
 	aspect-ratio: 1;
 	border-radius: 50%;
 	border-top: 2px solid var(--white);

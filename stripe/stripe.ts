@@ -1,21 +1,6 @@
-import {
-	createCheckoutSession,
-	getStripePayments,
-} from '@stripe/firestore-stripe-payments';
-import { app } from '../firebase/firebase';
+import { loadStripe } from '@stripe/stripe-js';
 
-const StripePayments = getStripePayments(app, {
-	customersCollection: 'customers',
-	productsCollection: 'products',
-});
-
-export async function createCheckOutUrl(priceId: string) {
-	const { url } = await createCheckoutSession(StripePayments, {
-		price: priceId,
-		success_url: window.location.origin,
-		cancel_url: window.location.origin,
-	});
-	return url;
+export async function getStripe() {
+	const key = process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY;
+	return await loadStripe(key || '');
 }
-
-export default StripePayments;

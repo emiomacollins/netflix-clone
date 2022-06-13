@@ -1,7 +1,6 @@
 import { CheckIcon } from '@heroicons/react/solid';
 import { Product } from '@stripe/firestore-stripe-payments';
 import { useState } from 'react';
-import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import Button from '../../../components/styled components/Button';
 import { Breakpoints } from '../../../constants/breakpoints';
@@ -13,14 +12,10 @@ interface Props {
 
 export default function PlansGrid({ plans }: Props) {
 	const [selectedPlan, setSelectedPlan] = useState(plans[1]);
+	const [isLoading, setIsLoading] = useState(false);
 
-	const { mutate: checkoutMutation, isLoading } = useMutation(
-		`checkout-${selectedPlan.id}`,
-		checkout
-	);
-
-	function handleCheckout() {
-		checkoutMutation(selectedPlan);
+	async function handleCheckout() {
+		await checkout({ selectedPlan, setIsLoading });
 	}
 
 	return (
@@ -164,6 +159,10 @@ const PlanCheckIcon = styled(CheckIcon)<PlanProps>`
 `;
 
 const SubscribeBtn = styled(Button)`
-	justify-self: center;
 	padding: 0.8em 5em;
+	margin-inline: auto;
+	width: 100%;
+	max-width: 240px;
+	display: flex;
+	justify-content: center;
 `;

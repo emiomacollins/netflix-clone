@@ -854,6 +854,11 @@
     "@firebase/auth" "^0.17.2"
     "@firebase/firestore" "^3.2.0"
 
+"@stripe/stripe-js@^1.31.0":
+  version "1.31.0"
+  resolved "https://registry.yarnpkg.com/@stripe/stripe-js/-/stripe-js-1.31.0.tgz#2920bdddc3eabb5734f9ca794824e25b378533ac"
+  integrity sha512-drlXsNvd/s9S1+Ghja0aDB81N3Wr/6iRAZ7MOzKv7AtKxVdvGpOwESw3z1lHl/Wx/rvPpA7whKdB3W2CnVSArw==
+
 "@types/hoist-non-react-statics@^3.3.1":
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/@types/hoist-non-react-statics/-/hoist-non-react-statics-3.3.1.tgz#1124aafe5118cb591977aeb1ceaaed1070eb039f"
