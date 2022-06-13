@@ -13,7 +13,9 @@ export default function ProtectRoutes({ exclude, children }: ProtectRoutesProps)
 	// auth will be initialized before this component renders
 	const router = useRouter();
 	const user = useSelector(getUser);
+
 	if (exclude?.includes(router.pathname)) return <Fragment>{children}</Fragment>;
 	if (!user) router.push(routes.login);
+
 	return <Fragment>{user ? children : null}</Fragment>;
 }

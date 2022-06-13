@@ -1,8 +1,7 @@
-export interface Subscription {}
-
 export interface User {
+	uid: string;
 	email: string | null;
-	subscriptions: Subscription[] | null;
+	isSubscribed: boolean;
 }
 
 export interface State {
