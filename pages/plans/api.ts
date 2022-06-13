@@ -9,7 +9,7 @@ interface Props {
 	setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
-export async function checkout({ selectedPlan, setIsLoading }: Props) {
+export default async function checkout({ selectedPlan, setIsLoading }: Props) {
 	setIsLoading(true);
 	// get the selected plan's priceId form products collection
 	const priceRef = collection(firestore, `products/${selectedPlan.id}/prices`);

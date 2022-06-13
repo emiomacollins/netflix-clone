@@ -18,7 +18,6 @@ export default function Home({ data }: Props) {
 		<Container>
 			<Head>
 				<title>Home</title>
-				<link rel='icon' href='/favicon.ico' />
 			</Head>
 			<Nav />
 			<Modal />

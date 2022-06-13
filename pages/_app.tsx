@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import type { AppProps as IndexProps } from 'next/app';
+import Head from 'next/head';
 import { Fragment, ReactNode, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider, useDispatch } from 'react-redux';
@@ -29,6 +30,9 @@ export default function MyApp({ Component, pageProps }: IndexProps) {
 					<ProtectRoutes exclude={unProctectedRoutes}>
 						<WithSubscription exclude={noSubscriptionRoutes}>
 							<ProgressBar />
+							<Head>
+								<link rel='icon' href='/fav.ico' />
+							</Head>
 							<Component {...pageProps} />
 						</WithSubscription>
 					</ProtectRoutes>
