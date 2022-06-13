@@ -4,7 +4,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Button from '../../../components/styled components/Button';
 import { Breakpoints } from '../../../constants/breakpoints';
-import { checkout } from './api';
+import { checkout } from '../api';
 
 interface Props {
 	plans: Product[];
