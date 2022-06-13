@@ -28,6 +28,11 @@ export const Header = styled.div`
 	left: 50%;
 	transform: translateX(-50%);
 	padding-block: var(--size-400);
+	z-index: 99;
+
+	@media ${Breakpoints.tabletDown} {
+		background: var(--black);
+	}
 `;
 
 export const Logo = styled.img`
