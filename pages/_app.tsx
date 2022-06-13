@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { collection, getDocs } from 'firebase/firestore';
 import type { AppProps as IndexProps } from 'next/app';
 import { Fragment, ReactNode, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -7,7 +8,7 @@ import ProgressBar from '../components/ProgressBar';
 import ProtectRoutes from '../components/ProtectRoutes';
 import WithSubscription from '../components/WithSubscription';
 import { noSubscriptionRoutes, unProctectedRoutes } from '../constants/routes';
-import { auth } from '../firebase/firebase';
+import { auth, firestore } from '../firebase/firebase';
 import { setUser } from '../redux/slices/user/userSlice';
 import store from '../redux/store';
 import '../styles/globals.css';
@@ -48,11 +49,17 @@ const App = ({ children }: AppProps) => {
 	const [authInitialized, setAuthInitialized] = useState(false);
 
 	useEffect(() => {
-		const unsuscribe = auth.onAuthStateChanged((user) => {
+		const unsuscribe = auth.onAuthStateChanged(async (user) => {
 			// TODO: fetch and append current subscription plan from firestore
-			const plan = null;
+			const subscriptionsRef = collection(
+				firestore,
+				`customers/${user?.uid}/subscriptions`
+			);
+			const snapshot = await getDocs(subscriptionsRef);
+			const subscriptions = snapshot.docs.map((doc) => doc.data());
+			console.log(subscriptions);
 
-			dispatch(setUser(user ? { email: user.email, plan } : null));
+			dispatch(setUser(user ? { email: user.email, subscriptions } : null));
 
 			!authInitialized && setAuthInitialized(true);
 		});

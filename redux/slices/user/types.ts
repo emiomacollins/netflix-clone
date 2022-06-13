@@ -1,8 +1,8 @@
-import { Plan } from '../../../pages/plans/types';
+export interface Subscription {}
 
 export interface User {
 	email: string | null;
-	plan: Plan | null;
+	subscriptions: Subscription[] | null;
 }
 
 export interface State {
