@@ -4,12 +4,12 @@ import { collection, getDocs } from 'firebase/firestore';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import styled from 'styled-components';
+import Logo from '../../components/Logo';
 import { contentStyles } from '../../components/styled components/Content';
 import { flexStyles } from '../../components/styled components/Flex';
 import { Link } from '../../components/styled components/Link';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
-import { logoPath } from '../../constants/urls/images';
 import { firestore } from '../../firebase/firebase';
 import PlansGrid from './components/PlansGrid';
 
@@ -26,11 +26,7 @@ export default function Plans({ plans }: Props) {
 
 			<Header>
 				<HeaderContent>
-					<NextLink href={routes.home}>
-						<a>
-							<Logo src={logoPath} alt='' />
-						</a>
-					</NextLink>
+					<Logo />
 					<NextLink href={routes.login}>
 						<Link>Sign Out</Link>
 					</NextLink>
@@ -71,10 +67,6 @@ const HeaderContent = styled.div`
 	${contentStyles}
 	${flexStyles}
 	justify-content: space-between;
-`;
-
-const Logo = styled.img`
-	height: var(--size-650);
 `;
 
 const Content = styled.div`

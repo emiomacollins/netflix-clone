@@ -1,13 +1,12 @@
 import { SearchIcon } from '@heroicons/react/solid';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import ProfileIconPath from '../assets/images/profileIcon.jpg';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
-import { logoPath } from '../constants/urls/images';
+import Logo from './Logo';
+import ProfileDropdown from './ProfileDropdown';
 import Show from './Show';
 import Button from './styled components/Button';
 import { contentStyles } from './styled components/Content';
@@ -34,11 +33,7 @@ export default function Nav() {
 	return (
 		<Container scrolled={scrolled}>
 			<Content>
-				<Link href={routes.home}>
-					<a>
-						<Logo alt='' src={logoPath} />
-					</a>
-				</Link>
+				<Logo />
 
 				<Show on={Breakpoints.tabletUp}>
 					<Links>
@@ -63,9 +58,7 @@ export default function Nav() {
 						<StyledSearchIcon />
 					</Search>
 					<Link href={routes.account}>
-						<ProfileIcon>
-							<Image src={ProfileIconPath} alt='' />
-						</ProfileIcon>
+						<ProfileDropdown />
 					</Link>
 				</Flex>
 			</Content>
@@ -106,10 +99,6 @@ const Content = styled.div`
 	}
 `;
 
-const Logo = styled.img`
-	height: var(--size-650);
-`;
-
 const Links = styled.ul`
 	display: flex;
 	list-style: none;
@@ -142,14 +131,4 @@ const Search = styled(Button)`
 
 const StyledSearchIcon = styled(SearchIcon)`
 	width: var(--size-600);
-`;
-
-const ProfileIcon = styled.div`
-	width: var(--size-650);
-	cursor: pointer;
-	display: flex;
-
-	img {
-		border-radius: var(--radius-300);
-	}
 `;

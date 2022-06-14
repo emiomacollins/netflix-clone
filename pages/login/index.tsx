@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
+import Logo from '../../components/Logo';
 import { ErrorMessage } from '../../components/styled components/ErrorMessage';
 import { Grid } from '../../components/styled components/Grid';
 import { Link } from '../../components/styled components/Link';
@@ -15,14 +16,13 @@ import {
 	Header,
 	Heading,
 	Inputs,
-	Logo,
 	StyledOverlay,
 	SubmitBtn,
 	Text,
 } from '../../components/styled components/shared-styles/AuthPages';
 import { Textbox } from '../../components/styled components/Textbox';
 import { routes } from '../../constants/routes';
-import { AuthPagesBgPath, logoPath } from '../../constants/urls/images';
+import { AuthPagesBgPath } from '../../constants/urls/images';
 import { auth, AuthProps, signInWithEmailAndPassword } from '../../firebase/firebase';
 
 export default function Login() {
@@ -68,7 +68,7 @@ export default function Login() {
 			</Head>
 
 			<Header>
-				<Logo src={logoPath} alt='' />
+				<Logo />
 			</Header>
 
 			<BgImage>

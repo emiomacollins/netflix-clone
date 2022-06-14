@@ -31,7 +31,7 @@ export default function MyApp({ Component, pageProps }: IndexProps) {
 						<WithSubscription exclude={noSubscriptionRoutes}>
 							<ProgressBar />
 							<Head>
-								<link rel='icon' href='/fav.ico' />
+								<link rel='icon' href='/logo.ico' />
 							</Head>
 							<Component {...pageProps} />
 						</WithSubscription>

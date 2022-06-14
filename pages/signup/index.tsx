@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
 import * as yup from 'yup';
 import Textbox from '../../components/formik/Textbox';
+import Logo from '../../components/Logo';
 import { ErrorMessage } from '../../components/styled components/ErrorMessage';
 import { Grid } from '../../components/styled components/Grid';
 import { Link } from '../../components/styled components/Link';
@@ -17,13 +18,12 @@ import {
 	Header,
 	Heading,
 	Inputs,
-	Logo,
 	StyledOverlay,
 	SubmitBtn,
 	Text,
 } from '../../components/styled components/shared-styles/AuthPages';
 import { routes } from '../../constants/routes';
-import { AuthPagesBgPath, logoPath } from '../../constants/urls/images';
+import { AuthPagesBgPath } from '../../constants/urls/images';
 import { AuthProps, signUpWithEmailAndPassword } from '../../firebase/firebase';
 
 export default function SignUp() {
@@ -49,7 +49,7 @@ export default function SignUp() {
 			</Head>
 
 			<Header>
-				<Logo src={logoPath} alt='' />
+				<Logo />
 			</Header>
 
 			<BgImage>

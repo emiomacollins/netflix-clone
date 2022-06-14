@@ -35,10 +35,6 @@ export const Header = styled.div`
 	}
 `;
 
-export const Logo = styled.img`
-	height: 4rem;
-`;
-
 export const BgImage = styled.div`
 	position: fixed;
 	top: 0;
