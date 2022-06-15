@@ -11,4 +11,4 @@ export const routes = {
 };
 
 export const unProctectedRoutes = [routes.login, routes.signUp];
-export const noSubscriptionRoutes = [...unProctectedRoutes, routes.account, routes.plans];
+export const noSubscriptionRoutes = [...unProctectedRoutes, routes.plans];

@@ -1,9 +1,14 @@
+import { CSSProperties } from 'react';
 import styled from 'styled-components';
 
-function Spinner() {
+interface Props {
+	styles?: CSSProperties;
+}
+
+function Spinner({ styles }: Props) {
 	return (
 		<Container>
-			<Icon />
+			<Icon style={styles} />
 		</Container>
 	);
 }

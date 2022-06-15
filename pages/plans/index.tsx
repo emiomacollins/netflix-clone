@@ -3,6 +3,8 @@ import { Product } from '@stripe/firestore-stripe-payments';
 import { collection, getDocs } from 'firebase/firestore';
 import Head from 'next/head';
 import NextLink from 'next/link';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Logo from '../../components/Logo';
 import { contentStyles } from '../../components/styled components/Content';
@@ -11,6 +13,7 @@ import { Link } from '../../components/styled components/Link';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { firestore } from '../../firebase/firebase';
+import { getUser } from '../../redux/slices/user/userSlice';
 import PlansGrid from './components/PlansGrid';
 
 interface Props {
@@ -18,6 +21,14 @@ interface Props {
 }
 
 export default function Plans({ plans }: Props) {
+	const router = useRouter();
+	const user = useSelector(getUser);
+
+	if (user?.isSubscribed) {
+		router.push(routes.home);
+		return null;
+	}
+
 	return (
 		<Container>
 			<Head>

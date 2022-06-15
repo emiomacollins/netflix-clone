@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, Fragment, ReactNode } from 'react';
+import { ButtonHTMLAttributes, CSSProperties, Fragment, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import Spinner from './Spinner';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,14 +7,15 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	children?: ReactNode;
 	icon?: boolean;
 	toolTip?: string;
+	spinnerStyles?: CSSProperties;
 }
 
 export default function Button(props: Props) {
-	const { isLoading, children, toolTip } = props;
+	const { isLoading, children, toolTip, spinnerStyles } = props;
 	return (
 		<Container {...props} disabled={isLoading}>
 			{isLoading ? (
-				<Spinner />
+				<Spinner styles={spinnerStyles} />
 			) : (
 				<Fragment>
 					{toolTip && <ToolTip>{toolTip}</ToolTip>}

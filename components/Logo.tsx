@@ -5,7 +5,7 @@ import { logoPath } from '../constants/urls/images';
 
 export default function Logo() {
 	return (
-		<Link href={routes.home}>
+		<Link href={routes.home} passHref>
 			<a>
 				<Container src={logoPath} alt='' />
 			</a>

@@ -58,7 +58,14 @@ const App = ({ children }: AppProps) => {
 				await user.getIdToken(true);
 				const decodedToken = await user.getIdTokenResult();
 				const isSubscribed = decodedToken?.claims?.stripeRole ? true : false;
-				dispatch(setUser({ uid: user.uid, email: user.email, isSubscribed }));
+				dispatch(
+					setUser({
+						uid: user.uid,
+						email: user.email,
+						isSubscribed,
+						createdAt: user.metadata.creationTime || '',
+					})
+				);
 			}
 			!authInitialized && setAuthInitialized(true);
 		});

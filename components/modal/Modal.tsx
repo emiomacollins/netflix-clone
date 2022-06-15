@@ -78,9 +78,12 @@ export default function Modal() {
 				<Text>
 					<Grid gap={2}>
 						<Flex>
-							<MatchPercentage percentage={percentageMatch}>
-								{percentageMatch}% Match
-							</MatchPercentage>
+							{/* to fix color change when closing modal */}
+							{!!percentageMatch && (
+								<MatchPercentage percentage={percentageMatch}>
+									{percentageMatch}% Match
+								</MatchPercentage>
+							)}
 							{release_date || first_air_date}
 							<Badge>HD</Badge>
 						</Flex>

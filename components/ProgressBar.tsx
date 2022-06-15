@@ -13,7 +13,7 @@ export default function ProgressBar() {
 		let interval: ReturnType<typeof setInterval>;
 		Router.events.on('routeChangeStart', () => {
 			setprogress(10);
-			interval = setInterval(updateProgress, 1000);
+			interval = setInterval(updateProgress, 1500);
 		});
 		Router.events.on('routeChangeComplete', () => {
 			setprogress(0);
