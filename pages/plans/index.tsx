@@ -58,6 +58,7 @@ export default function Plans({ plans }: Props) {
 					</BulletPoint>
 				</BulletPoints>
 				<PlansGrid plans={plans} />
+				{/* TODO: add popup displaying test card info */}
 			</Content>
 		</Container>
 	);
