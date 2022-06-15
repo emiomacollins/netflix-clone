@@ -50,7 +50,7 @@ export default function Modal() {
 	}
 
 	return (
-		<StyledOverlay opacity={0.7} visible={visible} onClick={handleClose}>
+		<StyledOverlay opacity={0.8} visible={visible} onClick={handleClose}>
 			<Content visible={visible} onClick={stopPropagation}>
 				<CloseBtn color='transparent' onClick={handleClose}>
 					<CloseIcon />
