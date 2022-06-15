@@ -49,7 +49,7 @@ export default function Hero({ netflixOriginals = [] }: Props) {
 				<Overview>{overview}</Overview>
 
 				<Buttons>
-					<StyledButton>
+					<StyledButton onClick={handleSetModalMovie}>
 						<PlayIcon width={35} />
 						Play
 					</StyledButton>

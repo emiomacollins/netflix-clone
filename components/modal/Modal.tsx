@@ -19,7 +19,7 @@ export default function Modal() {
 	const dispatch = useDispatch();
 	const modalMovie = useSelector(getModalMovie);
 	const visible = !!modalMovie;
-	const { state: muted, toggle: toggleMuted } = useToggle(true);
+	const { state: muted, toggle: toggleMuted } = useToggle(false);
 
 	const { data: extraInfo } = useQuery(`fetchExtraInfo-${modalMovie?.id}`, () =>
 		visible ? fetchExtraInfo(modalMovie) : null
