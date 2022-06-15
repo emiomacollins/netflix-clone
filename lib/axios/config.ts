@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { TMDB_BASE_URL } from '../constants/urls/apis';
+import { TMDB_BASE_URL } from '../../constants/urls/apis';
 
 const baseAxios = axios.create({
 	baseURL: TMDB_BASE_URL,

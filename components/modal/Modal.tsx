@@ -7,7 +7,7 @@ import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { YOUTUBE_VIDEO_BASE_URL } from '../../constants/urls/apis';
 import { useToggle } from '../../hooks/useToggle';
-import { getModalMovie, setModalMovie } from '../../redux/slices/ui/uiSlice';
+import { getModalMovie, setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 import { contentStyles } from '../styled components/Content';
 import { Flex, flexStyles } from '../styled components/Flex';

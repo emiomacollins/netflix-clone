@@ -6,7 +6,7 @@ import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { homePageData, Movie } from '../../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
-import { setModalMovie } from '../../redux/slices/ui/uiSlice';
+import { setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 
 export default function Category({ title, movies }: homePageData) {

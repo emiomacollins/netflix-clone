@@ -1,8 +1,8 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import { firestore } from '../firebase/firebase';
-import { getUser } from '../redux/slices/user/userSlice';
+import { firestore } from '../lib/firebase/firebase';
+import { getUser } from '../lib/redux/slices/user/userSlice';
 
 export function useSubscription() {
 	const user = useSelector(getUser);

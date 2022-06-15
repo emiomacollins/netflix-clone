@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { Fragment, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { routes } from '../constants/routes';
-import { getUser } from '../redux/slices/user/userSlice';
+import { getUser } from '../lib/redux/slices/user/userSlice';
 
 interface ProtectRoutesProps {
 	children: ReactNode;

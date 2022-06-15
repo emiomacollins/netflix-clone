@@ -12,8 +12,8 @@ import { flexStyles } from '../../components/styled components/Flex';
 import { Link } from '../../components/styled components/Link';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
-import { firestore } from '../../firebase/firebase';
-import { getUser } from '../../redux/slices/user/userSlice';
+import { firestore } from '../../lib/firebase/firebase';
+import { getUser } from '../../lib/redux/slices/user/userSlice';
 import PlansGrid from './components/PlansGrid';
 
 interface Props {

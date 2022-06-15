@@ -8,9 +8,9 @@ import ProgressBar from '../components/ProgressBar';
 import ProtectRoutes from '../components/ProtectRoutes';
 import WithSubscription from '../components/WithSubscription';
 import { noSubscriptionRoutes, unProctectedRoutes } from '../constants/routes';
-import { auth } from '../firebase/firebase';
-import { setUser } from '../redux/slices/user/userSlice';
-import store from '../redux/store';
+import { auth } from '../lib/firebase/firebase';
+import { setUser } from '../lib/redux/slices/user/userSlice';
+import store from '../lib/redux/store';
 import '../styles/globals.css';
 
 // this is your index.ts (providers go here)

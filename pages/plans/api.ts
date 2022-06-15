@@ -1,8 +1,8 @@
 import { Product } from '@stripe/firestore-stripe-payments';
 import { addDoc, collection, getDocs, onSnapshot } from 'firebase/firestore';
 import { Dispatch, SetStateAction } from 'react';
-import { auth, firestore } from '../../firebase/firebase';
-import { getStripe } from '../../stripe/stripe';
+import { auth, firestore } from '../../lib/firebase/firebase';
+import { getStripe } from '../../lib/stripe/stripe';
 
 interface Props {
 	selectedPlan: Product;

@@ -24,7 +24,7 @@ import {
 } from '../../components/styled components/shared-styles/AuthPages';
 import { routes } from '../../constants/routes';
 import { AuthPagesBgPath } from '../../constants/urls/images';
-import { AuthProps, signUpWithEmailAndPassword } from '../../firebase/firebase';
+import { AuthProps, signUpWithEmailAndPassword } from '../../lib/firebase/firebase';
 
 export default function SignUp() {
 	const router = useRouter();

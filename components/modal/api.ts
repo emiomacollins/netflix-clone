@@ -1,4 +1,4 @@
-import { baseAxios } from '../../axios/config';
+import { baseAxios } from '../../lib/axios/config';
 import { Movie } from '../../constants/home/types';
 
 interface Video {

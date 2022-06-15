@@ -1,6 +1,6 @@
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { routes } from '../../constants/routes';
-import { app } from '../../firebase/firebase';
+import { app } from '../../lib/firebase/firebase';
 
 export default async function redirectToManageSubscription() {
 	const cloudFunctionInstance = getFunctions(app, 'us-central1');

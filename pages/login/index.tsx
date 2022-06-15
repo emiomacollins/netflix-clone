@@ -23,7 +23,7 @@ import {
 import { Textbox } from '../../components/styled components/Textbox';
 import { routes } from '../../constants/routes';
 import { AuthPagesBgPath } from '../../constants/urls/images';
-import { auth, AuthProps, signInWithEmailAndPassword } from '../../firebase/firebase';
+import { auth, AuthProps, signInWithEmailAndPassword } from '../../lib/firebase/firebase';
 
 export default function Login() {
 	const router = useRouter();

@@ -14,7 +14,7 @@ import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { memberSinceIconPath } from '../../constants/urls/images';
 import { useSubscription } from '../../hooks/useSubscription';
-import { getUser } from '../../redux/slices/user/userSlice';
+import { getUser } from '../../lib/redux/slices/user/userSlice';
 import redirectToManageSubscription from './api';
 
 export default function Account() {
