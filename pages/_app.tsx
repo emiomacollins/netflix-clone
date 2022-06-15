@@ -27,15 +27,7 @@ export default function MyApp({ Component, pageProps }: IndexProps) {
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
 				<App>
-					<ProtectRoutes exclude={unProctectedRoutes}>
-						<WithSubscription exclude={noSubscriptionRoutes}>
-							<ProgressBar />
-							<Head>
-								<link rel='icon' href='/logo.ico' />
-							</Head>
-							<Component {...pageProps} />
-						</WithSubscription>
-					</ProtectRoutes>
+					<Component {...pageProps} />
 				</App>
 			</QueryClientProvider>
 		</Provider>
@@ -72,5 +64,19 @@ const App = ({ children }: AppProps) => {
 		return () => unsuscribe();
 	}, []);
 
-	return <Fragment>{authInitialized ? children : null}</Fragment>;
+	return (
+		<Fragment>
+			{authInitialized ? (
+				<ProtectRoutes exclude={unProctectedRoutes}>
+					<WithSubscription exclude={noSubscriptionRoutes}>
+						<ProgressBar />
+						<Head>
+							<link rel='icon' href='/logo.ico' />
+						</Head>
+						{children}
+					</WithSubscription>
+				</ProtectRoutes>
+			) : null}
+		</Fragment>
+	);
 };
