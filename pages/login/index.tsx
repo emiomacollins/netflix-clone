@@ -102,6 +102,7 @@ export default function Login() {
 						Sign in
 					</SubmitBtn>
 				</Grid>
+				{/* TODO:add forgot password and create page */}
 				<Text>
 					New to Netflix?{' '}
 					<NextLink href={routes.signUp}>

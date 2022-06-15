@@ -9,6 +9,7 @@ interface Props {
 }
 
 export default function CategoryList({ categories }: Props) {
+	// TODO:add my list
 	return (
 		<Container>
 			{categories.map((category) => (

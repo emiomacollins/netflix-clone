@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import styled from 'styled-components';
-import { baseAxios } from '../lib/axios/config';
 import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
 import Nav from '../components/Nav';
 import { homePageData } from '../constants/home/types';
+import { baseAxios } from '../lib/axios/config';
 
 interface Props {
 	data: homePageData[];
@@ -23,6 +23,7 @@ export default function Home({ data }: Props) {
 			<Modal />
 			<Hero netflixOriginals={netflixOriginals.movies} />
 			<CategoryList categories={categories} />
+			{/* TODO: Footer (check netflix own) */}
 		</Container>
 	);
 }

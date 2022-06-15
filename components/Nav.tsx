@@ -12,6 +12,7 @@ import Button from './styled components/Button';
 import { contentStyles } from './styled components/Content';
 import { Flex } from './styled components/Flex';
 
+/* TODO decide where each link goes*/
 const links = [
 	{ label: 'Home', route: routes.home },
 	{ label: 'Tv Shows', route: routes.tvShows },
@@ -35,6 +36,7 @@ export default function Nav() {
 			<Content>
 				<Logo />
 
+				{/* TODO: add mobile dropdown toggle */}
 				<Show on={Breakpoints.tabletUp}>
 					<Links>
 						{links.map(({ label, route }) => (
@@ -54,6 +56,7 @@ export default function Nav() {
 				</Show>
 
 				<Flex gap={2}>
+					{/* TODO: add search functionality */}
 					<Search color='transparent'>
 						<StyledSearchIcon />
 					</Search>
@@ -83,6 +86,7 @@ const Container = styled.div<ContainerProps>`
 		p.scrolled &&
 		css`
 			background: var(--dark);
+			padding-block: var(--size-200);
 		`}
 `;
 

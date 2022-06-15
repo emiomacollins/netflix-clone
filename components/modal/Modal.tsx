@@ -69,6 +69,7 @@ export default function Modal() {
 						<Button icon onClick={toggleMuted}>
 							<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
 						</Button>
+						{/* TODO: add to list functionality */}
 						<Button icon toolTip='Add to My list'>
 							<Icon as={PlusIcon} />
 						</Button>

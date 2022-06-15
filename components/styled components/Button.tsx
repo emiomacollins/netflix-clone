@@ -60,7 +60,7 @@ const Container = styled.button<Props>`
 	position: relative;
 	background: var(--light);
 	color: var(--dark);
-	border-radius: var(--radius-300);
+	border-radius: var(--radius-200);
 	border: 0;
 	padding: 0.5em 1.4em;
 	white-space: nowrap;

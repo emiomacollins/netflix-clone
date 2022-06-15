@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const contentStyles = css`
 	width: 93%;
-	max-width: 1600px;
+	max-width: 1900px;
 	margin-inline: auto;
 `;
 

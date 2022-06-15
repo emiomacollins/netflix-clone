@@ -34,6 +34,7 @@ export default function Hero({ netflixOriginals = [] }: Props) {
 		<Container>
 			<BgImage>
 				<Image
+					priority
 					layout='fill'
 					src={`${TMDB_IMAGE_BASE_URL}/original/${
 						backdrop_path || poster_path
@@ -50,11 +51,11 @@ export default function Hero({ netflixOriginals = [] }: Props) {
 
 				<Buttons>
 					<StyledButton onClick={handleSetModalMovie}>
-						<PlayIcon width={35} />
+						<Icon as={PlayIcon} />
 						Play
 					</StyledButton>
 					<StyledButton color='gray' onClick={handleSetModalMovie}>
-						<InformationCircleIcon width={35} /> More Info
+						<Icon as={InformationCircleIcon} /> More Info
 					</StyledButton>
 				</Buttons>
 			</Content>
@@ -70,7 +71,7 @@ const Content = styled.div`
 	--padding-top: clamp(10rem, 15vh, 15rem);
 	padding-block: var(--padding-top) var(--padding-bottom);
 	display: grid;
-	gap: 2rem;
+	gap: 1.5rem;
 
 	@media ${Breakpoints.tabletUp} {
 		--padding-bottom: clamp(10rem, 20vh, 20rem);
@@ -130,10 +131,15 @@ const Overview = styled.p`
 	}
 `;
 
+const Icon = styled.div`
+	height: var(--size-600);
+`;
+
 const Buttons = styled.div`
 	${flexStyles}
 	gap: 2rem;
 	flex-wrap: wrap;
+	margin-top: 0.5rem;
 `;
 
 const StyledButton = styled(Button)`
