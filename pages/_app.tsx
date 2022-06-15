@@ -13,7 +13,7 @@ import { setUser } from '../redux/slices/user/userSlice';
 import store from '../redux/store';
 import '../styles/globals.css';
 
-// this is your index.js (providers go here)
+// this is your index.ts (providers go here)
 export default function MyApp({ Component, pageProps }: IndexProps) {
 	const queryClient = new QueryClient({
 		defaultOptions: {
@@ -38,7 +38,9 @@ interface AppProps {
 	children?: ReactNode;
 }
 
-// this is your App.ts (global react logic goes here)
+// this is your App.ts
+// global react logic goes here
+// it exist's because global logic needs to use providers data/logic i.e redux dispatch
 const App = ({ children }: AppProps) => {
 	const dispatch = useDispatch();
 	const [authInitialized, setAuthInitialized] = useState(false);

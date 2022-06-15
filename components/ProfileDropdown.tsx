@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import ProfileIconPath from '../assets/images/profileIcon.jpg';
 import { routes } from '../constants/routes';
 
+// TODO:create profile dropdown
 export default function ProfileDropdown() {
 	return (
 		<Link href={routes.account}>
