@@ -5,13 +5,13 @@ import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
+import Dropdown from '../Dropdown';
 import Logo from '../Logo';
 import ProfileDropdown from '../ProfileDropdown';
 import Show from '../Show';
 import Button from '../styled components/Button';
 import { contentStyles } from '../styled components/Content';
 import { Flex } from '../styled components/Flex';
-import Dropdown from '../Dropdown';
 
 /* TODO decide where each link goes*/
 const links = [
@@ -86,7 +86,6 @@ const Container = styled.div<ContainerProps>`
 		p.scrolled &&
 		css`
 			background: var(--dark);
-			padding-block: var(--size-200);
 		`}
 `;
 
