@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { homePageData } from '../../constants/types';
+import { homePageData } from '../../constants/home/types';
 import { contentStyles } from '../styled components/Content';
 import Category from './Category';
 

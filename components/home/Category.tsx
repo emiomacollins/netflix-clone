@@ -4,7 +4,7 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { homePageData, Movie } from '../../constants/types';
+import { homePageData, Movie } from '../../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { setModalMovie } from '../../redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';

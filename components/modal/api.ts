@@ -1,5 +1,5 @@
 import { baseAxios } from '../../axios/config';
-import { Movie } from '../../constants/types';
+import { Movie } from '../../constants/home/types';
 
 interface Video {
 	key: string;

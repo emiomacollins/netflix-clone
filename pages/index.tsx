@@ -5,7 +5,7 @@ import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
 import Nav from '../components/Nav';
-import { homePageData } from '../constants/types';
+import { homePageData } from '../constants/home/types';
 
 interface Props {
 	data: homePageData[];

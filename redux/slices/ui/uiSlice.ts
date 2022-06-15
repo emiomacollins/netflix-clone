@@ -1,5 +1,5 @@
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Movie } from '../../../constants/types';
+import { Movie } from '../../../constants/home/types';
 import { RootState } from '../../store';
 
 interface State {
