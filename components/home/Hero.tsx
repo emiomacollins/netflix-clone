@@ -137,9 +137,13 @@ const Icon = styled.div`
 
 const Buttons = styled.div`
 	${flexStyles}
-	gap: 2rem;
+	gap: 1.5rem;
 	flex-wrap: wrap;
 	margin-top: 0.5rem;
+
+	@media ${Breakpoints.tabletUp} {
+		gap: 2rem;
+	}
 `;
 
 const StyledButton = styled(Button)`
