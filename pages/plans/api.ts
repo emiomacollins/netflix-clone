@@ -40,3 +40,7 @@ export async function checkout({ selectedPlan, setIsLoading }: Props) {
 		setIsLoading(false);
 	});
 }
+
+const obj = { checkout };
+
+export default obj;

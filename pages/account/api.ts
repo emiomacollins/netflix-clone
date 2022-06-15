@@ -2,7 +2,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { routes } from '../../constants/routes';
 import { app } from '../../firebase/firebase';
 
-export async function redirectToManageSubscription() {
+async function redirectToManageSubscription() {
 	const cloudFunctionInstance = getFunctions(app, 'us-central1');
 	const cloudFunction = httpsCallable(
 		cloudFunctionInstance,
@@ -15,3 +15,8 @@ export async function redirectToManageSubscription() {
 
 	window.location.assign(data.url);
 }
+
+const obj = {
+	redirectToManageSubscription,
+};
+export default obj;
