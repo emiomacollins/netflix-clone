@@ -166,7 +166,7 @@ const CloseBtn = styled(Button)`
 	background: var(--dark);
 	display: grid;
 	place-content: center;
-	padding: 0.8em;
+	padding: 0.7em;
 	z-index: 1;
 
 	&:hover {
@@ -180,8 +180,8 @@ const CloseBtn = styled(Button)`
 `;
 
 const CloseIcon = styled(XIcon)`
-	width: 2rem;
-	height: 2rem;
+	width: var(--size-500);
+	aspect-ratio: 1;
 `;
 
 const VideoContainer = styled.div`
@@ -201,7 +201,7 @@ const Buttons = styled.div`
 `;
 
 const Icon = styled.div.attrs(() => ({ color: 'var(--light)' }))`
-	width: 2.5rem;
+	width: var(--size-450);
 `;
 
 const Text = styled.div`

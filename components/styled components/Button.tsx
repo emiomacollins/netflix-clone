@@ -1,5 +1,6 @@
 import { ButtonHTMLAttributes, CSSProperties, Fragment, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
+import { Breakpoints } from '../../constants/breakpoints';
 import Spinner from './Spinner';
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 	color?: 'transparent' | 'gray' | 'red';
@@ -101,7 +102,7 @@ const Container = styled.button<Props>`
 			border-radius: 50%;
 			display: grid;
 			place-content: center;
-			border: 2.5px solid var(--gray-mid);
+			border: 1.7px solid var(--light);
 			padding: 0.5em;
 			transition: 0.2s;
 
@@ -114,9 +115,12 @@ const Container = styled.button<Props>`
 			}
 
 			&:hover {
-				border-color: var(--light);
 				opacity: 1;
 				background: transparent;
+			}
+
+			@media ${Breakpoints.tabletUp} {
+				border-width: 2.5px;
 			}
 		`}
 `;
