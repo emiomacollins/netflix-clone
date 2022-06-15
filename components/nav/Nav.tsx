@@ -3,14 +3,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Breakpoints } from '../constants/breakpoints';
-import { routes } from '../constants/routes';
-import Logo from './Logo';
-import ProfileDropdown from './ProfileDropdown';
-import Show from './Show';
-import Button from './styled components/Button';
-import { contentStyles } from './styled components/Content';
-import { Flex } from './styled components/Flex';
+import { Breakpoints } from '../../constants/breakpoints';
+import { routes } from '../../constants/routes';
+import Logo from '../Logo';
+import ProfileDropdown from '../ProfileDropdown';
+import Show from '../Show';
+import Button from '../styled components/Button';
+import { contentStyles } from '../styled components/Content';
+import { Flex } from '../styled components/Flex';
+import Dropdown from '../Dropdown';
 
 /* TODO decide where each link goes*/
 const links = [
@@ -36,7 +37,6 @@ export default function Nav() {
 			<Content>
 				<Logo />
 
-				{/* TODO: add mobile dropdown toggle */}
 				<Show on={Breakpoints.tabletUp}>
 					<Links>
 						{links.map(({ label, route }) => (
@@ -52,7 +52,7 @@ export default function Nav() {
 				</Show>
 
 				<Show on={Breakpoints.tabletDown}>
-					<Button color='transparent'>Browse</Button>
+					<Dropdown options={links} label='Browse' left='0' />
 				</Show>
 
 				<Flex gap={2}>
@@ -95,12 +95,8 @@ const Content = styled.div`
 	display: grid;
 	align-items: center;
 	justify-items: left;
-	gap: 2rem;
+	gap: 3rem;
 	grid-template-columns: auto 1fr auto;
-
-	@media ${Breakpoints.tabletUp} {
-		gap: 3rem;
-	}
 `;
 
 const Links = styled.ul`
