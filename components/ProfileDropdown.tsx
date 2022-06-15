@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { forwardRef } from 'react';
 import styled, { css } from 'styled-components';
 import ProfileIconPath from '../assets/images/profileIcon.jpg';
+import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
 import { useToggle } from '../hooks/useToggle';
 import { flexStyles } from './styled components/Flex';
@@ -87,7 +88,6 @@ const Dropdown = styled.div<Props>`
 
 const Option = styled.div`
 	padding: 0.5em 1.5em;
-	font-size: var(--size-350);
 	cursor: pointer;
 
 	&:hover {
@@ -96,5 +96,9 @@ const Option = styled.div`
 
 	&:not(:last-child) {
 		border-bottom: 1px solid var(--gray-transparent-200);
+	}
+
+	@media ${Breakpoints.tabletUp} {
+		font-size: var(--size-350);
 	}
 `;
