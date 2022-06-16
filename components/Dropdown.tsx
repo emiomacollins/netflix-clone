@@ -28,7 +28,13 @@ const Dropdown = ({ label, options, top, left, right }: Props) => {
 				{label}
 				<Icon expanded={propsExpanded} />
 			</Toggle>
-			<Options expanded={propsExpanded} top={top} left={left} right={right}>
+			<Options
+				expanded={propsExpanded}
+				top={top}
+				left={left}
+				right={right}
+				onClick={toggleExpanded}
+			>
 				{options.map(({ route, label }) => (
 					<Link href={route} key={route}>
 						<Option>{label}</Option>
