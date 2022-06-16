@@ -30,7 +30,7 @@ export default function Modal() {
 
 	const {
 		query: { data: myList, isLoading: loadingMyList },
-		mutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
+		toggleMutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
 	} = useMyList();
 
 	const { data: extraInfo } = useQuery(`fetchExtraInfo-${modalMovie?.id}`, () =>
@@ -46,7 +46,6 @@ export default function Modal() {
 		original_language,
 		vote_count,
 	} = modalMovie || {};
-
 	const percentageMatch = vote_average * 10;
 	const isInMyList = useMemo(
 		() => (myList?.find(({ id }) => id === modalMovie?.id) ? true : false),
@@ -89,7 +88,7 @@ export default function Modal() {
 						{!loadingMyList && (
 							<Button
 								icon
-								toolTip={isInMyList ? 'Remove from list' : 'Add to list'}
+								toolTip={isInMyList ? 'Remove from List' : 'Add to List'}
 								onClick={() => toggleFromListMutation(modalMovie)}
 								disabled={togglingFromList}
 							>

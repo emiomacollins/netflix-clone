@@ -15,7 +15,7 @@ export function useMyList() {
 		return snapshot.data()?.list;
 	});
 
-	const mutation = useMutation(
+	const toggleMutation = useMutation(
 		`toggleFromList-${user?.uid}`,
 		async (modalMovie: Movie | null) => {
 			const myList = query.data;
@@ -37,6 +37,6 @@ export function useMyList() {
 
 	return {
 		query,
-		mutation,
+		toggleMutation,
 	};
 }
