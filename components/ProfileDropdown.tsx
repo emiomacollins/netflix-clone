@@ -16,7 +16,7 @@ export default function ProfileDropdown() {
 				{ label: 'Account', route: routes.account },
 				{ label: 'Sign out', route: routes.login },
 			]}
-			top='150%'
+			top='130%'
 			right='0'
 		/>
 	);
