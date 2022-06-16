@@ -124,5 +124,5 @@ const ForgotPasswordLink = styled(StyledLink)`
 	font-weight: 400;
 	justify-self: right;
 	font-size: var(--size-300);
-	opacity: 0.8;
+	opacity: 0.7;
 `;
