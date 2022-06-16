@@ -9,6 +9,7 @@ export const routes = {
 	login: '/login',
 	plans: '/plans',
 	forgotPassword: '/forgotPassword',
+	changePassword: '/changePassword',
 };
 
 export const unProctectedRoutes = [routes.login, routes.signUp, routes.forgotPassword];

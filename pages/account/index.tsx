@@ -77,8 +77,9 @@ export default function Account() {
 								<Bold>{email}</Bold>
 								<p>Password: *******</p>
 							</Grid>
-							{/* TODO: create change password page */}
-							<StyledLink>Change password</StyledLink>
+							<NextLink href={routes.changePassword}>
+								<StyledLink>Change password</StyledLink>
+							</NextLink>
 						</InnerRow>
 						<InnerRow>
 							<p>

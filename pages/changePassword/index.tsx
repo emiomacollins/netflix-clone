@@ -1,14 +1,11 @@
-import { sendPasswordResetEmail } from 'firebase/auth';
 import Head from 'next/head';
 import Image from 'next/image';
-import NextLink from 'next/link';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import Logo from '../../components/Logo';
 import { ErrorMessage } from '../../components/styled components/ErrorMessage';
 import { Grid } from '../../components/styled components/Grid';
-import { Link } from '../../components/styled components/Link';
 import {
 	BgImage,
 	Container,
@@ -20,13 +17,11 @@ import {
 } from '../../components/styled components/shared-styles/AuthPages';
 import { SuccessMessage } from '../../components/styled components/SuccessMessgae';
 import { Textbox } from '../../components/styled components/Textbox';
-import { routes } from '../../constants/routes';
 import { AuthPagesBgPath } from '../../constants/urls/images';
-import { auth } from '../../lib/firebase/firebase';
 
 export default function ForgotPassword() {
-	const [formData, setFormData] = useState({ email: '' });
-	const { email } = formData;
+	const [formData, setFormData] = useState({ oldPassword: '', newPassword: '' });
+	const { oldPassword, newPassword } = formData;
 
 	function handleSetFormData(e: ChangeEvent<HTMLInputElement>) {
 		const { name, value } = e.target;
@@ -38,9 +33,7 @@ export default function ForgotPassword() {
 		isLoading,
 		error,
 		status,
-	} = useMutation<void, Error>('sendResetLink', () =>
-		sendPasswordResetEmail(auth, email)
-	);
+	} = useMutation<void, Error>('sendResetLink', () => {});
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -50,7 +43,7 @@ export default function ForgotPassword() {
 	return (
 		<Container>
 			<Head>
-				<title>Reset Password</title>
+				<title>Change Password</title>
 			</Head>
 
 			<Header>
@@ -63,15 +56,25 @@ export default function ForgotPassword() {
 			<StyledOverlay />
 
 			<Form onSubmit={handleSubmit}>
-				<Heading>Reset Password</Heading>
-				<Textbox
-					placeholder='Email'
-					type='email'
-					name='email'
-					value={email}
-					required
-					onChange={handleSetFormData}
-				/>
+				<Heading>Change Password</Heading>
+				<Grid gap={1.5}>
+					<Textbox
+						placeholder='Old Password'
+						type='password'
+						name='oldPassword'
+						value={oldPassword}
+						required
+						onChange={handleSetFormData}
+					/>
+					<Textbox
+						placeholder='New Password'
+						type='password'
+						name='newPassword'
+						value={newPassword}
+						required
+						onChange={handleSetFormData}
+					/>
+				</Grid>
 
 				<Grid gap={1}>
 					{error && <ErrorMessage>{error.message}</ErrorMessage>}
@@ -82,12 +85,8 @@ export default function ForgotPassword() {
 					)}
 
 					<SubmitBtn color='red' isLoading={isLoading}>
-						Send Reset Link
+						Change Password
 					</SubmitBtn>
-
-					<NextLink href={routes.login}>
-						<StyledLink>Back to Login</StyledLink>
-					</NextLink>
 				</Grid>
 			</Form>
 		</Container>
@@ -96,11 +95,4 @@ export default function ForgotPassword() {
 
 const StyledSuccessMessage = styled(SuccessMessage)`
 	text-align: center;
-`;
-
-const StyledLink = styled(Link)`
-	font-weight: 400;
-	font-size: var(--size-350);
-	text-align: center;
-	display: block;
 `;

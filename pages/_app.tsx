@@ -74,6 +74,7 @@ const App = ({ children }: AppProps) => {
 						<ProgressBar />
 						<Head>
 							<link rel='icon' href='/logo.ico' />
+							<title>Netflix</title>
 						</Head>
 						{children}
 					</WithSubscription>
