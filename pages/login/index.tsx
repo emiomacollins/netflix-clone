@@ -100,6 +100,7 @@ export default function Login() {
 
 				<Grid gap={1}>
 					{error && <ErrorMessage>{error.message}</ErrorMessage>}
+
 					<SubmitBtn color='red' isLoading={isLoading}>
 						Sign in
 					</SubmitBtn>
@@ -107,13 +108,13 @@ export default function Login() {
 					<Link href={routes.forgotPassword}>
 						<ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
 					</Link>
-					<Text>
-						New to Netflix?{' '}
-						<Link href={routes.signUp}>
-							<StyledLink>Sign up</StyledLink>
-						</Link>
-					</Text>
 				</Grid>
+				<Text>
+					New to Netflix?{' '}
+					<Link href={routes.signUp}>
+						<StyledLink>Sign up</StyledLink>
+					</Link>
+				</Text>
 			</Form>
 		</Container>
 	);
@@ -121,6 +122,7 @@ export default function Login() {
 
 const ForgotPasswordLink = styled(StyledLink)`
 	font-weight: 400;
-	margin-top: 0.5em;
-	font-size: var(--size-350);
+	justify-self: right;
+	font-size: var(--size-300);
+	opacity: 0.8;
 `;

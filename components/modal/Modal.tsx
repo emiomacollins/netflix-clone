@@ -85,7 +85,7 @@ export default function Modal() {
 							<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
 						</Button>
 
-						{!loadingMyList && (
+						{!loadingMyList && modalMovie && (
 							<Button
 								icon
 								toolTip={isInMyList ? 'Remove from List' : 'Add to List'}
@@ -147,7 +147,7 @@ const StyledOverlay = styled(Overlay)<Props>`
 	z-index: 99;
 	opacity: 0;
 	pointer-events: none;
-	transition: 0.2s;
+	transition: 0.15s;
 	overflow: auto;
 
 	${(p) =>

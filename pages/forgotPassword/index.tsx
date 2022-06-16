@@ -101,4 +101,6 @@ const StyledSuccessMessage = styled(SuccessMessage)`
 const StyledLink = styled(Link)`
 	font-weight: 400;
 	font-size: var(--size-350);
+	text-align: center;
+	display: block;
 `;
