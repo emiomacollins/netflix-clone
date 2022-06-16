@@ -1,11 +1,18 @@
-import { PlusIcon, VolumeOffIcon, VolumeUpIcon, XIcon } from '@heroicons/react/solid';
-import { MouseEvent, useEffect } from 'react';
+import {
+	CheckIcon,
+	PlusIcon,
+	VolumeOffIcon,
+	VolumeUpIcon,
+	XIcon,
+} from '@heroicons/react/solid';
+import { MouseEvent, useEffect, useMemo } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { YOUTUBE_VIDEO_BASE_URL } from '../../constants/urls/apis';
+import { useMyList } from '../../hooks/useMyList';
 import { useToggle } from '../../hooks/useToggle';
 import { getModalMovie, setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
@@ -19,7 +26,12 @@ export default function Modal() {
 	const dispatch = useDispatch();
 	const modalMovie = useSelector(getModalMovie);
 	const visible = !!modalMovie;
-	const { state: muted, toggle: toggleMuted } = useToggle(false);
+	const { state: muted, toggle: toggleMuted } = useToggle();
+
+	const {
+		query: { data: myList, isLoading: loadingMyList },
+		mutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
+	} = useMyList();
 
 	const { data: extraInfo } = useQuery(`fetchExtraInfo-${modalMovie?.id}`, () =>
 		visible ? fetchExtraInfo(modalMovie) : null
@@ -36,6 +48,10 @@ export default function Modal() {
 	} = modalMovie || {};
 
 	const percentageMatch = vote_average * 10;
+	const isInMyList = useMemo(
+		() => (myList?.find(({ id }) => id === modalMovie?.id) ? true : false),
+		[modalMovie?.id, myList]
+	);
 
 	useEffect(() => {
 		document.documentElement.style.overflow = modalMovie ? 'hidden' : 'unset';
@@ -69,10 +85,21 @@ export default function Modal() {
 						<Button icon onClick={toggleMuted}>
 							<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
 						</Button>
-						{/* TODO: add to list functionality */}
-						<Button icon toolTip='Add to My list'>
-							<Icon as={PlusIcon} />
-						</Button>
+
+						{!loadingMyList && (
+							<Button
+								icon
+								toolTip={isInMyList ? 'Remove from list' : 'Add to list'}
+								onClick={() => toggleFromListMutation(modalMovie)}
+								disabled={togglingFromList}
+							>
+								{isInMyList ? (
+									<Icon as={CheckIcon} />
+								) : (
+									<Icon as={PlusIcon} />
+								)}
+							</Button>
+						)}
 					</Buttons>
 				</VideoContainer>
 
@@ -202,7 +229,7 @@ const Buttons = styled.div`
 `;
 
 const Icon = styled.div.attrs(() => ({ color: 'var(--light)' }))`
-	width: var(--size-450);
+	width: var(--size-500);
 `;
 
 const Text = styled.div`

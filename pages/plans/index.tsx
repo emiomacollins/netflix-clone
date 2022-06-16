@@ -35,14 +35,14 @@ export default function Plans({ plans }: Props) {
 				<title>Plans</title>
 			</Head>
 
-			<Header>
-				<HeaderContent>
+			<Nav>
+				<NavContent>
 					<Logo />
 					<NextLink href={routes.login}>
 						<Link>Sign Out</Link>
 					</NextLink>
-				</HeaderContent>
-			</Header>
+				</NavContent>
+			</Nav>
 
 			<Content>
 				<Heading>Choose the plan that&apos;s right for you</Heading>
@@ -57,6 +57,7 @@ export default function Plans({ plans }: Props) {
 						<BulletPointCheckIcon /> Change or cancel your plan anytime.
 					</BulletPoint>
 				</BulletPoints>
+
 				<PlansGrid plans={plans} />
 				{/* TODO: add popup displaying test card info */}
 			</Content>
@@ -70,12 +71,12 @@ const Container = styled.div`
 	padding-bottom: 4rem;
 `;
 
-const Header = styled.div`
+const Nav = styled.div`
 	border-bottom: 1px solid var(--gray-transparent-200);
 	padding-block: var(--size-400);
 `;
 
-const HeaderContent = styled.div`
+const NavContent = styled.div`
 	${contentStyles}
 	${flexStyles}
 	justify-content: space-between;

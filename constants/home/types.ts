@@ -19,6 +19,6 @@ export interface Movie {
 
 export interface homePageData {
 	title: string;
-	url: string;
+	url?: string;
 	movies?: Movie[];
 }

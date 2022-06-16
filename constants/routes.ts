@@ -3,7 +3,7 @@ export const routes = {
 	tvShows: '/?category=tv-shows',
 	movies: '/?category=movies',
 	new: '/?category=new',
-	myList: '/myList',
+	myList: '#my-list',
 	account: '/account',
 	signUp: '/signup',
 	login: '/login',

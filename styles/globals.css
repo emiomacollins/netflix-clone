@@ -6,6 +6,7 @@
 
 :root {
 	font-size: 62.5%;
+	scroll-behavior: smooth;
 
 	--light: #e5e5e5;
 	--white: #fff;

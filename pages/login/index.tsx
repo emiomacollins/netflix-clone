@@ -98,8 +98,6 @@ export default function Login() {
 					/>
 				</Inputs>
 
-				{/* TODO:add forgot password and create page */}
-
 				<Grid gap={1}>
 					{error && <ErrorMessage>{error.message}</ErrorMessage>}
 					<SubmitBtn color='red' isLoading={isLoading}>

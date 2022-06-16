@@ -12,9 +12,9 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export default function Button(props: Props) {
-	const { isLoading, children, toolTip, spinnerStyles } = props;
+	const { isLoading, children, toolTip, spinnerStyles, ...restOfProps } = props;
 	return (
-		<Container {...props} disabled={isLoading}>
+		<Container disabled={isLoading} {...restOfProps}>
 			{isLoading ? (
 				<Spinner styles={spinnerStyles} />
 			) : (
@@ -72,6 +72,10 @@ const Container = styled.button<Props>`
 		${ToolTip} {
 			opacity: 1;
 		}
+	}
+
+	&:disabled {
+		opacity: 0.5 !important;
 	}
 
 	${(p) =>

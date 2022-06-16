@@ -4,14 +4,15 @@ import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
 import Nav from '../components/nav/Nav';
-import { homePageData } from '../constants/home/types';
+import { homePageData, Movie } from '../constants/home/types';
 import { baseAxios } from '../lib/axios/config';
 
 interface Props {
 	data: homePageData[];
+	myList: Movie[];
 }
 
-export default function Home({ data }: Props) {
+export default function Home({ data, myList }: Props) {
 	const [netflixOriginals, ...categories] = data;
 
 	return (
@@ -47,7 +48,7 @@ export async function getServerSideProps() {
 		{ title: 'documentaries', url: `/discover/movie?with_genres=99` },
 	];
 
-	const results = await Promise.all(data.map(({ url }) => baseAxios(url)));
+	const results = await Promise.all(data.map(({ url }) => baseAxios(url || '')));
 	results.forEach(({ data: { results } }, index) => {
 		data[index].movies = results;
 	});

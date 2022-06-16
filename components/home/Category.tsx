@@ -9,7 +9,11 @@ import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 
-export default function Category({ title, movies }: homePageData) {
+interface Props extends homePageData {
+	id?: string;
+}
+
+export default function Category({ id, title, movies }: Props) {
 	const SliderRef = useRef<HTMLDivElement | any>(null);
 	const dispatch = useDispatch();
 
@@ -27,7 +31,7 @@ export default function Category({ title, movies }: homePageData) {
 	}
 
 	return (
-		<Container>
+		<Container id={id}>
 			<Heading>{title}</Heading>
 
 			<Gallery>
