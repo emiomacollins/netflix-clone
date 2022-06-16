@@ -17,8 +17,8 @@ export interface Movie {
 	vote_count: number;
 }
 
-export interface homePageData {
+export interface MovieCategory {
 	title: string;
 	url?: string;
-	movies?: Movie[];
+	movies: Movie[];
 }

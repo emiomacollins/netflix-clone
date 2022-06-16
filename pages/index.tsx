@@ -4,17 +4,15 @@ import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
 import Nav from '../components/nav/Nav';
-import { homePageData, Movie } from '../constants/home/types';
+import { Movie, MovieCategory } from '../constants/home/types';
 import { baseAxios } from '../lib/axios/config';
 
 interface Props {
-	data: homePageData[];
-	myList: Movie[];
+	categories: MovieCategory[];
+	randomMovie: Movie;
 }
 
-export default function Home({ data, myList }: Props) {
-	const [netflixOriginals, ...categories] = data;
-
+export default function Home({ categories, randomMovie }: Props) {
 	return (
 		<Container>
 			<Head>
@@ -22,7 +20,7 @@ export default function Home({ data, myList }: Props) {
 			</Head>
 			<Nav />
 			<Modal />
-			<Hero netflixOriginals={netflixOriginals.movies} />
+			<Hero randomMovie={randomMovie} />
 			<CategoryList categories={categories} />
 			{/* TODO: Footer (check netflix own) */}
 		</Container>
@@ -34,7 +32,7 @@ const Container = styled.div`
 `;
 
 export async function getServerSideProps() {
-	const data: homePageData[] = [
+	const routes = [
 		{
 			title: 'Netflix Originals',
 			url: `/discover/movie?with_networks=213`,
@@ -48,14 +46,26 @@ export async function getServerSideProps() {
 		{ title: 'documentaries', url: `/discover/movie?with_genres=99` },
 	];
 
-	const results = await Promise.all(data.map(({ url }) => baseAxios(url || '')));
-	results.forEach(({ data: { results } }, index) => {
-		data[index].movies = results;
+	interface Result {
+		data: { results: Movie[] };
+	}
+
+	const results: Result[] = await Promise.all(
+		routes.map(({ url }) => baseAxios(url || ''))
+	);
+
+	const data: MovieCategory[] = results.map(({ data: { results } }, i) => {
+		return { ...routes[i], movies: results };
 	});
+
+	const [netflixOriginals, ...categories] = data;
+	const randomIndex = Math.floor(Math.random() * netflixOriginals.movies?.length);
+	const randomMovie = netflixOriginals.movies[randomIndex];
 
 	return {
 		props: {
-			data,
+			categories,
+			randomMovie,
 		},
 	};
 }

@@ -4,12 +4,12 @@ import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { homePageData, Movie } from '../../constants/home/types';
+import { Movie, MovieCategory } from '../../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
 import Button from '../styled components/Button';
 
-interface Props extends homePageData {
+interface Props extends MovieCategory {
 	id?: string;
 }
 

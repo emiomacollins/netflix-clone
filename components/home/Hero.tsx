@@ -1,7 +1,6 @@
 import { InformationCircleIcon } from '@heroicons/react/outline';
 import { PlayIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
-import { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
@@ -13,29 +12,22 @@ import { contentStyles } from '../styled components/Content';
 import { flexStyles } from '../styled components/Flex';
 
 interface Props {
-	netflixOriginals: Movie[] | undefined;
+	randomMovie: Movie;
 }
 
-export default function Hero({ netflixOriginals = [] }: Props) {
+export default function Hero({ randomMovie }: Props) {
 	const dispatch = useDispatch();
-	const randomMovie = useMemo(() => {
-		// const randomIndex = Math.floor(Math.random() * netflixOriginals.length);
-		const randomIndex = new Date().getMinutes() % (netflixOriginals.length - 1);
-
-		return netflixOriginals[randomIndex];
-	}, [netflixOriginals]);
 
 	const { backdrop_path, poster_path, title, name, original_name, overview } =
 		randomMovie;
 
-	function handleSetModalMovie() {
+	function handlePlay() {
 		dispatch(setModalMovie(randomMovie));
 	}
 
 	return (
 		<Container>
 			<BgImage>
-				{/* TODO: make server and client random image the same */}
 				<Image
 					priority
 					layout='fill'
@@ -53,11 +45,11 @@ export default function Hero({ netflixOriginals = [] }: Props) {
 				<Overview>{overview}</Overview>
 
 				<Buttons>
-					<StyledButton onClick={handleSetModalMovie}>
+					<StyledButton onClick={handlePlay}>
 						<Icon as={PlayIcon} />
 						Play
 					</StyledButton>
-					<StyledButton color='gray' onClick={handleSetModalMovie}>
+					<StyledButton color='gray' onClick={handlePlay}>
 						<Icon as={InformationCircleIcon} /> More Info
 					</StyledButton>
 				</Buttons>
