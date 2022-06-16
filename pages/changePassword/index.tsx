@@ -1,3 +1,8 @@
+import {
+	EmailAuthProvider,
+	reauthenticateWithCredential,
+	updatePassword,
+} from 'firebase/auth';
 import Head from 'next/head';
 import Image from 'next/image';
 import { ChangeEvent, FormEvent, useState } from 'react';
@@ -18,6 +23,7 @@ import {
 import { SuccessMessage } from '../../components/styled components/SuccessMessgae';
 import { Textbox } from '../../components/styled components/Textbox';
 import { AuthPagesBgPath } from '../../constants/urls/images';
+import { auth } from '../../lib/firebase/firebase';
 
 export default function ForgotPassword() {
 	const [formData, setFormData] = useState({ oldPassword: '', newPassword: '' });
@@ -33,7 +39,21 @@ export default function ForgotPassword() {
 		isLoading,
 		error,
 		status,
-	} = useMutation<void, Error>('sendResetLink', () => {});
+	} = useMutation<void, Error>('changePassword', async () => {
+		if (!auth.currentUser) return;
+
+		try {
+			const credential = EmailAuthProvider.credential(
+				auth.currentUser.email || '',
+				oldPassword
+			);
+			await reauthenticateWithCredential(auth.currentUser, credential);
+		} catch (error) {
+			throw new Error('Invalid old password');
+		}
+
+		await updatePassword(auth.currentUser, newPassword);
+	});
 
 	function handleSubmit(e: FormEvent<HTMLFormElement>) {
 		e.preventDefault();
@@ -80,7 +100,7 @@ export default function ForgotPassword() {
 					{error && <ErrorMessage>{error.message}</ErrorMessage>}
 					{status === 'success' && (
 						<StyledSuccessMessage>
-							Email sent (check spam too)
+							Password changed successfully
 						</StyledSuccessMessage>
 					)}
 

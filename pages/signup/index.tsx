@@ -1,4 +1,4 @@
-import { UserCredential } from 'firebase/auth';
+import { createUserWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import { Form, Formik } from 'formik';
 import Head from 'next/head';
 import Image from 'next/image';
@@ -24,7 +24,8 @@ import {
 } from '../../components/styled components/shared-styles/AuthPages';
 import { routes } from '../../constants/routes';
 import { AuthPagesBgPath } from '../../constants/urls/images';
-import { AuthProps, signUpWithEmailAndPassword } from '../../lib/firebase/firebase';
+import { auth } from '../../lib/firebase/firebase';
+import { AuthProps } from '../login';
 
 export default function SignUp() {
 	const router = useRouter();
@@ -32,9 +33,9 @@ export default function SignUp() {
 		mutate: signUpMutation,
 		isLoading,
 		error,
-	} = useMutation<UserCredential, Error, AuthProps>( // <ReturnType, ErrorType, ParametersType>
+	} = useMutation<UserCredential, Error, AuthProps>(
 		'signInWithEmailAndPassword',
-		signUpWithEmailAndPassword,
+		({ email, password }) => createUserWithEmailAndPassword(auth, email, password),
 		{
 			onSuccess: () => {
 				router.push(routes.home);

@@ -1,9 +1,5 @@
 import { getApp, getApps, initializeApp } from 'firebase/app';
-import {
-	createUserWithEmailAndPassword,
-	getAuth,
-	signInWithEmailAndPassword as firebaseSignInWithEmailAndPassword,
-} from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 const appConfig = {
@@ -18,16 +14,3 @@ const appConfig = {
 export const app = getApps().length ? getApp() : initializeApp(appConfig);
 export const auth = getAuth();
 export const firestore = getFirestore(app);
-
-export interface AuthProps {
-	email: string;
-	password: string;
-}
-
-export async function signInWithEmailAndPassword({ email, password }: AuthProps) {
-	return await firebaseSignInWithEmailAndPassword(auth, email, password);
-}
-
-export async function signUpWithEmailAndPassword({ email, password }: AuthProps) {
-	return await createUserWithEmailAndPassword(auth, email, password);
-}

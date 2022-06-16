@@ -1,4 +1,4 @@
-import { UserCredential } from 'firebase/auth';
+import { signInWithEmailAndPassword, UserCredential } from 'firebase/auth';
 import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,7 +24,12 @@ import {
 import { Textbox } from '../../components/styled components/Textbox';
 import { routes } from '../../constants/routes';
 import { AuthPagesBgPath } from '../../constants/urls/images';
-import { auth, AuthProps, signInWithEmailAndPassword } from '../../lib/firebase/firebase';
+import { auth } from '../../lib/firebase/firebase';
+
+export interface AuthProps {
+	email: string;
+	password: string;
+}
 
 export default function Login() {
 	const router = useRouter();
@@ -40,7 +45,7 @@ export default function Login() {
 		isLoading,
 	} = useMutation<UserCredential, Error, AuthProps>(
 		'login',
-		signInWithEmailAndPassword,
+		({ email, password }) => signInWithEmailAndPassword(auth, email, password),
 		{
 			onSuccess: () => {
 				router.push(routes.home);

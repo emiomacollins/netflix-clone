@@ -19,7 +19,9 @@ interface Props {
 export default function Hero({ netflixOriginals = [] }: Props) {
 	const dispatch = useDispatch();
 	const randomMovie = useMemo(() => {
-		const randomIndex = Math.floor(Math.random() * netflixOriginals.length);
+		// const randomIndex = Math.floor(Math.random() * netflixOriginals.length);
+		const randomIndex = new Date().getMinutes() % (netflixOriginals.length - 1);
+
 		return netflixOriginals[randomIndex];
 	}, [netflixOriginals]);
 

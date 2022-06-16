@@ -25,7 +25,7 @@ export function useMyList() {
 				list:
 					index >= 0
 						? myList?.filter((_, i) => i !== index)
-						: [...(myList || []), modalMovie],
+						: [modalMovie, ...(myList || [])],
 			});
 		},
 		{
