@@ -78,7 +78,7 @@ export default function Account() {
 								<p>Password: *******</p>
 							</Grid>
 							{/* TODO: create change password page */}
-							<BlueLink>Change password</BlueLink>
+							<StyledLink>Change password</StyledLink>
 						</InnerRow>
 						<InnerRow>
 							<p>
@@ -105,7 +105,7 @@ export default function Account() {
 					<Grid>
 						<InnerRow>
 							<NextLink href={routes.login}>
-								<BlueLink>Sign out</BlueLink>
+								<StyledLink>Sign out</StyledLink>
 							</NextLink>
 						</InnerRow>
 					</Grid>
@@ -203,7 +203,7 @@ const InnerRow = styled.div`
 	}
 `;
 
-const BlueLink = styled(Link)`
+const StyledLink = styled(Link)`
 	color: var(--blue);
 	font-weight: 400;
 	letter-spacing: 0;

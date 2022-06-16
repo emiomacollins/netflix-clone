@@ -1,6 +1,11 @@
 import styled from 'styled-components';
-export const Link = styled.a`
-	color: var(--white);
+
+interface Props {
+	color?: string;
+}
+
+export const Link = styled.a<Props>`
+	color: var(--${(p) => p.color || 'white'});
 	font-weight: 500;
 	white-space: nowrap;
 

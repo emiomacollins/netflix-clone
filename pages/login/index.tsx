@@ -1,14 +1,15 @@
 import { UserCredential } from 'firebase/auth';
 import Head from 'next/head';
 import Image from 'next/image';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
+import styled from 'styled-components';
 import Logo from '../../components/Logo';
 import { ErrorMessage } from '../../components/styled components/ErrorMessage';
 import { Grid } from '../../components/styled components/Grid';
-import { Link } from '../../components/styled components/Link';
+import { Link as StyledLink } from '../../components/styled components/Link';
 import {
 	BgImage,
 	Container,
@@ -96,20 +97,32 @@ export default function Login() {
 						onChange={handleSetFormData}
 					/>
 				</Inputs>
-				<Grid gap={0}>
+
+				{/* TODO:add forgot password and create page */}
+
+				<Grid gap={1}>
 					{error && <ErrorMessage>{error.message}</ErrorMessage>}
 					<SubmitBtn color='red' isLoading={isLoading}>
 						Sign in
 					</SubmitBtn>
+
+					<Link href={routes.forgotPassword}>
+						<ForgotPasswordLink>Forgot your password?</ForgotPasswordLink>
+					</Link>
+					<Text>
+						New to Netflix?{' '}
+						<Link href={routes.signUp}>
+							<StyledLink>Sign up</StyledLink>
+						</Link>
+					</Text>
 				</Grid>
-				{/* TODO:add forgot password and create page */}
-				<Text>
-					New to Netflix?{' '}
-					<NextLink href={routes.signUp}>
-						<Link>Sign up now</Link>
-					</NextLink>
-				</Text>
 			</Form>
 		</Container>
 	);
 }
+
+const ForgotPasswordLink = styled(StyledLink)`
+	font-weight: 400;
+	margin-top: 0.5em;
+	font-size: var(--size-350);
+`;

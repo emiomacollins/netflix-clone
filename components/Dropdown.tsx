@@ -126,7 +126,7 @@ const Options = styled.div<ExpandedProps & OptionsProps>`
 `;
 
 const Option = styled.a`
-	padding: 0.4em 1em;
+	padding: 0.5em 1.3em;
 
 	&:last-child {
 		padding-bottom: 0.8em;

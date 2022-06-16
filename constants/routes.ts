@@ -8,7 +8,8 @@ export const routes = {
 	signUp: '/signup',
 	login: '/login',
 	plans: '/plans',
+	forgotPassword: '/forgotPassword',
 };
 
-export const unProctectedRoutes = [routes.login, routes.signUp];
+export const unProctectedRoutes = [routes.login, routes.signUp, routes.forgotPassword];
 export const noSubscriptionRoutes = [...unProctectedRoutes, routes.plans];

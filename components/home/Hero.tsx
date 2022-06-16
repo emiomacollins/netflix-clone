@@ -33,6 +33,7 @@ export default function Hero({ netflixOriginals = [] }: Props) {
 	return (
 		<Container>
 			<BgImage>
+				{/* TODO: make server and client random image the same */}
 				<Image
 					priority
 					layout='fill'
