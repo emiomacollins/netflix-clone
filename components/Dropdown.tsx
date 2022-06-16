@@ -90,8 +90,11 @@ const Options = styled.div<ExpandedProps & OptionsProps>`
 	min-width: max-content;
 	display: grid;
 	opacity: 0;
+	transform: scale(0.95);
 	transition: 0.2s;
 	pointer-events: none;
+	border-radius: var(--radius-400);
+	overflow: hidden;
 
 	${(p) =>
 		!p.left &&
@@ -113,21 +116,13 @@ const Options = styled.div<ExpandedProps & OptionsProps>`
 			right: ${p.right};
 		`}
 
-	::before {
-		content: '';
-		width: 101%;
-		height: 2.5px;
-		background: var(--light);
-		top: -1px;
-		left: -0.5px;
-		position: absolute;
-	}
 
 	${(p) =>
 		p.expanded &&
 		css`
 			opacity: 1;
 			pointer-events: visible;
+			transform: scale(1);
 		`}
 `;
 
