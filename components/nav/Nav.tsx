@@ -14,6 +14,7 @@ import Show from '../Show';
 import Button from '../styled components/Button';
 import { contentStyles } from '../styled components/Content';
 import { Flex } from '../styled components/Flex';
+import { Overlay } from '../styled components/Overlay';
 
 /* TODO decide where each link goes*/
 const links = [
@@ -28,6 +29,7 @@ export default function Nav() {
 	const { asPath } = useRouter();
 	const [scrolled, setScrolled] = useState(false);
 	const { state: expanded, toggle: toggleExpanded } = useToggle();
+	const expandedProp = expanded ? 'true' : undefined;
 
 	useEffect(() => {
 		const handleScroll = () => setScrolled(window.scrollY > 0);
@@ -35,16 +37,23 @@ export default function Nav() {
 		return () => window.removeEventListener('scroll', handleScroll);
 	}, []);
 
+	useEffect(() => {
+		document.documentElement.style.overflow = expanded ? 'hidden' : 'unset';
+	}, [expanded]);
+
 	return (
-		<Container scrolled={scrolled}>
+		<Container scrolled={scrolled} expanded={expandedProp}>
 			<Content>
 				<Show on={Breakpoints.tabletDown}>
-					<StyledButton color='transparent'>
+					<StyledButton color='transparent' onClick={toggleExpanded}>
 						<HamburgerIcon>
 							<Image src={HamburgerIconPath} alt='' />
 						</HamburgerIcon>
 					</StyledButton>
+					<ExpandedLinks expanded={expandedProp}></ExpandedLinks>
+					<StyledOverlay expanded={expandedProp} opacity={0.5} />
 				</Show>
+
 				<Logo />
 
 				<Show on={Breakpoints.tabletUp}>
@@ -61,15 +70,11 @@ export default function Nav() {
 					</Links>
 				</Show>
 
-				{/* <Show on={Breakpoints.tabletDown}>
-					<Dropdown options={links} label='Browse' left='0' />
-				</Show> */}
-
 				<SearchContainer gap={2}>
-					{/* TODO: add search functionality */}
 					<StyledButton color='transparent'>
 						<Icon as={SearchIcon} />
 					</StyledButton>
+
 					<Show on={Breakpoints.tabletUp}>
 						<Link href={routes.account}>
 							<ProfileDropdown />
@@ -85,19 +90,26 @@ interface ContainerProps {
 	scrolled: boolean;
 }
 
-const Container = styled.div<ContainerProps>`
+const Container = styled.div<ContainerProps & Props>`
+	--transition: 0.15s;
+
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
-	transition: 0.2s;
 	z-index: 99;
 	padding-block: var(--size-300);
+	transition: var(--transition);
 
 	${(p) =>
 		p.scrolled &&
 		css`
 			background: var(--dark);
+		`}
+	${(p) =>
+		p.expanded &&
+		css`
+			background: var(--black);
 		`}
 `;
 
@@ -161,4 +173,30 @@ const HamburgerIcon = styled.div`
 
 const SearchContainer = styled(Flex)`
 	justify-self: right;
+`;
+
+interface Props {
+	expanded: string | undefined;
+}
+
+const ExpandedLinks = styled.div<Props>`
+	position: fixed;
+	top: 6.4rem;
+	left: 0;
+	background: var(--black);
+	width: 280px;
+	min-height: 100vh;
+	transform: translateX(${(p) => (p.expanded ? 0 : -100)}%);
+	transition: var(--transition);
+	z-index: -1;
+`;
+
+const StyledOverlay = styled(Overlay)<Props>`
+	z-index: -1;
+	transition: var(--transition);
+	${(p) =>
+		!p.expanded &&
+		css`
+			opacity: 0;
+		`}
 `;
