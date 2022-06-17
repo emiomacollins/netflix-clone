@@ -2,7 +2,7 @@ import { SearchIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import HamburgerIconPath from '../../assets/images/hamburger.svg';
 import { Breakpoints } from '../../constants/breakpoints';
@@ -28,6 +28,9 @@ const links = [
 export default function Nav() {
 	const { asPath } = useRouter();
 	const [scrolled, setScrolled] = useState(false);
+	const [paddingLeft, setPaddingLeft] = useState('0');
+	const navContentRef = useRef<HTMLDivElement>(null);
+
 	const {
 		state: expanded,
 		toggle: toggleExpanded,
@@ -45,16 +48,40 @@ export default function Nav() {
 		document.documentElement.style.overflow = expanded ? 'hidden' : 'unset';
 	}, [expanded]);
 
+	useEffect(() => {
+		function calculatePadding() {
+			if (!navContentRef.current) return;
+			const contentWidth = navContentRef.current?.offsetWidth; // 93% of body from `contentStyles`
+			const inlineMargin = (contentWidth / 93) * 3.5;
+			setPaddingLeft(`${inlineMargin + 5}px`);
+		}
+		calculatePadding();
+		window.addEventListener('resize', calculatePadding);
+		return () => window.removeEventListener('resize', calculatePadding);
+	}, []);
+
 	return (
 		<Container scrolled={scrolled} expanded={expandedProp}>
-			<Content>
+			<Content ref={navContentRef}>
 				<Show on={Breakpoints.tabletDown}>
 					<StyledButton color='transparent' onClick={toggleExpanded}>
 						<HamburgerIcon>
 							<Image src={HamburgerIconPath} alt='' />
 						</HamburgerIcon>
 					</StyledButton>
-					<ExpandedLinks expanded={expandedProp}></ExpandedLinks>
+
+					<ExpandedLinks expanded={expandedProp} paddingLeft={paddingLeft}>
+						<ExpandedLinksContent>
+							<Link href={routes.account}>
+								<BoldLink>Account</BoldLink>
+							</Link>
+							<Link href={routes.login}>
+								<BoldLink>Sign Out</BoldLink>
+							</Link>
+						</ExpandedLinksContent>
+						<Line />
+					</ExpandedLinks>
+
 					<StyledOverlay
 						expanded={expandedProp}
 						opacity={0.5}
@@ -98,7 +125,7 @@ interface ContainerProps {
 	scrolled: boolean;
 }
 
-const Container = styled.div<ContainerProps & Props>`
+const Container = styled.div<ContainerProps & ExpandedLinksProps>`
 	--transition: 0.15s;
 
 	position: fixed;
@@ -167,6 +194,8 @@ const StyledButton = styled(Button)`
 
 const Icon = styled.div`
 	height: var(--size-650);
+	aspect-ratio: 1;
+	position: relative;
 
 	@media ${Breakpoints.tabletDown} {
 		height: var(--size-700);
@@ -183,11 +212,13 @@ const SearchContainer = styled(Flex)`
 	justify-self: right;
 `;
 
-interface Props {
+interface ExpandedLinksProps {
 	expanded: string | undefined;
+	paddingLeft?: string;
 }
 
-const ExpandedLinks = styled.div<Props>`
+const ExpandedLinks = styled.div<ExpandedLinksProps>`
+	--padding-left: ${(p) => p.paddingLeft};
 	position: fixed;
 	top: 6.4rem;
 	left: 0;
@@ -198,6 +229,8 @@ const ExpandedLinks = styled.div<Props>`
 	pointer-events: none;
 	transition: var(--transition);
 	z-index: -1;
+	padding-block: 1rem;
+
 	${(p) =>
 		p.expanded &&
 		css`
@@ -206,8 +239,20 @@ const ExpandedLinks = styled.div<Props>`
 		`}
 `;
 
-const StyledOverlay = styled(Overlay)<Props>`
-	z-index: -1;
+const ExpandedLinksContent = styled.div`
+	padding-left: var(--padding-left);
+	display: grid;
+`;
+
+const Line = styled.div`
+	height: 1px;
+	width: 100%;
+	background: var(--gray-transparent-200);
+	margin-block: 2rem;
+`;
+
+const StyledOverlay = styled(Overlay)<ExpandedLinksProps>`
+	z-index: -2;
 	transition: var(--transition);
 	opacity: 0;
 	pointer-events: none;
@@ -218,4 +263,12 @@ const StyledOverlay = styled(Overlay)<Props>`
 			opacity: unset;
 			pointer-events: visible;
 		`}
+`;
+
+const BoldLink = styled.a`
+	font-weight: 500;
+	letter-spacing: 0.02em;
+	color: var(--gray);
+	font-size: var(--size-500);
+	padding-block: 0.5rem;
 `;
