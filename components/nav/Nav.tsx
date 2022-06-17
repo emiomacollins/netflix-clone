@@ -41,7 +41,7 @@ export default function Nav() {
 					<Links>
 						{links.map(({ label, route }) => (
 							<li key={route}>
-								<Link href={route}>
+								<Link href={route} passHref>
 									<StyledLink active={asPath === route}>
 										{label}
 									</StyledLink>

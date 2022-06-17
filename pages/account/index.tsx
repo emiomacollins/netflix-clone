@@ -65,7 +65,7 @@ export default function Account() {
 							isLoading={isLoading}
 							spinnerStyles={{
 								borderColor: 'var(--black)',
-								borderWidth: '1.5px',
+								borderWidth: '1.8px',
 							}}
 						>
 							Manage Subscription

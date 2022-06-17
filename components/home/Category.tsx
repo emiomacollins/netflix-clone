@@ -14,12 +14,12 @@ interface Props extends MovieCategory {
 }
 
 export default function Category({ id, title, movies }: Props) {
-	const SliderRef = useRef<HTMLDivElement | any>(null);
+	const SliderRef = useRef<HTMLDivElement | any>();
 	const dispatch = useDispatch();
 
 	function handleScroll(increment: number) {
-		const widthOfVisibleSlider = SliderRef.current.offsetWidth;
-		const currentScrollPosition = SliderRef.current.scrollLeft;
+		const widthOfVisibleSlider = SliderRef.current?.offsetWidth;
+		const currentScrollPosition = SliderRef.current?.scrollLeft;
 		SliderRef.current?.scrollTo({
 			behavior: 'smooth',
 			left: currentScrollPosition + increment * widthOfVisibleSlider,
