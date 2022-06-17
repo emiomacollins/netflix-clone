@@ -1,11 +1,13 @@
 import { SearchIcon } from '@heroicons/react/solid';
+import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import HamburgerIconPath from '../../assets/images/hamburger.svg';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
-import Dropdown from '../Dropdown';
+import { useToggle } from '../../hooks/useToggle';
 import Logo from '../Logo';
 import ProfileDropdown from '../ProfileDropdown';
 import Show from '../Show';
@@ -25,6 +27,7 @@ const links = [
 export default function Nav() {
 	const { asPath } = useRouter();
 	const [scrolled, setScrolled] = useState(false);
+	const { state: expanded, toggle: toggleExpanded } = useToggle();
 
 	useEffect(() => {
 		const handleScroll = () => setScrolled(window.scrollY > 0);
@@ -35,6 +38,13 @@ export default function Nav() {
 	return (
 		<Container scrolled={scrolled}>
 			<Content>
+				<Show on={Breakpoints.tabletDown}>
+					<StyledButton color='transparent'>
+						<HamburgerIcon>
+							<Image src={HamburgerIconPath} alt='' />
+						</HamburgerIcon>
+					</StyledButton>
+				</Show>
 				<Logo />
 
 				<Show on={Breakpoints.tabletUp}>
@@ -51,19 +61,21 @@ export default function Nav() {
 					</Links>
 				</Show>
 
-				<Show on={Breakpoints.tabletDown}>
+				{/* <Show on={Breakpoints.tabletDown}>
 					<Dropdown options={links} label='Browse' left='0' />
-				</Show>
+				</Show> */}
 
-				<Flex gap={2}>
+				<SearchContainer gap={2}>
 					{/* TODO: add search functionality */}
-					<Search color='transparent'>
-						<StyledSearchIcon />
-					</Search>
-					<Link href={routes.account}>
-						<ProfileDropdown />
-					</Link>
-				</Flex>
+					<StyledButton color='transparent'>
+						<Icon as={SearchIcon} />
+					</StyledButton>
+					<Show on={Breakpoints.tabletUp}>
+						<Link href={routes.account}>
+							<ProfileDropdown />
+						</Link>
+					</Show>
+				</SearchContainer>
 			</Content>
 		</Container>
 	);
@@ -94,8 +106,13 @@ const Content = styled.div`
 	display: grid;
 	align-items: center;
 	justify-items: left;
-	gap: 3rem;
-	grid-template-columns: auto 1fr auto;
+	gap: 1rem;
+	grid-template-columns: auto auto 1fr;
+
+	@media ${Breakpoints.tabletUp} {
+		grid-template-columns: auto 1fr auto;
+		gap: 3rem;
+	}
 `;
 
 const Links = styled.ul`
@@ -123,11 +140,25 @@ const StyledLink = styled.a<StyledLinkProps>`
 	}
 `;
 
-const Search = styled(Button)`
+const StyledButton = styled(Button)`
 	display: flex;
 	padding: 0;
 `;
 
-const StyledSearchIcon = styled(SearchIcon)`
-	width: var(--size-600);
+const Icon = styled.div`
+	height: var(--size-650);
+
+	@media ${Breakpoints.tabletDown} {
+		height: var(--size-700);
+	}
+`;
+
+const HamburgerIcon = styled.div`
+	aspect-ratio: 1;
+	height: 4rem;
+	display: flex;
+`;
+
+const SearchContainer = styled(Flex)`
+	justify-self: right;
 `;

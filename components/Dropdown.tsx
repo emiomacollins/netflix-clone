@@ -61,6 +61,7 @@ const Toggle = styled.button`
 	border: 0;
 	color: var(--light);
 	gap: 0.5rem;
+	font-weight: 500;
 `;
 
 const Icon = styled(ChevronDownIcon)<ExpandedProps>`
