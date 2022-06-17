@@ -28,7 +28,11 @@ const links = [
 export default function Nav() {
 	const { asPath } = useRouter();
 	const [scrolled, setScrolled] = useState(false);
-	const { state: expanded, toggle: toggleExpanded } = useToggle();
+	const {
+		state: expanded,
+		toggle: toggleExpanded,
+		setState: setExpanded,
+	} = useToggle();
 	const expandedProp = expanded ? 'true' : undefined;
 
 	useEffect(() => {
@@ -51,7 +55,11 @@ export default function Nav() {
 						</HamburgerIcon>
 					</StyledButton>
 					<ExpandedLinks expanded={expandedProp}></ExpandedLinks>
-					<StyledOverlay expanded={expandedProp} opacity={0.5} />
+					<StyledOverlay
+						expanded={expandedProp}
+						opacity={0.5}
+						onClick={() => setExpanded(false)}
+					/>
 				</Show>
 
 				<Logo />
@@ -185,18 +193,29 @@ const ExpandedLinks = styled.div<Props>`
 	left: 0;
 	background: var(--black);
 	width: 280px;
-	min-height: 100vh;
-	transform: translateX(${(p) => (p.expanded ? 0 : -100)}%);
+	height: 100vh;
+	transform: translateX(-100%);
+	pointer-events: none;
 	transition: var(--transition);
 	z-index: -1;
+	${(p) =>
+		p.expanded &&
+		css`
+			transform: translateX(0);
+			pointer-events: visible;
+		`}
 `;
 
 const StyledOverlay = styled(Overlay)<Props>`
 	z-index: -1;
 	transition: var(--transition);
+	opacity: 0;
+	pointer-events: none;
+
 	${(p) =>
-		!p.expanded &&
+		p.expanded &&
 		css`
-			opacity: 0;
+			opacity: unset;
+			pointer-events: visible;
 		`}
 `;
