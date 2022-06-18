@@ -84,6 +84,10 @@ const navigationBtnStyles = css`
 	&:hover {
 		--scale: 1.2;
 	}
+
+	@media screen {
+		opacity: 1;
+	}
 `;
 
 const LeftNavigationBtn = styled(Button)`
@@ -130,6 +134,10 @@ const Gallery = styled.div`
 
 	@media ${Breakpoints.tabletUp} {
 		gap: 1rem;
+	}
+
+	@media screen {
+		overflow-x: hidden;
 	}
 `;
 
