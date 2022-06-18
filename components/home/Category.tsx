@@ -92,7 +92,6 @@ const navigationBtnStyles = css`
 	}
 
 	@media ${Breakpoints.tabletDown} {
-		background: rgba(0, 0, 0, 0.5);
 		padding-inline: 0.5rem;
 	}
 `;
