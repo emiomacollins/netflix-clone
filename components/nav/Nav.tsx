@@ -14,6 +14,7 @@ import Show from '../Show';
 import Button from '../styled components/Button';
 import { contentStyles } from '../styled components/Content';
 import { Flex } from '../styled components/Flex';
+import { Grid } from '../styled components/Grid';
 import { Overlay } from '../styled components/Overlay';
 
 /* TODO decide where each link goes*/
@@ -74,24 +75,24 @@ export default function Nav() {
 					</StyledButton>
 
 					<ExpandedLinks expanded={expanded} paddingLeft={expandedLinksPadding}>
-						<ExpandedLinksContent>
+						<Grid gap={0}>
 							<Link href={routes.account}>
 								<BoldLink>Account</BoldLink>
 							</Link>
 							<Link href={routes.login}>
 								<BoldLink>Sign Out</BoldLink>
 							</Link>
-						</ExpandedLinksContent>
+						</Grid>
 
 						<Line />
 
-						<ExpandedLinksContent>
+						<Grid gap={0}>
 							{links.map(({ route, label }) => (
 								<Link key={route} href={route}>
 									<BoldLink onClick={handleClose}>{label}</BoldLink>
 								</Link>
 							))}
-						</ExpandedLinksContent>
+						</Grid>
 					</ExpandedLinks>
 
 					<StyledOverlay
@@ -251,11 +252,6 @@ const ExpandedLinks = styled.div<ExpandedLinksProps>`
 		`}
 `;
 
-const ExpandedLinksContent = styled.div`
-	padding-left: var(--padding-left);
-	display: grid;
-`;
-
 const Line = styled.div`
 	height: 1px;
 	width: 100%;
@@ -283,4 +279,5 @@ const BoldLink = styled.a`
 	color: var(--gray);
 	font-size: var(--size-500);
 	padding-block: 1rem;
+	padding-left: var(--padding-left);
 `;
