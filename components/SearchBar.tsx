@@ -65,10 +65,10 @@ interface FocusedProps {
 const Container = styled.div<FocusedProps>`
 	display: flex;
 	align-items: center;
-	border: 1px solid transparent;
 	padding: 0.1em 0.25em 0.1em 0.5em;
 	transition: all 0.2s;
 	gap: 1rem;
+	border: 2px solid transparent;
 	border-radius: var(--radius-200);
 
 	${(p) =>
