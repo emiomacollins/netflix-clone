@@ -23,11 +23,14 @@ export default function Category({ id, title, movies }: Props) {
 		const widthOfVisibleSlider = galleryRef.current?.offsetWidth;
 		const currentScrollPosition = galleryRef.current?.scrollLeft;
 		const scrollTo = currentScrollPosition + increment * widthOfVisibleSlider;
-		setScrollPosition(scrollTo);
 		galleryRef.current?.scrollTo({
 			behavior: 'smooth',
 			left: scrollTo,
 		});
+	}
+
+	function updateScrollPosition() {
+		setScrollPosition(galleryRef.current?.scrollLeft);
 	}
 
 	function handleSetModalMovie(movie: Movie) {
@@ -46,7 +49,7 @@ export default function Category({ id, title, movies }: Props) {
 					<NavigationBtnIcon as={ChevronLeftIcon} />
 				</LeftNavigationBtn>
 
-				<Gallery ref={galleryRef}>
+				<Gallery ref={galleryRef} onScroll={updateScrollPosition}>
 					{movies?.map((movie) => {
 						const { id, backdrop_path, poster_path } = movie;
 						return (
