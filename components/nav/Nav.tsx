@@ -1,4 +1,3 @@
-import { SearchIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -10,6 +9,7 @@ import { routes } from '../../constants/routes';
 import { useToggle } from '../../hooks/useToggle';
 import Logo from '../Logo';
 import ProfileDropdown from '../ProfileDropdown';
+import SearchBar from '../SearchBar';
 import Show from '../Show';
 import Button from '../styled components/Button';
 import { contentStyles, contentWidthPercent } from '../styled components/Content';
@@ -31,7 +31,6 @@ export default function Nav() {
 	const [scrolled, setScrolled] = useState(false);
 	const [expandedLinksPadding, setExpandedLinksPadding] = useState('0');
 	const navContentRef = useRef<HTMLDivElement | any>(null);
-
 	const {
 		state: expanded,
 		toggle: toggleExpanded,
@@ -39,17 +38,13 @@ export default function Nav() {
 	} = useToggle();
 
 	useEffect(() => {
-		const handleScroll = () => setScrolled(window.scrollY > 0);
-		window.addEventListener('scroll', handleScroll);
-		return () => window.removeEventListener('scroll', handleScroll);
+		const handleSetScrolled = () => setScrolled(window.scrollY > 0);
+		window.addEventListener('scroll', handleSetScrolled);
+		return () => window.removeEventListener('scroll', handleSetScrolled);
 	}, []);
 
 	useEffect(() => {
-		document.documentElement.style.overflow = expanded ? 'hidden' : 'unset';
-	}, [expanded]);
-
-	useEffect(() => {
-		function calculatePadding() {
+		const calculatePadding = () => {
 			if (!navContentRef.current) return;
 			const contentWidthPixels = navContentRef.current?.offsetWidth;
 			const inlineMarginPercent = (100 - contentWidthPercent) / 2;
@@ -59,12 +54,15 @@ export default function Nav() {
 			setExpandedLinksPadding(
 				`${inlineMarginPixels + hambugerIconWhitespacePixels}px`
 			);
-		}
-
+		};
 		calculatePadding();
 		window.addEventListener('resize', calculatePadding);
 		return () => window.removeEventListener('resize', calculatePadding);
 	}, []);
+
+	useEffect(() => {
+		document.documentElement.style.overflow = expanded ? 'hidden' : 'unset';
+	}, [expanded]);
 
 	function handleClose() {
 		setExpanded(false);
@@ -124,11 +122,8 @@ export default function Nav() {
 					</Links>
 				</Show>
 
-				<SearchContainer gap={2}>
-					<StyledButton color='transparent'>
-						<Icon as={SearchIcon} />
-					</StyledButton>
-
+				<SearchContainer gap={0}>
+					<SearchBar />
 					<Show on={Breakpoints.tabletUp}>
 						<ProfileDropdown />
 					</Show>
@@ -204,18 +199,7 @@ const StyledLink = styled.a<StyledLinkProps>`
 `;
 
 const StyledButton = styled(Button)`
-	display: flex;
 	padding: 0;
-`;
-
-const Icon = styled.div`
-	height: var(--size-650);
-	aspect-ratio: 1;
-	position: relative;
-
-	@media ${Breakpoints.tabletDown} {
-		height: var(--size-700);
-	}
 `;
 
 const HamburgerIcon = styled.div`

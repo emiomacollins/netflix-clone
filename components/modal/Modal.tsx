@@ -33,7 +33,7 @@ export default function Modal() {
 		toggleMutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
 	} = useMyList();
 
-	const { data: extraInfo } = useQuery(`fetchExtraInfo-${modalMovie?.id}`, () =>
+	const { data: extraInfo } = useQuery([`fetchExtraInfo`, modalMovie?.id], () =>
 		visible ? fetchExtraInfo(modalMovie) : null
 	);
 
@@ -85,6 +85,7 @@ export default function Modal() {
 							<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
 						</Button>
 
+						{/* TODO DEBUG: sometimes this does not work */}
 						{!loadingMyList && modalMovie && (
 							<Button
 								icon
@@ -102,6 +103,7 @@ export default function Modal() {
 					</Buttons>
 				</VideoContainer>
 
+				{/* TODO: add title */}
 				<Text>
 					<Grid gap={2}>
 						<Flex>

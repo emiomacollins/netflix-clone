@@ -1,12 +1,9 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import Image from 'next/image';
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { Movie, MovieCategory } from '../../constants/home/types';
-import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
-import { setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
+import { MovieCategory } from '../../constants/home/types';
+import MovieThumbnail from '../MovieThumbnail';
 
 interface Props extends MovieCategory {
 	id?: string;
@@ -14,7 +11,6 @@ interface Props extends MovieCategory {
 
 export default function Category({ id, title, movies }: Props) {
 	const galleryRef = useRef<any>();
-	const dispatch = useDispatch();
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const maxScrollPosition =
 		galleryRef.current?.scrollWidth - galleryRef.current?.offsetWidth;
@@ -33,10 +29,6 @@ export default function Category({ id, title, movies }: Props) {
 		setScrollPosition(galleryRef.current?.scrollLeft);
 	}
 
-	function handleSetModalMovie(movie: Movie) {
-		dispatch(setModalMovie(movie));
-	}
-
 	return (
 		<Container id={id}>
 			<Heading>{title}</Heading>
@@ -51,18 +43,7 @@ export default function Category({ id, title, movies }: Props) {
 
 				<Gallery ref={galleryRef} onScroll={updateScrollPosition}>
 					{movies?.map((movie) => {
-						const { id, backdrop_path, poster_path } = movie;
-						return (
-							<Movie key={id} onClick={() => handleSetModalMovie(movie)}>
-								<Image
-									src={`${TMDB_IMAGE_BASE_URL}/w500/${
-										backdrop_path || poster_path
-									}`}
-									alt=''
-									layout='fill'
-								/>
-							</Movie>
-						);
+						return <MovieThumbnail key={movie.id} movie={movie} />;
 					})}
 				</Gallery>
 
@@ -163,28 +144,5 @@ const Gallery = styled.div`
 	@media ${Breakpoints.tabletUp} {
 		gap: 1rem;
 		overflow-x: scroll;
-	}
-`;
-
-const Movie = styled.button`
-	position: relative;
-	min-width: 250px;
-	aspect-ratio: 16/9;
-	border-radius: 0;
-	border: 0;
-	background: transparent;
-	transition: 0.2s;
-	overflow: hidden;
-
-	&:hover {
-		transform: scale(1.05);
-	}
-
-	img {
-		object-fit: cover;
-	}
-
-	@media ${Breakpoints.tabletUp} {
-		border-radius: var(--radius-300);
 	}
 `;

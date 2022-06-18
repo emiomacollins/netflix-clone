@@ -6,7 +6,7 @@ import { getUser } from '../lib/redux/slices/user/userSlice';
 
 export function useSubscription() {
 	const user = useSelector(getUser);
-	return useQuery(`getSubscriptions-${user?.uid}`, async () => {
+	return useQuery([`getSubscriptions`, user?.uid], async () => {
 		const subscriptionsRef = collection(
 			firestore,
 			`customers/${user?.uid}/subscriptions`

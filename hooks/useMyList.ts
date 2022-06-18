@@ -8,8 +8,9 @@ import { getUser } from '../lib/redux/slices/user/userSlice';
 export function useMyList() {
 	const user = useSelector(getUser);
 	const queryClient = useQueryClient();
+	const fetchListQueryKey = [`fetchMyList`, user?.uid];
 
-	const query = useQuery<Movie[]>(`fetchMyList-${user?.uid}`, async () => {
+	const query = useQuery<Movie[]>(fetchListQueryKey, async () => {
 		const myListRef = doc(firestore, `myList/${user?.uid}`);
 		const snapshot = await getDoc(myListRef);
 		return snapshot.data()?.list;
@@ -30,7 +31,7 @@ export function useMyList() {
 		},
 		{
 			onSuccess: () => {
-				queryClient.invalidateQueries(`fetchMyList-${user?.uid}`);
+				queryClient.invalidateQueries(fetchListQueryKey);
 			},
 		}
 	);
