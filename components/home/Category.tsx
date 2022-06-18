@@ -141,7 +141,7 @@ const Movie = styled.button`
 	position: relative;
 	min-width: 250px;
 	aspect-ratio: 16/9;
-	border-radius: var(--radius-400);
+	border-radius: 0;
 	border: 0;
 	background: transparent;
 	transition: 0.2s;
@@ -153,5 +153,9 @@ const Movie = styled.button`
 
 	img {
 		object-fit: cover;
+	}
+
+	@media ${Breakpoints.tabletUp} {
+		border-radius: var(--radius-300);
 	}
 `;

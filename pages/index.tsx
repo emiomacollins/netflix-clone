@@ -43,7 +43,7 @@ export async function getServerSideProps() {
 		{ title: 'Comedy', url: `/discover/movie?with_genres=35` },
 		{ title: 'Horror', url: `/discover/movie?with_genres=27` },
 		{ title: 'Romance', url: `/discover/movie?with_genres=10749` },
-		{ title: 'documentaries', url: `/discover/movie?with_genres=99` },
+		{ title: 'Documentaries', url: `/discover/movie?with_genres=99` },
 	];
 
 	interface Result {
