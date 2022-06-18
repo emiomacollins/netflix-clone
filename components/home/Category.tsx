@@ -116,11 +116,11 @@ const Gallery = styled.div`
 
 // to keep the Navigation buttons in place slider should be it's own div
 const Slider = styled.div`
-	display: flex;
+	display: grid;
+	grid-auto-flow: column;
 	gap: 0.5rem;
 	width: 100%;
 	overflow-x: scroll;
-	overflow-x: hidden;
 	/* FIX FOR: transition: scale on Movie behaves like it's container has overflow-y: scroll so it cuts out the image when it's scaled */
 	padding: 2rem 0.5rem;
 
