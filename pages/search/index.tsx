@@ -8,7 +8,7 @@ import Nav from '../../components/nav/Nav';
 import { Content } from '../../components/styled components/Content';
 import { Grid } from '../../components/styled components/Grid';
 import { Movie } from '../../constants/home/types';
-import { searchMovie } from './api';
+import searchMovie from './api';
 
 export default function Search() {
 	const {

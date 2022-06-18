@@ -7,7 +7,7 @@ export interface Data {
 	total_results: number;
 }
 
-export async function searchMovie(
+export default async function searchMovie(
 	query: string | string[] | undefined
 ): Promise<Movie[]> {
 	const url = `search/movie?query=${query}`;
