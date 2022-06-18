@@ -92,14 +92,14 @@ interface NavigationBtnProps {
 
 const navigationBtnStyles = css<NavigationBtnProps>`
 	border: 0;
-	background: transparent;
 	position: absolute;
 	color: inherit;
 	top: 50%;
-	opacity: 1; //always show on mobile
 	z-index: 3;
-	padding: 0 0.5rem;
 	height: calc(100% - (2 * var(--gallery-padding-block)) + 2px);
+	padding: 0 0.75rem;
+	opacity: 1; //always show on mobile
+	background: var(--dark-transparent);
 	transform: translateY(-50%);
 	transition: 0.2s;
 
@@ -117,6 +117,7 @@ const navigationBtnStyles = css<NavigationBtnProps>`
 	@media ${Breakpoints.tabletUp} {
 		opacity: 0; // only show when hovering on desktop
 		padding: 0;
+		background: transparent;
 	}
 `;
 
