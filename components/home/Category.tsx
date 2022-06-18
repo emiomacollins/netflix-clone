@@ -68,7 +68,7 @@ export default function Category({ id, title, movies }: Props) {
 
 				<RightNavigationBtn
 					onClick={() => handleScroll(1)}
-					visible={scrollPosition <= maxScrollPosition}
+					visible={scrollPosition < maxScrollPosition}
 				>
 					<NavigationBtnIcon as={ChevronRightIcon} />
 				</RightNavigationBtn>
