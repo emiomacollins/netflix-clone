@@ -34,12 +34,12 @@ export default function Category({ id, title, movies }: Props) {
 		<Container id={id}>
 			<Heading>{title}</Heading>
 
-			<Gallery>
+			<GalleryContainer>
 				<LeftNavigationBtn color='transparent' onClick={() => handleScroll(-1)}>
 					<NavigationBtnIcon as={ChevronLeftIcon} />
 				</LeftNavigationBtn>
 
-				<Slider ref={SliderRef}>
+				<Gallery ref={SliderRef}>
 					{movies?.map((movie) => {
 						const { id, backdrop_path, poster_path } = movie;
 						return (
@@ -54,12 +54,12 @@ export default function Category({ id, title, movies }: Props) {
 							</Movie>
 						);
 					})}
-				</Slider>
+				</Gallery>
 
 				<RightNavigationBtn color='transparent' onClick={() => handleScroll(1)}>
 					<NavigationBtnIcon as={ChevronRightIcon} />
 				</RightNavigationBtn>
-			</Gallery>
+			</GalleryContainer>
 		</Container>
 	);
 }
@@ -100,9 +100,9 @@ const NavigationBtnIcon = styled.div`
 	height: 5rem;
 `;
 
-const Gallery = styled.div`
+const GalleryContainer = styled.div`
 	position: relative;
-	overflow-x: hidden;
+	overflow-x: scroll;
 
 	&:hover {
 		${LeftNavigationBtn} {
@@ -115,7 +115,7 @@ const Gallery = styled.div`
 `;
 
 // to keep the Navigation buttons in place slider should be it's own div
-const Slider = styled.div`
+const Gallery = styled.div`
 	display: grid;
 	grid-auto-flow: column;
 	gap: 0.5rem;
