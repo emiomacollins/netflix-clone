@@ -1,28 +1,33 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { Movie, MovieCategory } from '../../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
-import Button from '../styled components/Button';
 
 interface Props extends MovieCategory {
 	id?: string;
 }
 
 export default function Category({ id, title, movies }: Props) {
-	const SliderRef = useRef<HTMLDivElement | any>();
+	const galleryRef = useRef<HTMLDivElement | any>();
 	const dispatch = useDispatch();
+	const [scrollPosition, setScrollPosition] = useState(0);
+	const maxScrollPosition =
+		galleryRef.current?.scrollWidth - galleryRef.current?.offsetWidth;
 
 	function handleScroll(increment: number) {
-		const widthOfVisibleSlider = SliderRef.current?.offsetWidth;
-		const currentScrollPosition = SliderRef.current?.scrollLeft;
-		SliderRef.current?.scrollTo({
+		const widthOfVisibleSlider = galleryRef.current?.offsetWidth;
+		const currentScrollPosition = galleryRef.current?.scrollLeft;
+		const scrollTo = currentScrollPosition + increment * widthOfVisibleSlider;
+		console.dir(galleryRef.current);
+		setScrollPosition(scrollTo);
+		galleryRef.current?.scrollTo({
 			behavior: 'smooth',
-			left: currentScrollPosition + increment * widthOfVisibleSlider,
+			left: scrollTo,
 		});
 	}
 
@@ -35,11 +40,14 @@ export default function Category({ id, title, movies }: Props) {
 			<Heading>{title}</Heading>
 
 			<GalleryContainer>
-				<LeftNavigationBtn color='transparent' onClick={() => handleScroll(-1)}>
+				<LeftNavigationBtn
+					onClick={() => handleScroll(-1)}
+					visible={scrollPosition > 0}
+				>
 					<NavigationBtnIcon as={ChevronLeftIcon} />
 				</LeftNavigationBtn>
 
-				<Gallery ref={SliderRef}>
+				<Gallery ref={galleryRef}>
 					{movies?.map((movie) => {
 						const { id, backdrop_path, poster_path } = movie;
 						return (
@@ -56,7 +64,10 @@ export default function Category({ id, title, movies }: Props) {
 					})}
 				</Gallery>
 
-				<RightNavigationBtn color='transparent' onClick={() => handleScroll(1)}>
+				<RightNavigationBtn
+					onClick={() => handleScroll(1)}
+					visible={scrollPosition <= maxScrollPosition}
+				>
 					<NavigationBtnIcon as={ChevronRightIcon} />
 				</RightNavigationBtn>
 			</GalleryContainer>
@@ -73,35 +84,46 @@ const Heading = styled.h2`
 	font-weight: 700;
 `;
 
-const navigationBtnStyles = css`
+interface NavigationBtnProps {
+	visible: boolean;
+}
+
+const navigationBtnStyles = css<NavigationBtnProps>`
+	border: 0;
+	background: transparent;
 	position: absolute;
+	color: inherit;
 	top: 50%;
-	opacity: 1;
+	opacity: 1; //always show on mobile
 	z-index: 3;
-	padding: 0;
+	padding: 0 0.5rem;
 	height: calc(100% - (2 * var(--gallery-padding-block)) + 2px);
 	transform: translateY(-50%);
 	transition: 0.2s;
 
-	@media ${Breakpoints.tabletUp} {
-		opacity: 0;
-	}
-
 	&:hover {
-		background: rgba(0, 0, 0, 0.3);
+		background: var(--dark-transparent);
 	}
 
-	@media ${Breakpoints.tabletDown} {
-		padding-inline: 0.5rem;
+	${(p) =>
+		!p.visible &&
+		css`
+			opacity: 0 !important;
+			pointer-events: none;
+		`}
+
+	@media ${Breakpoints.tabletUp} {
+		opacity: 0; // only show when hovering on desktop
+		padding: 0;
 	}
 `;
 
-const LeftNavigationBtn = styled(Button)`
+const LeftNavigationBtn = styled.button`
 	${navigationBtnStyles}
 	left: 0;
 `;
 
-const RightNavigationBtn = styled(Button)`
+const RightNavigationBtn = styled.button`
 	${navigationBtnStyles}
 	right: 0;
 `;
@@ -125,13 +147,11 @@ const GalleryContainer = styled.div`
 `;
 
 const Gallery = styled.div`
+	padding-block: var(--gallery-padding-block); // FIX overflow hidden on hover
 	display: flex;
 	gap: 0.5rem;
 	width: 100%;
 	overflow-x: hidden;
-
-	/* FIX overflow hidden on hover  */
-	padding: var(--gallery-padding-block) 0;
 
 	&::-webkit-scrollbar {
 		display: none;
