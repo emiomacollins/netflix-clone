@@ -282,5 +282,5 @@ const BoldLink = styled.a`
 	letter-spacing: 0.02em;
 	color: var(--gray);
 	font-size: var(--size-500);
-	padding-block: 0.5rem;
+	padding-block: 1rem;
 `;

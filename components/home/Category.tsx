@@ -102,7 +102,7 @@ const NavigationBtnIcon = styled.div`
 
 const GalleryContainer = styled.div`
 	position: relative;
-	overflow-x: scroll;
+	overflow-x: hidden;
 
 	&:hover {
 		${LeftNavigationBtn} {
@@ -116,15 +116,13 @@ const GalleryContainer = styled.div`
 
 // to keep the Navigation buttons in place slider should be it's own div
 const Gallery = styled.div`
-	display: grid;
-	grid-auto-flow: column;
+	display: flex;
 	gap: 0.5rem;
 	width: 100%;
 	overflow-x: scroll;
-	scroll-behavior: smooth;
-	white-space: nowrap;
-	/* FIX FOR: transition: scale on Movie behaves like it's container has overflow-y: scroll so it cuts out the image when it's scaled */
-	padding: 2rem 0.5rem;
+	/* FIX FOR: transition: scale on Movie behaves like it's container has overflow-y: scroll 
+       so it cuts out the image when it's scaled */
+	padding: 1.5rem 0.5rem;
 
 	&::-webkit-scrollbar {
 		display: none;
