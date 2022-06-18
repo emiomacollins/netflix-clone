@@ -166,10 +166,10 @@ const StyledOverlay = styled(Overlay)<Props>`
 const Content = styled.div<Props>`
 	${contentStyles}
 	position: relative;
-	max-width: 1000px;
+	max-width: 950px;
 	background: var(--dark);
 	border-radius: var(--radius-400);
-	margin-block: 3rem;
+	margin-block: 3rem 2rem;
 	opacity: 0;
 	transform: scale(0.9);
 	transition: 0.2s;

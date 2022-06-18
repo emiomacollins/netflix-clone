@@ -13,7 +13,7 @@ interface Props extends MovieCategory {
 }
 
 export default function Category({ id, title, movies }: Props) {
-	const galleryRef = useRef<HTMLDivElement | any>();
+	const galleryRef = useRef<any>();
 	const dispatch = useDispatch();
 	const [scrollPosition, setScrollPosition] = useState(0);
 	const maxScrollPosition =

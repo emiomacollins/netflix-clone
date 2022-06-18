@@ -13,6 +13,7 @@ export default function CategoryList({ categories }: Props) {
 	const {
 		query: { data: myList },
 	} = useMyList();
+
 	return (
 		<Container>
 			{categories.map((category) => (

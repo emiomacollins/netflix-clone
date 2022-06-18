@@ -87,7 +87,7 @@ const Options = styled.div<ExpandedProps & OptionsProps>`
 	top: ${(p) => p.top || '180%'};
 	left: 50%;
 	background: var(--black);
-	border: 1px solid var(--gray-transparent-200);
+	/* border: 1px solid var(--gray-transparent-200); */
 	min-width: max-content;
 	display: grid;
 	opacity: 0;

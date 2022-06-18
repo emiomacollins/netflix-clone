@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
 
+export const contentWidthPercent = 93;
+
 export const contentStyles = css`
-	width: 93%;
+	width: ${contentWidthPercent}%;
 	max-width: 1900px;
 	margin-inline: auto;
 `;

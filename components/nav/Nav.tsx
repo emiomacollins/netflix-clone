@@ -12,7 +12,7 @@ import Logo from '../Logo';
 import ProfileDropdown from '../ProfileDropdown';
 import Show from '../Show';
 import Button from '../styled components/Button';
-import { contentStyles } from '../styled components/Content';
+import { contentStyles, contentWidthPercent } from '../styled components/Content';
 import { Flex } from '../styled components/Flex';
 import { Grid } from '../styled components/Grid';
 import { Overlay } from '../styled components/Overlay';
@@ -51,10 +51,16 @@ export default function Nav() {
 	useEffect(() => {
 		function calculatePadding() {
 			if (!navContentRef.current) return;
-			const contentWidth = navContentRef.current?.offsetWidth; // 93% of body from `contentStyles`
-			const inlineMargin = (contentWidth / 93) * 3.5;
-			setExpandedLinksPadding(`${inlineMargin + 5}px`);
+			const contentWidthPixels = navContentRef.current?.offsetWidth;
+			const inlineMarginPercent = (100 - contentWidthPercent) / 2;
+			const hambugerIconWhitespacePixels = 5;
+			const inlineMarginPixels =
+				(contentWidthPixels / contentWidthPercent) * inlineMarginPercent;
+			setExpandedLinksPadding(
+				`${inlineMarginPixels + hambugerIconWhitespacePixels}px`
+			);
 		}
+
 		calculatePadding();
 		window.addEventListener('resize', calculatePadding);
 		return () => window.removeEventListener('resize', calculatePadding);
@@ -124,9 +130,7 @@ export default function Nav() {
 					</StyledButton>
 
 					<Show on={Breakpoints.tabletUp}>
-						<Link href={routes.account}>
-							<ProfileDropdown />
-						</Link>
+						<ProfileDropdown />
 					</Show>
 				</SearchContainer>
 			</Content>
@@ -138,9 +142,8 @@ interface ContainerProps {
 	scrolled: boolean;
 }
 
-const Container = styled.div<ContainerProps & ExpandedLinksProps>`
+const Container = styled.div<ContainerProps & ExpandedProps>`
 	--transition: 0.15s;
-
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -225,12 +228,12 @@ const SearchContainer = styled(Flex)`
 	justify-self: right;
 `;
 
-interface ExpandedLinksProps {
+interface ExpandedProps {
 	expanded: boolean;
 	paddingLeft?: string;
 }
 
-const ExpandedLinks = styled.div<ExpandedLinksProps>`
+const ExpandedLinks = styled.div<ExpandedProps>`
 	--padding-left: ${(p) => p.paddingLeft};
 	position: fixed;
 	top: 6.4rem;
@@ -259,7 +262,7 @@ const Line = styled.div`
 	margin-block: 1rem;
 `;
 
-const StyledOverlay = styled(Overlay)<ExpandedLinksProps>`
+const StyledOverlay = styled(Overlay)<ExpandedProps>`
 	z-index: -2;
 	transition: var(--transition);
 	opacity: 0;
