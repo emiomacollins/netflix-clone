@@ -77,7 +77,7 @@ const navigationBtnStyles = css`
 	transform: translateY(-50%) scale(var(--scale));
 	z-index: 1;
 	transition: 0.2s;
-	opacity: 0;
+	opacity: 1;
 	padding: 1rem;
 	z-index: 3;
 
@@ -85,8 +85,8 @@ const navigationBtnStyles = css`
 		--scale: 1.2;
 	}
 
-	@media screen {
-		opacity: 1;
+	@media ${Breakpoints.tabletUp} {
+		opacity: 0;
 	}
 `;
 
@@ -118,14 +118,13 @@ const GalleryContainer = styled.div`
 	}
 `;
 
-// to keep the Navigation buttons in place slider should be it's own div
 const Gallery = styled.div`
 	display: flex;
 	gap: 0.5rem;
 	width: 100%;
-	overflow-x: scroll;
-	/* FIX FOR: transition: scale on Movie behaves like it's container has overflow-y: scroll 
-       so it cuts out the image when it's scaled */
+	overflow-x: hidden;
+
+	/* FIX overflow hidden on hover  */
 	padding: 1.5rem 0.5rem;
 
 	&::-webkit-scrollbar {
@@ -134,10 +133,7 @@ const Gallery = styled.div`
 
 	@media ${Breakpoints.tabletUp} {
 		gap: 1rem;
-	}
-
-	@media screen {
-		overflow-x: hidden;
+		overflow-x: scroll;
 	}
 `;
 
