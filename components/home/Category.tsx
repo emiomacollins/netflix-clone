@@ -23,7 +23,6 @@ export default function Category({ id, title, movies }: Props) {
 		const widthOfVisibleSlider = galleryRef.current?.offsetWidth;
 		const currentScrollPosition = galleryRef.current?.scrollLeft;
 		const scrollTo = currentScrollPosition + increment * widthOfVisibleSlider;
-		console.dir(galleryRef.current);
 		setScrollPosition(scrollTo);
 		galleryRef.current?.scrollTo({
 			behavior: 'smooth',
