@@ -121,6 +121,8 @@ const Gallery = styled.div`
 	gap: 0.5rem;
 	width: 100%;
 	overflow-x: scroll;
+	scroll-behavior: smooth;
+	white-space: nowrap;
 	/* FIX FOR: transition: scale on Movie behaves like it's container has overflow-y: scroll so it cuts out the image when it's scaled */
 	padding: 2rem 0.5rem;
 
