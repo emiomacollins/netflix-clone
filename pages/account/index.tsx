@@ -4,7 +4,6 @@ import { useMutation } from 'react-query';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Logo from '../../components/Logo';
-import ProfileDropdown from '../../components/ProfileDropdown';
 import Button from '../../components/styled components/Button';
 import { contentStyles } from '../../components/styled components/Content';
 import { Flex, flexStyles } from '../../components/styled components/Flex';
@@ -44,7 +43,6 @@ export default function Account() {
 			<Nav>
 				<NavContent>
 					<Logo />
-					<ProfileDropdown />
 				</NavContent>
 			</Nav>
 
