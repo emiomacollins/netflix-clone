@@ -28,15 +28,14 @@ const links = [
 export default function Nav() {
 	const { asPath } = useRouter();
 	const [scrolled, setScrolled] = useState(false);
-	const [paddingLeft, setPaddingLeft] = useState('0');
-	const navContentRef = useRef<HTMLDivElement>(null);
+	const [expandedLinksPadding, setExpandedLinksPadding] = useState('0');
+	const navContentRef = useRef<HTMLDivElement | any>(null);
 
 	const {
 		state: expanded,
 		toggle: toggleExpanded,
 		setState: setExpanded,
 	} = useToggle();
-	const expandedProp = expanded ? 'true' : undefined;
 
 	useEffect(() => {
 		const handleScroll = () => setScrolled(window.scrollY > 0);
@@ -53,15 +52,19 @@ export default function Nav() {
 			if (!navContentRef.current) return;
 			const contentWidth = navContentRef.current?.offsetWidth; // 93% of body from `contentStyles`
 			const inlineMargin = (contentWidth / 93) * 3.5;
-			setPaddingLeft(`${inlineMargin + 5}px`);
+			setExpandedLinksPadding(`${inlineMargin + 5}px`);
 		}
 		calculatePadding();
 		window.addEventListener('resize', calculatePadding);
 		return () => window.removeEventListener('resize', calculatePadding);
 	}, []);
 
+	function handleClose() {
+		setExpanded(false);
+	}
+
 	return (
-		<Container scrolled={scrolled} expanded={expandedProp}>
+		<Container scrolled={scrolled} expanded={expanded}>
 			<Content ref={navContentRef}>
 				<Show on={Breakpoints.tabletDown}>
 					<StyledButton color='transparent' onClick={toggleExpanded}>
@@ -70,7 +73,7 @@ export default function Nav() {
 						</HamburgerIcon>
 					</StyledButton>
 
-					<ExpandedLinks expanded={expandedProp} paddingLeft={paddingLeft}>
+					<ExpandedLinks expanded={expanded} paddingLeft={expandedLinksPadding}>
 						<ExpandedLinksContent>
 							<Link href={routes.account}>
 								<BoldLink>Account</BoldLink>
@@ -79,11 +82,20 @@ export default function Nav() {
 								<BoldLink>Sign Out</BoldLink>
 							</Link>
 						</ExpandedLinksContent>
+
 						<Line />
+
+						<ExpandedLinksContent>
+							{links.map(({ route, label }) => (
+								<Link key={route} href={route}>
+									<BoldLink onClick={handleClose}>{label}</BoldLink>
+								</Link>
+							))}
+						</ExpandedLinksContent>
 					</ExpandedLinks>
 
 					<StyledOverlay
-						expanded={expandedProp}
+						expanded={expanded}
 						opacity={0.5}
 						onClick={() => setExpanded(false)}
 					/>
@@ -213,7 +225,7 @@ const SearchContainer = styled(Flex)`
 `;
 
 interface ExpandedLinksProps {
-	expanded: string | undefined;
+	expanded: boolean;
 	paddingLeft?: string;
 }
 
@@ -248,7 +260,7 @@ const Line = styled.div`
 	height: 1px;
 	width: 100%;
 	background: var(--gray-transparent-200);
-	margin-block: 2rem;
+	margin-block: 1rem;
 `;
 
 const StyledOverlay = styled(Overlay)<ExpandedLinksProps>`
