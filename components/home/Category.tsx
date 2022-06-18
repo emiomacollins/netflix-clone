@@ -65,34 +65,36 @@ export default function Category({ id, title, movies }: Props) {
 }
 
 const Container = styled.div`
+	--gallery-padding-block: 1rem;
 	display: grid;
 `;
 
-const Heading = styled.h2``;
+const Heading = styled.h2`
+	font-weight: 700;
+`;
 
 const navigationBtnStyles = css`
-	--scale: 1;
 	position: absolute;
 	top: 50%;
-	transform: translateY(-50%) scale(var(--scale));
-	z-index: 1;
-	transition: 0.2s;
 	opacity: 1;
-	padding: 1rem;
 	z-index: 3;
-
-	&:hover {
-		--scale: 1.2;
-	}
+	padding: 0;
+	height: calc(100% - (2 * var(--gallery-padding-block)) + 2px);
+	transform: translateY(-50%);
+	transition: 0.2s;
 
 	@media ${Breakpoints.tabletUp} {
 		opacity: 0;
+	}
+
+	&:hover {
+		background: rgba(0, 0, 0, 0.3);
 	}
 `;
 
 const LeftNavigationBtn = styled(Button)`
 	${navigationBtnStyles}
-	left: 1rem;
+	left: 0;
 `;
 
 const RightNavigationBtn = styled(Button)`
@@ -101,7 +103,7 @@ const RightNavigationBtn = styled(Button)`
 `;
 
 const NavigationBtnIcon = styled.div`
-	height: 5rem;
+	height: var(--size-700);
 `;
 
 const GalleryContainer = styled.div`
@@ -125,7 +127,7 @@ const Gallery = styled.div`
 	overflow-x: hidden;
 
 	/* FIX overflow hidden on hover  */
-	padding: 1.5rem 0.5rem;
+	padding: var(--gallery-padding-block) 0;
 
 	&::-webkit-scrollbar {
 		display: none;
