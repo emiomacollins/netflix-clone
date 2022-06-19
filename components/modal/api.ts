@@ -13,10 +13,12 @@ interface Genre {
 
 export async function fetchExtraInfo(
 	movie: Movie,
-	mediaType: string | string[] | undefined
+	category: string | string[] | undefined
 ) {
-	const { id } = movie;
-	const url = `${mediaType}/${id}?append_to_response=videos`;
+	const { id, media_type } = movie;
+	// try to get category (media_type) from url first
+	// media_type does not get included if modalMovie was gotten from a path that isn't '/all'
+	const url = `${category || media_type}/${id}?append_to_response=videos`;
 	const { data } = await baseAxios(url);
 
 	const genres: Genre[] = data.genres;
