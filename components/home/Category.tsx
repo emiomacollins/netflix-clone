@@ -136,7 +136,7 @@ const Gallery = styled.div`
 	display: flex;
 	gap: 0.5rem;
 	width: 100%;
-	overflow-x: hidden;
+	overflow-x: scroll;
 	scroll-behavior: smooth;
 
 	&::-webkit-scrollbar {
@@ -145,6 +145,5 @@ const Gallery = styled.div`
 
 	@media ${Breakpoints.tabletUp} {
 		gap: 1rem;
-		overflow-x: scroll;
 	}
 `;
