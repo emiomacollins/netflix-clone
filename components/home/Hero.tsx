@@ -69,8 +69,8 @@ const Content = styled.div`
 	gap: 1.5rem;
 
 	@media ${Breakpoints.desktopUp} {
-		--padding-bottom: clamp(10rem, 30vw, 20rem);
-		--padding-top: clamp(15rem, 40vw, 25rem);
+		--padding-bottom: clamp(10rem, 25vw, 20rem);
+		--padding-top: clamp(15rem, 35vw, 25rem);
 	}
 `;
 

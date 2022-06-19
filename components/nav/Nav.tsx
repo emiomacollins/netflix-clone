@@ -184,6 +184,7 @@ const StyledLink = styled.a<StyledLinkProps>`
 	padding: 1rem;
 	color: var(--light);
 	font-weight: 300;
+	white-space: nowrap;
 
 	${(p) =>
 		p.active &&

@@ -78,11 +78,11 @@ const Container = styled.form<FocusedProps>`
 			border-color: var(--light);
 
 			${Input} {
-				width: 150px;
+				width: 80px;
 				margin-bottom: 0.1em;
 
-				@media ${Breakpoints.mobileDown} {
-					width: 80px;
+				@media ${Breakpoints.desktopUp} {
+					width: 200px;
 				}
 			}
 		`}
