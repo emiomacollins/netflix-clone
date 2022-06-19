@@ -29,7 +29,6 @@ export default function Search() {
 						if (!searchQuery) return <h2>Search for a movie</h2>;
 						if (!movies?.length)
 							return <h2>Found 0 results for &apos;{searchQuery}&apos;</h2>;
-						console.log(movies);
 						return (
 							<Grid gap={2}>
 								<h2>Search results for &apos;{searchQuery}&apos;</h2>

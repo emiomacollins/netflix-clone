@@ -19,6 +19,8 @@ export default function MovieThumbnail({ movie, className }: Props) {
 		dispatch(setModalMovie(movie));
 	}
 
+	// TODO: add loading animation
+
 	return (
 		<Container
 			key={id}
