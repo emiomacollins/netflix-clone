@@ -12,6 +12,7 @@ export default function ProgressBar() {
 	useEffect(() => {
 		let interval: ReturnType<typeof setInterval>;
 		Router.events.on('routeChangeStart', () => {
+			clearInterval(interval);
 			setprogress(10);
 			interval = setInterval(updateProgress, 1500);
 		});

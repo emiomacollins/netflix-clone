@@ -74,6 +74,7 @@ export default function Modal() {
 				</CloseBtn>
 
 				<VideoContainer>
+					{/* TODO: show image if no video link */}
 					<ReactPlayer
 						url={`${YOUTUBE_VIDEO_BASE_URL}${video?.key}`}
 						playing
