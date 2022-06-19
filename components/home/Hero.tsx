@@ -81,7 +81,7 @@ const BgContainerStyles = css`
 	width: 100vw;
 	height: 80vh;
 	z-index: -1;
-	min-height: 600px;
+	min-height: 700px;
 
 	@media ${Breakpoints.tabletUp} {
 		height: 100vh;
