@@ -70,14 +70,27 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 		{
 			title: 'Netflix Originals',
 			url: `/discover/movie?with_networks=213`,
+			media_type: 'movie',
 		},
-		{ title: 'Trending Now', url: `/trending/all/week` },
-		{ title: 'Tv Shows', url: `discover/tv` },
-		{ title: 'Action Thrillers', url: `/discover/movie?with_genres=28` },
-		{ title: 'Comedy', url: `/discover/movie?with_genres=35` },
-		{ title: 'Horror', url: `/discover/movie?with_genres=27` },
-		{ title: 'Romance', url: `/discover/movie?with_genres=10749` },
-		{ title: 'Documentaries', url: `/discover/movie?with_genres=99` },
+		{ title: 'Trending Now', url: `/trending/movie/week`, media_type: 'movie' },
+		{ title: 'Tv Shows', url: `discover/tv`, media_type: 'tv' },
+		{
+			title: 'Action Thrillers',
+			url: `/discover/movie?with_genres=28`,
+			media_type: 'movie',
+		},
+		{ title: 'Comedy', url: `/discover/movie?with_genres=35`, media_type: 'movie' },
+		{ title: 'Horror', url: `/discover/movie?with_genres=27`, media_type: 'movie' },
+		{
+			title: 'Romance',
+			url: `/discover/movie?with_genres=10749`,
+			media_type: 'movie',
+		},
+		{
+			title: 'Documentaries',
+			url: `/discover/movie?with_genres=99`,
+			media_type: 'movie',
+		},
 	];
 
 	if (category === 'movie')
@@ -88,12 +101,27 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 			},
 			{ title: 'Trending Now', url: `/trending/movie/week` },
 			{ title: 'Top Rated', url: `/movie/top_rated` },
-			{ title: 'Action Thrillers', url: `/discover/movie?with_genres=28` },
-			{ title: 'Comedy', url: `/discover/movie?with_genres=35` },
-			{ title: 'Horror', url: `/discover/movie?with_genres=27` },
-			{ title: 'Romance', url: `/discover/movie?with_genres=10749` },
-			{ title: 'Documentaries', url: `/discover/movie?with_genres=99` },
-		];
+			{
+				title: 'Action Thrillers',
+				url: `/discover/movie?with_genres=28`,
+			},
+			{
+				title: 'Comedy',
+				url: `/discover/movie?with_genres=35`,
+			},
+			{
+				title: 'Horror',
+				url: `/discover/movie?with_genres=27`,
+			},
+			{
+				title: 'Romance',
+				url: `/discover/movie?with_genres=10749`,
+			},
+			{
+				title: 'Documentaries',
+				url: `/discover/movie?with_genres=99`,
+			},
+		].map((route) => ({ ...route, media_type: 'movie' }));
 
 	if (category === 'tv')
 		routes = [
@@ -105,9 +133,15 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 			{ title: 'Top Rated', url: `/tv/top_rated` },
 			{ title: 'Comedy', url: `/discover/tv?with_genres=35` },
 			{ title: 'Talk shows', url: `/discover/tv?with_type=5` },
-			{ title: 'Romance', url: `/discover/tv?with_genres=10749` },
-			{ title: 'Documentaries', url: `/discover/tv?with_genres=99` },
-		];
+			{
+				title: 'Romance',
+				url: `/discover/tv?with_genres=10749`,
+			},
+			{
+				title: 'Documentaries',
+				url: `/discover/tv?with_genres=99`,
+			},
+		].map((route) => ({ ...route, media_type: 'tv' }));
 
 	interface Result {
 		data: { results: Movie[] };
@@ -118,7 +152,13 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 	);
 
 	const data: MovieCategory[] = results.map(({ data: { results } }, i) => {
-		return { ...routes[i], movies: results };
+		return {
+			...routes[i],
+			movies: results.map((movie) => {
+				const { media_type } = movie;
+				return { ...movie, media_type: routes[i].media_type };
+			}),
+		};
 	});
 
 	const [netflixOriginals, ...categories] = data;

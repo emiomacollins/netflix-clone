@@ -6,7 +6,6 @@ import {
 	XIcon,
 } from '@heroicons/react/solid';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { Fragment, MouseEvent, useEffect, useMemo } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { useQuery } from 'react-query';
@@ -29,9 +28,6 @@ export default function Modal() {
 	const modalMovie = useSelector(getModalMovie);
 	const visible = !!modalMovie;
 	const { state: muted, toggle: toggleMuted } = useToggle();
-	const {
-		query: { category },
-	} = useRouter();
 
 	const {
 		query: { data: myList, isLoading: loadingMyList },
@@ -40,10 +36,9 @@ export default function Modal() {
 
 	const { data: extraInfo, isLoading: loadingExtraInfo } = useQuery(
 		[`fetchExtraInfo`, modalMovie?.id],
-		() => (visible ? fetchExtraInfo(modalMovie, category) : null)
+		() => (visible ? fetchExtraInfo(modalMovie) : null)
 	);
 
-	const { video, genres } = extraInfo || {};
 	const {
 		vote_average = 0,
 		first_air_date,
@@ -57,6 +52,8 @@ export default function Modal() {
 		backdrop_path,
 		media_type,
 	} = modalMovie || {};
+	const { video, genres } = extraInfo || {};
+
 	const percentageMatch = vote_average * 10;
 	const isInMyList = useMemo(
 		() => (myList?.find(({ id }) => id === modalMovie?.id) ? true : false),
