@@ -119,9 +119,6 @@ const Container = styled.div`
 	gap: 2rem;
 	color: var(--gray);
 	letter-spacing: 0.02em;
-	background: var(--black);
-	min-height: 100vh;
-	align-content: flex-start;
 
 	@media ${Breakpoints.tabletUp} {
 		gap: 4rem;

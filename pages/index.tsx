@@ -27,9 +27,7 @@ export default function Home({ categories, randomMovie }: Props) {
 	);
 }
 
-const Container = styled.div`
-	padding-bottom: 8rem;
-`;
+const Container = styled.div``;
 
 export async function getServerSideProps() {
 	const routes = [
