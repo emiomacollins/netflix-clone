@@ -5,13 +5,14 @@ import {
 	VolumeUpIcon,
 	XIcon,
 } from '@heroicons/react/solid';
-import { MouseEvent, useEffect, useMemo } from 'react';
+import Image from 'next/image';
+import { Fragment, MouseEvent, useEffect, useMemo } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { useQuery } from 'react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
-import { YOUTUBE_VIDEO_BASE_URL } from '../../constants/urls/apis';
+import { TMDB_IMAGE_BASE_URL, YOUTUBE_VIDEO_BASE_URL } from '../../constants/urls/apis';
 import { useMyList } from '../../hooks/useMyList';
 import { useToggle } from '../../hooks/useToggle';
 import { getModalMovie, setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
@@ -47,6 +48,8 @@ export default function Modal() {
 		vote_count,
 		title,
 		name,
+		poster_path,
+		backdrop_path,
 	} = modalMovie || {};
 	const percentageMatch = vote_average * 10;
 	const isInMyList = useMemo(
@@ -74,36 +77,52 @@ export default function Modal() {
 				</CloseBtn>
 
 				<VideoContainer>
-					{/* TODO: show image if no video link */}
-					<ReactPlayer
-						url={`${YOUTUBE_VIDEO_BASE_URL}${video?.key}`}
-						playing
-						width={'100%'}
-						height={'100%'}
-						muted={muted}
-					/>
+					{video?.key ? (
+						<Fragment>
+							<ReactPlayer
+								url={`${YOUTUBE_VIDEO_BASE_URL}${video?.key}`}
+								playing
+								width={'100%'}
+								height={'100%'}
+								muted={muted}
+							/>
+							<Buttons>
+								<Button icon onClick={toggleMuted}>
+									<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
+								</Button>
 
-					<Buttons>
-						<Button icon onClick={toggleMuted}>
-							<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
-						</Button>
-
-						{/* TODO DEBUG: sometimes this does not work */}
-						{!loadingMyList && modalMovie && (
-							<Button
-								icon
-								toolTip={isInMyList ? 'Remove from List' : 'Add to List'}
-								onClick={() => toggleFromListMutation(modalMovie)}
-								disabled={togglingFromList}
-							>
-								{isInMyList ? (
-									<Icon as={CheckIcon} />
-								) : (
-									<Icon as={PlusIcon} />
+								{/* TODO DEBUG: sometimes this does not work */}
+								{!loadingMyList && modalMovie && (
+									<Button
+										icon
+										toolTip={
+											isInMyList
+												? 'Remove from List'
+												: 'Add to List'
+										}
+										onClick={() => toggleFromListMutation(modalMovie)}
+										disabled={togglingFromList}
+									>
+										{isInMyList ? (
+											<Icon as={CheckIcon} />
+										) : (
+											<Icon as={PlusIcon} />
+										)}
+									</Button>
 								)}
-							</Button>
-						)}
-					</Buttons>
+							</Buttons>
+						</Fragment>
+					) : (
+						<PlaceholderImage>
+							<Image
+								src={`${TMDB_IMAGE_BASE_URL}/original/${
+									backdrop_path || poster_path
+								}`}
+								alt=''
+								layout='fill'
+							/>
+						</PlaceholderImage>
+					)}
 				</VideoContainer>
 
 				<Text>
@@ -224,6 +243,13 @@ const VideoContainer = styled.div`
 	aspect-ratio: 16/9;
 	width: 100%;
 	position: relative;
+`;
+
+const PlaceholderImage = styled.div`
+	img {
+		object-fit: cover;
+		object-position: top;
+	}
 `;
 
 const Buttons = styled.div`
