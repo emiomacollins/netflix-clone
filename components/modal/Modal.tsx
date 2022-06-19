@@ -45,6 +45,8 @@ export default function Modal() {
 		overview,
 		original_language,
 		vote_count,
+		title,
+		name,
 	} = modalMovie || {};
 	const percentageMatch = vote_average * 10;
 	const isInMyList = useMemo(
@@ -103,7 +105,6 @@ export default function Modal() {
 					</Buttons>
 				</VideoContainer>
 
-				{/* TODO: add title */}
 				<Text>
 					<Grid gap={2}>
 						<Flex>
@@ -120,6 +121,10 @@ export default function Modal() {
 						<Columns>
 							<p>{overview}</p>
 							<Grid>
+								<p>
+									<Accent>Title: </Accent>
+									{name || title}
+								</p>
 								<p>
 									<Accent>Genres: </Accent>
 									{genres?.map(({ name }) => name).join(', ')}
@@ -266,8 +271,8 @@ const Columns = styled.div`
 	align-items: flex-start;
 
 	@media ${Breakpoints.tabletUp} {
-		grid-template-columns: 1fr 20%;
-		gap: 4rem;
+		grid-template-columns: 1fr 25%;
+		gap: 3rem;
 	}
 `;
 

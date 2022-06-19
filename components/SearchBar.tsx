@@ -1,6 +1,6 @@
 import { SearchIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
@@ -32,26 +32,26 @@ export default function SearchBar() {
 		setSearchQuery(query);
 		timer && clearTimeout(timer);
 		setTimer(
-			query
-				? setTimeout(() => {
-						router.push(`${routes.search}?searchQuery=${query}`);
-				  }, 500)
-				: setTimeout(() => {
-						// if no query wait 5 seconds and go to homePage
-						router.push(routes.home);
-				  }, 5000)
+			setTimeout(() => {
+				router.push(`${routes.search}?searchQuery=${query}`);
+			}, 500)
 		);
 	}
 
+	function handleSubmit(e: FormEvent) {
+		e.preventDefault();
+		inputRef.current.blur();
+	}
+
 	return (
-		<Container ref={ref} focused={focused}>
+		<Container ref={ref} focused={focused} onSubmit={handleSubmit}>
 			<Input
 				type='text'
 				ref={inputRef}
 				onChange={handleChange}
 				value={searchQuery}
 			/>
-			<SearchBtn color='transparent' onClick={openSearchBox}>
+			<SearchBtn type='button' color='transparent' onClick={openSearchBox}>
 				<StyledSearchIcon />
 			</SearchBtn>
 		</Container>
@@ -62,14 +62,15 @@ interface FocusedProps {
 	focused: boolean;
 }
 
-const Container = styled.div<FocusedProps>`
+const Container = styled.form<FocusedProps>`
 	display: flex;
 	align-items: center;
-	padding: 0.1em 0.25em 0.1em 0.5em;
-	transition: all 0.2s;
 	gap: 1rem;
+
+	padding: 0.1em 0.25em 0.1em 0.5em;
 	border: 2px solid transparent;
 	border-radius: var(--radius-200);
+	transition: 0.2s;
 
 	${(p) =>
 		p.focused &&
@@ -77,18 +78,12 @@ const Container = styled.div<FocusedProps>`
 			border-color: var(--light);
 
 			${Input} {
-				width: 80px;
+				width: 150px;
 				margin-bottom: 0.1em;
 
-				@media ${Breakpoints.tabletUp} {
-					width: 150px;
+				@media ${Breakpoints.mobileDown} {
+					width: 80px;
 				}
-			}
-
-			${SearchBtn} {
-			}
-
-			${StyledSearchIcon} {
 			}
 		`}
 `;
@@ -114,8 +109,8 @@ const Input = styled.input`
 	border: 0;
 	background: transparent;
 	outline: 0;
-	transition: width 0.2s;
 	color: var(--light);
+	transition: 0.2s;
 
 	&::placeholder {
 		font-size: inherit;

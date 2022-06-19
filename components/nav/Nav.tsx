@@ -13,7 +13,6 @@ import SearchBar from '../SearchBar';
 import Show from '../Show';
 import Button from '../styled components/Button';
 import { contentStyles, contentWidthPercent } from '../styled components/Content';
-import { Flex } from '../styled components/Flex';
 import { Grid } from '../styled components/Grid';
 import { Overlay } from '../styled components/Overlay';
 
@@ -168,7 +167,6 @@ const Content = styled.div`
 	grid-template-columns: auto auto 1fr;
 
 	@media ${Breakpoints.tabletUp} {
-		grid-template-columns: auto 1fr auto;
 		gap: 3rem;
 	}
 `;
@@ -208,8 +206,10 @@ const HamburgerIcon = styled.div`
 	display: flex;
 `;
 
-const SearchContainer = styled(Flex)`
+const SearchContainer = styled(Grid)`
+	grid-template-columns: 1fr auto;
 	justify-self: right;
+	gap: 1rem;
 `;
 
 interface ExpandedProps {
