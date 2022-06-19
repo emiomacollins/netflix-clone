@@ -108,6 +108,7 @@ const Overlay = styled.div`
 const Heading = styled.h1`
 	font-size: var(--size-700);
 	text-shadow: var(--text-shadow);
+	line-height: 1;
 
 	@media ${Breakpoints.tabletUp} {
 		max-width: 80%;
