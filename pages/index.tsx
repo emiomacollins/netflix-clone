@@ -1,9 +1,14 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import styled from 'styled-components';
+import GithubIconPath from '../assets/images/GitHub-icon.png';
 import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
 import Nav from '../components/nav/Nav';
+import { flexStyles } from '../components/styled components/Flex';
+import { Link } from '../components/styled components/Link';
+import { Breakpoints } from '../constants/breakpoints';
 import { Movie, MovieCategory } from '../constants/home/types';
 import { baseAxios } from '../lib/axios/config';
 
@@ -22,12 +27,42 @@ export default function Home({ categories, randomMovie }: Props) {
 			<Modal />
 			<Hero randomMovie={randomMovie} />
 			<CategoryList categories={categories} />
-			{/* TODO: Footer (check netflix own) */}
+			<Footer>
+				<StyledLink
+					href='https://github.com/emiomacollins'
+					target='_blank'
+					rel='noopener noreferrer'
+				>
+					©2022 Developed by @emiomacollins
+				</StyledLink>
+			</Footer>
 		</Container>
 	);
 }
 
 const Container = styled.div``;
+
+const Footer = styled.div`
+	display: flex;
+	justify-content: center;
+	padding-block: 6rem 2rem;
+	gap: 1rem;
+
+	@media ${Breakpoints.tabletUp} {
+		padding-block: 8rem 2rem;
+	}
+`;
+
+const StyledLink = styled(Link)`
+	${flexStyles}
+	font-size: var(--size-300);
+	font-weight: 300;
+	text-decoration: underline;
+
+	&:hover {
+		opacity: 0.8;
+	}
+`;
 
 export async function getServerSideProps() {
 	const routes = [

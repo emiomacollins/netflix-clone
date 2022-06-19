@@ -30,7 +30,6 @@ const Container = styled.div`
 	${contentStyles}
 	display: grid;
 	gap: 2rem;
-	padding-bottom: 8rem;
 
 	@media ${Breakpoints.tabletUp} {
 		gap: 3rem;
