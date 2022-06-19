@@ -30,6 +30,7 @@ export default function SearchBar() {
 	function handleChange(e: ChangeEvent<HTMLInputElement>) {
 		const query = e.target.value;
 		setSearchQuery(query);
+		if (!query) return;
 		timer && clearTimeout(timer);
 		setTimer(
 			setTimeout(() => {
