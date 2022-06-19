@@ -62,15 +62,15 @@ const Container = styled.div``;
 
 const Content = styled.div`
 	${contentStyles}
-	--padding-bottom:clamp(7rem, 10vh, 10rem);
-	--padding-top: clamp(10rem, 15vh, 15rem);
+	--padding-bottom:clamp(7rem, 20vw, 10rem);
+	--padding-top: clamp(10rem, 25vw, 15rem);
 	padding-block: var(--padding-top) var(--padding-bottom);
 	display: grid;
 	gap: 1.5rem;
 
-	@media ${Breakpoints.tabletUp} {
-		--padding-bottom: clamp(10rem, 20vh, 20rem);
-		--padding-top: clamp(15rem, 25vh, 25rem);
+	@media ${Breakpoints.desktopUp} {
+		--padding-bottom: clamp(10rem, 35vw, 20rem);
+		--padding-top: clamp(15rem, 50vw, 25rem);
 	}
 `;
 
