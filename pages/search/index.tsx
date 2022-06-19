@@ -61,6 +61,7 @@ const Movies = styled.div`
 `;
 
 const StyledThumbnail = styled(MovieThumbnail)`
+	max-width: 500px;
 	&:hover {
 		z-index: 1;
 	}
