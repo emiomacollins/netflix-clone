@@ -73,7 +73,6 @@ export default function Modal() {
 	function stopPropagation(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
 	}
-	console.log(modalMovie);
 
 	return (
 		<StyledOverlay opacity={0.8} visible={visible} onClick={handleClose}>
