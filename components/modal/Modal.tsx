@@ -55,6 +55,7 @@ export default function Modal() {
 		name,
 		poster_path,
 		backdrop_path,
+		media_type,
 	} = modalMovie || {};
 	const percentageMatch = vote_average * 10;
 	const isInMyList = useMemo(
@@ -150,6 +151,12 @@ export default function Modal() {
 									<Accent>Title: </Accent>
 									{name || title}
 								</p>
+								{media_type && (
+									<p>
+										<Accent>Category: </Accent>
+										{media_type === 'tv' ? 'Tv-Show' : 'Movie'}
+									</p>
+								)}
 								<p>
 									<Accent>Genres: </Accent>
 									{genres?.map(({ name }) => name).join(', ')}
