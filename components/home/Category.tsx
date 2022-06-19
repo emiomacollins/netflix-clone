@@ -80,7 +80,8 @@ const navigationBtnStyles = css<NavigationBtnProps>`
 	height: calc(100% - (2 * var(--gallery-padding-block)) + 2px);
 	padding: 0 0.75rem;
 	opacity: 1; //always show on mobile
-	background: var(--dark-transparent);
+	/* background: var(--dark-transparent); */
+	background: transparent;
 	transform: translateY(-50%);
 	transition: 0.2s;
 
@@ -136,6 +137,7 @@ const Gallery = styled.div`
 	gap: 0.5rem;
 	width: 100%;
 	overflow-x: hidden;
+	scroll-behavior: smooth;
 
 	&::-webkit-scrollbar {
 		display: none;
