@@ -16,23 +16,26 @@ export async function fetchExtraInfo(
 	category: string | string[] | undefined
 ) {
 	const { id, media_type } = movie;
-	// try to get category (media_type) from url first
+	// try to get category (media_type) from url queryParam first
 	// media_type does not get included if modalMovie was gotten from a path that isn't '/all'
-	// category could be null & media_type could not exist in that case use /movie
-	/* a senario would be in the default home route (category will be undefined) 
-       default routes array uses `/discover/movie` for most routes in getServerSideProps 
-       because `/discover/all` is not allowed */
+	// category & media_type could both be null. in that case use movie
+	const mediaType = category || media_type || 'movie';
 
-	const url = `${category || media_type || 'movie'}/${id}?append_to_response=videos`;
-	const { data } = await baseAxios(url);
+	async function fetchInfo(category: string | string[] | undefined) {
+		const url = `${category}/${id}?append_to_response=videos`;
+		const { data } = await baseAxios(url);
 
-	const genres: Genre[] = data.genres;
-	const video: Video = data.videos.results.find(
-		({ type }: Video) => type === 'Trailer'
-	);
+		const genres: Genre[] = data.genres;
+		const video: Video = data.videos.results.find(
+			({ type }: Video) => type === 'Trailer'
+		);
 
-	return {
-		video,
-		genres,
-	};
+		return {
+			video,
+			genres,
+		};
+	}
+
+	// if both are null and movie fails to fetch it means it is a tv-show
+	return await fetchInfo(mediaType).catch(async () => await fetchInfo('tv'));
 }
