@@ -31,10 +31,9 @@ export default function Hero({ randomMovie }: Props) {
 				<Image
 					priority
 					layout='fill'
-					src={`${TMDB_IMAGE_BASE_URL}/original/${
-						backdrop_path || poster_path
-					}`}
+					src={`${TMDB_IMAGE_BASE_URL}/original${backdrop_path || poster_path}`}
 					alt=''
+					loader={({ src }) => `${src}?q=75&w=2048`}
 				/>
 			</BgImage>
 			<Overlay />

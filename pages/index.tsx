@@ -1,7 +1,6 @@
+import { GetServerSidePropsContext } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
 import styled from 'styled-components';
-import GithubIconPath from '../assets/images/GitHub-icon.png';
 import CategoryList from '../components/home/CategoryList';
 import Hero from '../components/home/Hero';
 import Modal from '../components/modal/Modal';
@@ -64,20 +63,51 @@ const StyledLink = styled(Link)`
 	}
 `;
 
-export async function getServerSideProps() {
-	const routes = [
+export async function getServerSideProps({ query }: GetServerSidePropsContext) {
+	const { category } = query;
+
+	let routes = [
 		{
 			title: 'Netflix Originals',
 			url: `/discover/movie?with_networks=213`,
 		},
 		{ title: 'Trending Now', url: `/trending/all/week` },
-		{ title: 'Top Rated', url: `/movie/top_rated` },
+		{ title: 'Tv Shows', url: `discover/tv` },
 		{ title: 'Action Thrillers', url: `/discover/movie?with_genres=28` },
 		{ title: 'Comedy', url: `/discover/movie?with_genres=35` },
 		{ title: 'Horror', url: `/discover/movie?with_genres=27` },
 		{ title: 'Romance', url: `/discover/movie?with_genres=10749` },
 		{ title: 'Documentaries', url: `/discover/movie?with_genres=99` },
 	];
+
+	if (category === 'movie')
+		routes = [
+			{
+				title: 'Netflix Originals',
+				url: `/discover/movie?with_networks=213`,
+			},
+			{ title: 'Trending Now', url: `/trending/movie/week` },
+			{ title: 'Top Rated', url: `/movie/top_rated` },
+			{ title: 'Action Thrillers', url: `/discover/movie?with_genres=28` },
+			{ title: 'Comedy', url: `/discover/movie?with_genres=35` },
+			{ title: 'Horror', url: `/discover/movie?with_genres=27` },
+			{ title: 'Romance', url: `/discover/movie?with_genres=10749` },
+			{ title: 'Documentaries', url: `/discover/movie?with_genres=99` },
+		];
+
+	if (category === 'tv')
+		routes = [
+			{
+				title: 'Netflix Originals',
+				url: `/discover/tv?with_networks=213`,
+			},
+			{ title: 'Trending Now', url: `/trending/tv/week` },
+			{ title: 'Top Rated', url: `/tv/top_rated` },
+			{ title: 'Comedy', url: `/discover/tv?with_genres=35` },
+			{ title: 'Talk shows', url: `/discover/tv?with_type=5` },
+			{ title: 'Romance', url: `/discover/tv?with_genres=10749` },
+			{ title: 'Documentaries', url: `/discover/tv?with_genres=99` },
+		];
 
 	interface Result {
 		data: { results: Movie[] };
@@ -94,7 +124,6 @@ export async function getServerSideProps() {
 	const [netflixOriginals, ...categories] = data;
 	const randomIndex = Math.floor(Math.random() * netflixOriginals.movies?.length);
 	const randomMovie = netflixOriginals.movies[randomIndex];
-
 	return {
 		props: {
 			categories,

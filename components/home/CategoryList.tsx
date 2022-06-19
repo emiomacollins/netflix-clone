@@ -32,6 +32,6 @@ const Container = styled.div`
 	gap: 2rem;
 
 	@media ${Breakpoints.tabletUp} {
-		gap: 3rem;
+		gap: 4rem;
 	}
 `;

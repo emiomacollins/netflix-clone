@@ -10,7 +10,7 @@ export interface Data {
 export default async function searchMovie(
 	query: string | string[] | undefined
 ): Promise<Movie[]> {
-	const url = `search/movie?query=${query}`;
+	const url = `search/multi?query=${query}`;
 	const maxTotalPages = 2;
 
 	const { data } = await baseAxios.request<Data>({

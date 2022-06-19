@@ -6,6 +6,7 @@ import {
 	XIcon,
 } from '@heroicons/react/solid';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { Fragment, MouseEvent, useEffect, useMemo } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { useQuery } from 'react-query';
@@ -28,14 +29,18 @@ export default function Modal() {
 	const modalMovie = useSelector(getModalMovie);
 	const visible = !!modalMovie;
 	const { state: muted, toggle: toggleMuted } = useToggle();
+	const {
+		query: { category },
+	} = useRouter();
 
 	const {
 		query: { data: myList, isLoading: loadingMyList },
 		toggleMutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
 	} = useMyList();
 
-	const { data: extraInfo } = useQuery([`fetchExtraInfo`, modalMovie?.id], () =>
-		visible ? fetchExtraInfo(modalMovie) : null
+	const { data: extraInfo, isLoading: loadingExtraInfo } = useQuery(
+		[`fetchExtraInfo`, modalMovie?.id],
+		() => (visible ? fetchExtraInfo(modalMovie, category) : null)
 	);
 
 	const { video, genres } = extraInfo || {};
@@ -86,43 +91,43 @@ export default function Modal() {
 								height={'100%'}
 								muted={muted}
 							/>
-							<Buttons>
-								<Button icon onClick={toggleMuted}>
-									<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
-								</Button>
-
-								{/* TODO DEBUG: sometimes this does not work */}
-								{!loadingMyList && modalMovie && (
-									<Button
-										icon
-										toolTip={
-											isInMyList
-												? 'Remove from List'
-												: 'Add to List'
-										}
-										onClick={() => toggleFromListMutation(modalMovie)}
-										disabled={togglingFromList}
-									>
-										{isInMyList ? (
-											<Icon as={CheckIcon} />
-										) : (
-											<Icon as={PlusIcon} />
-										)}
-									</Button>
-								)}
-							</Buttons>
 						</Fragment>
 					) : (
-						<PlaceholderImage>
-							<Image
-								src={`${TMDB_IMAGE_BASE_URL}/original/${
-									backdrop_path || poster_path
-								}`}
-								alt=''
-								layout='fill'
-							/>
-						</PlaceholderImage>
+						!loadingExtraInfo && (
+							<PlaceholderImage>
+								<Image
+									src={`${TMDB_IMAGE_BASE_URL}/original${
+										backdrop_path || poster_path
+									}`}
+									alt=''
+									layout='fill'
+								/>
+							</PlaceholderImage>
+						)
 					)}
+					<Buttons>
+						{video?.key && (
+							<Button icon onClick={toggleMuted}>
+								<Icon as={muted ? VolumeOffIcon : VolumeUpIcon} />
+							</Button>
+						)}
+
+						{/* TODO DEBUG: sometimes this does not work */}
+						{!loadingMyList && modalMovie && (
+							<Button
+								icon
+								toolTip={isInMyList ? 'Remove from List' : 'Add to List'}
+								onClick={() => toggleFromListMutation(modalMovie)}
+								disabled={togglingFromList}
+							>
+								{isInMyList ? (
+									<Icon as={CheckIcon} />
+								) : (
+									<Icon as={PlusIcon} />
+								)}
+							</Button>
+						)}
+					</Buttons>
 				</VideoContainer>
 
 				<Text>

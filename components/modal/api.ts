@@ -1,5 +1,5 @@
-import { baseAxios } from '../../lib/axios/config';
 import { Movie } from '../../constants/home/types';
+import { baseAxios } from '../../lib/axios/config';
 
 interface Video {
 	key: string;
@@ -11,9 +11,12 @@ interface Genre {
 	name: string;
 }
 
-export async function fetchExtraInfo(movie: Movie) {
-	const { media_type, id } = movie;
-	const url = `${media_type === 'tv' ? 'tv' : 'movie'}/${id}?append_to_response=videos`;
+export async function fetchExtraInfo(
+	movie: Movie,
+	mediaType: string | string[] | undefined
+) {
+	const { id } = movie;
+	const url = `${mediaType}/${id}?append_to_response=videos`;
 	const { data } = await baseAxios(url);
 
 	const genres: Genre[] = data.genres;

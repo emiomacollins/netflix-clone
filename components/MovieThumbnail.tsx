@@ -28,7 +28,7 @@ export default function MovieThumbnail({ movie, className }: Props) {
 			className={className}
 		>
 			<Image
-				src={`${TMDB_IMAGE_BASE_URL}/w500/${backdrop_path || poster_path}`}
+				src={`${TMDB_IMAGE_BASE_URL}/w500${backdrop_path || poster_path}`}
 				alt=''
 				layout='fill'
 			/>

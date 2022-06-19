@@ -1,7 +1,7 @@
 export const routes = {
 	home: '/',
-	tvShows: '/?category=tv-shows',
-	movies: '/?category=movies',
+	tvShows: '/?category=tv',
+	movies: '/?category=movie',
 	new: '/?category=new',
 	myList: '#my-list',
 	account: '/account',
