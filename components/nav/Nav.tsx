@@ -16,7 +16,6 @@ import { contentStyles, contentWidthPercent } from '../styled components/Content
 import { Grid } from '../styled components/Grid';
 import { Overlay } from '../styled components/Overlay';
 
-/* TODO decide where each link goes*/
 const links = [
 	{ label: 'Home', route: routes.home },
 	{ label: 'Tv Shows', route: routes.tvShows },
@@ -92,7 +91,12 @@ export default function Nav() {
 						<Grid gap={0}>
 							{links.map(({ route, label }) => (
 								<Link key={route} href={route}>
-									<BoldLink onClick={handleClose}>{label}</BoldLink>
+									<BoldLink
+										active={asPath === route}
+										onClick={handleClose}
+									>
+										{label}
+									</BoldLink>
 								</Link>
 							))}
 						</Grid>
@@ -177,7 +181,7 @@ const Links = styled.ul`
 `;
 
 interface StyledLinkProps {
-	active: boolean;
+	active?: boolean;
 }
 
 const StyledLink = styled.a<StyledLinkProps>`
@@ -261,11 +265,19 @@ const StyledOverlay = styled(Overlay)<ExpandedProps>`
 		`}
 `;
 
-const BoldLink = styled.a`
+const BoldLink = styled.a<StyledLinkProps>`
 	font-weight: 500;
 	letter-spacing: 0.02em;
 	color: var(--gray);
 	font-size: var(--size-500);
 	padding-block: 1rem;
 	padding-left: var(--padding-left);
+	border-left: 0.2em solid transparent;
+
+	${(p) =>
+		p.active &&
+		css`
+			border-color: var(--red);
+			color: var(--light);
+		`}
 `;
