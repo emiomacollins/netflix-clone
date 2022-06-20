@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { QueryKey, useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import { Movie } from '../constants/home/types';
 import { firestore } from '../lib/firebase/firebase';
@@ -44,8 +44,7 @@ export function useMyList() {
 		},
 		{
 			onMutate(modalMovie: Movie) {
-				const prevListQuery = queryClient.getQueriesData(fetchListQueryKey)[0];
-				const [_, prevList] = (prevListQuery || []) as [QueryKey, Movie[]];
+				const { data: prevList } = query;
 				queryClient.setQueriesData(
 					fetchListQueryKey,
 					toggleFromList(prevList, modalMovie)
@@ -53,9 +52,7 @@ export function useMyList() {
 				return { prevList };
 			},
 			onError(_, __, context) {
-				queryClient.setQueriesData(fetchListQueryKey, {
-					prevList: context?.prevList,
-				});
+				queryClient.setQueriesData(fetchListQueryKey, context?.prevList);
 			},
 			onSettled() {
 				// sync with server regardless of the outcome

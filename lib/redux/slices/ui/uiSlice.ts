@@ -25,7 +25,7 @@ const uiSlice = createSlice({
 	},
 });
 
-export const { setModalMovie } = uiSlice.actions;
+export const { setModalMovie, setSearchQuery } = uiSlice.actions;
 const uiReducer = uiSlice.reducer;
 export default uiReducer;
 

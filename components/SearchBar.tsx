@@ -1,23 +1,25 @@
 import { SearchIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
 import { useToggle } from '../hooks/useToggle';
+import { getSearchQuery, setSearchQuery } from '../lib/redux/slices/ui/uiSlice';
 import Button from './styled components/Button';
 
 export default function SearchBar() {
 	const router = useRouter();
-	const initialSearchQuery = router.query.searchQuery;
+	const dispatch = useDispatch();
 	const inputRef = useRef<HTMLInputElement | any>();
 	const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(null);
-	const [searchQuery, setSearchQuery] = useState(initialSearchQuery || '');
+	const searchQuery = useSelector(getSearchQuery);
 	const {
 		state: focused,
 		setState: setFocused,
 		ref,
-	} = useToggle(initialSearchQuery ? true : false);
+	} = useToggle(searchQuery ? true : false);
 
 	function openSearchBox() {
 		if (!focused) setFocused(true);
@@ -29,8 +31,11 @@ export default function SearchBar() {
 
 	function handleChange(e: ChangeEvent<HTMLInputElement>) {
 		const query = e.target.value;
-		setSearchQuery(query);
+		dispatch(setSearchQuery(query));
+
+		// don't search if user just cleared search
 		if (!query) return;
+
 		timer && clearTimeout(timer);
 		setTimer(
 			setTimeout(() => {

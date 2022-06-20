@@ -31,7 +31,7 @@ export default function Modal() {
 
 	const {
 		query: { data: myList, isLoading: loadingMyList },
-		toggleMutation: { mutate: toggleFromListMutation },
+		toggleMutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
 	} = useMyList();
 
 	const { data: extraInfo, isLoading: loadingExtraInfo } = useQuery(
@@ -63,6 +63,7 @@ export default function Modal() {
 
 	useEffect(() => {
 		document.documentElement.style.overflow = modalMovie ? 'hidden' : 'unset';
+		console.log(modalMovie);
 	}, [modalMovie]);
 
 	function handleClose() {
@@ -72,6 +73,13 @@ export default function Modal() {
 	function stopPropagation(e: MouseEvent<HTMLDivElement>) {
 		e.stopPropagation();
 	}
+
+	useEffect(() => {
+		console.log('toggling: ', togglingFromList);
+	}, [togglingFromList]);
+	useEffect(() => {
+		console.log('inList: ', isInMyList);
+	}, [isInMyList]);
 
 	return (
 		<StyledOverlay opacity={0.8} visible={visible} onClick={handleClose}>

@@ -26,12 +26,11 @@ export default function Search() {
 			<Content>
 				<LoadQuery query={query}>
 					{(movies: Movie[] | undefined) => {
-						if (!searchQuery) return <h2>Search for a movie</h2>;
 						if (!movies?.length)
-							return <h2>Found 0 results for &apos;{searchQuery}&apos;</h2>;
+							return <h2>Found 0 results for `{searchQuery}`</h2>;
 						return (
 							<Grid gap={2}>
-								<h2>Search results for &apos;{searchQuery}&apos;</h2>
+								<h2>Search results for `{searchQuery}`</h2>
 								<Movies>
 									{movies.map((movie, i) => (
 										<StyledThumbnail
@@ -52,6 +51,8 @@ export default function Search() {
 const Container = styled.div`
 	display: grid;
 	padding-block: 10rem 5rem;
+	/* to prevent page shifting when no results are shown */
+	min-height: 101vh;
 `;
 
 const Movies = styled.div`
