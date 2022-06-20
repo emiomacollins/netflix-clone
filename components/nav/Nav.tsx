@@ -21,7 +21,7 @@ const links = [
 	{ label: 'Home', route: routes.home },
 	{ label: 'Tv Shows', route: routes.tvShows },
 	{ label: 'Movies', route: routes.movies },
-	{ label: 'New & Popular', route: routes.new },
+	// { label: 'New & Popular', route: routes.new },
 	{ label: 'My List', route: routes.myList },
 ];
 

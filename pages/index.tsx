@@ -46,6 +46,7 @@ const Footer = styled.div`
 	justify-content: center;
 	padding-block: 6rem 2rem;
 	gap: 1rem;
+	opacity: 0.7;
 
 	@media ${Breakpoints.tabletUp} {
 		padding-block: 8rem 2rem;
@@ -79,7 +80,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 			url: `/discover/movie?with_genres=28`,
 			media_type: 'movie',
 		},
-		{ title: 'Comedy', url: `/discover/movie?with_genres=35`, media_type: 'movie' },
+		{ title: 'Comedy', url: `/discover/movie?with_genres=35&`, media_type: 'movie' },
 		{ title: 'Horror', url: `/discover/movie?with_genres=27`, media_type: 'movie' },
 		{
 			title: 'Romance',
@@ -143,20 +144,25 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 			},
 		].map((route) => ({ ...route, media_type: 'tv' }));
 
-	interface Result {
+	interface PromiseResult {
 		data: { results: Movie[] };
 	}
 
-	const results: Result[] = await Promise.all(
+	const PromiseResults: PromiseResult[] = await Promise.all(
 		routes.map(({ url }) => baseAxios(url || ''))
 	);
 
-	const data: MovieCategory[] = results.map(({ data: { results } }, i) => {
+	const data: MovieCategory[] = PromiseResults.map((promiseResult, i) => {
+		const {
+			data: { results },
+		} = promiseResult;
+		const correspondingRoute = routes[i];
 		return {
-			...routes[i],
+			...correspondingRoute,
 			movies: results.map((movie) => {
 				const { media_type } = movie;
-				return { ...movie, media_type: routes[i].media_type };
+				// assign media_type manually for modal fetching
+				return { ...movie, media_type: media_type || routes[i].media_type };
 			}),
 		};
 	});
@@ -164,6 +170,7 @@ export async function getServerSideProps({ query }: GetServerSidePropsContext) {
 	const [netflixOriginals, ...categories] = data;
 	const randomIndex = Math.floor(Math.random() * netflixOriginals.movies?.length);
 	const randomMovie = netflixOriginals.movies[randomIndex];
+
 	return {
 		props: {
 			categories,

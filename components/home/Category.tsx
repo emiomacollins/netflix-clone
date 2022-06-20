@@ -12,8 +12,6 @@ interface Props extends MovieCategory {
 export default function Category({ id, title, movies }: Props) {
 	const galleryRef = useRef<any>();
 	const [scrollPosition, setScrollPosition] = useState(0);
-	const maxScrollPosition =
-		galleryRef.current?.scrollWidth - galleryRef.current?.offsetWidth;
 
 	function handleScroll(increment: number) {
 		const widthOfVisibleSlider = galleryRef.current?.offsetWidth;
@@ -25,34 +23,24 @@ export default function Category({ id, title, movies }: Props) {
 		});
 	}
 
-	function updateScrollPosition() {
-		setScrollPosition(galleryRef.current?.scrollLeft);
-	}
-
 	return (
 		<Container id={id}>
 			<Heading>{title}</Heading>
 
 			<GalleryContainer>
-				<LeftNavigationBtn
-					onClick={() => handleScroll(-1)}
-					visible={scrollPosition > 0}
-				>
-					<NavigationBtnIcon as={ChevronLeftIcon} />
-				</LeftNavigationBtn>
+				<LeftBtn onClick={() => handleScroll(-1)} visible={scrollPosition > 0}>
+					<BtnIcon as={ChevronLeftIcon} />
+				</LeftBtn>
 
-				<Gallery ref={galleryRef} onScroll={updateScrollPosition}>
+				<Gallery ref={galleryRef}>
 					{movies?.map((movie) => {
 						return <MovieThumbnail key={movie.id} movie={movie} />;
 					})}
 				</Gallery>
 
-				<RightNavigationBtn
-					onClick={() => handleScroll(1)}
-					visible={scrollPosition < maxScrollPosition}
-				>
-					<NavigationBtnIcon as={ChevronRightIcon} />
-				</RightNavigationBtn>
+				<RightBtn onClick={() => handleScroll(1)}>
+					<BtnIcon as={ChevronRightIcon} />
+				</RightBtn>
 			</GalleryContainer>
 		</Container>
 	);
@@ -68,7 +56,7 @@ const Heading = styled.h2`
 `;
 
 interface NavigationBtnProps {
-	visible: boolean;
+	visible?: boolean;
 }
 
 const navigationBtnStyles = css<NavigationBtnProps>`
@@ -88,7 +76,7 @@ const navigationBtnStyles = css<NavigationBtnProps>`
 	}
 
 	${(p) =>
-		!p.visible &&
+		p.visible === false &&
 		css`
 			opacity: 0 !important;
 			pointer-events: none;
@@ -101,17 +89,17 @@ const navigationBtnStyles = css<NavigationBtnProps>`
 	}
 `;
 
-const LeftNavigationBtn = styled.button`
+const LeftBtn = styled.button`
 	${navigationBtnStyles}
 	left: 0;
 `;
 
-const RightNavigationBtn = styled.button`
+const RightBtn = styled.button`
 	${navigationBtnStyles}
 	right: 0;
 `;
 
-const NavigationBtnIcon = styled.div`
+const BtnIcon = styled.div`
 	height: var(--size-700);
 `;
 
@@ -120,10 +108,10 @@ const GalleryContainer = styled.div`
 	overflow-x: hidden;
 
 	&:hover {
-		${LeftNavigationBtn} {
+		${LeftBtn} {
 			opacity: 1;
 		}
-		${RightNavigationBtn} {
+		${RightBtn} {
 			opacity: 1;
 		}
 	}
@@ -133,9 +121,10 @@ const Gallery = styled.div`
 	padding-block: var(--gallery-padding-block); // FIX overflow hidden on hover
 	display: flex;
 	gap: 0.5rem;
-	width: 100%;
 	overflow-x: scroll;
-	scroll-behavior: smooth;
+	/* scroll-behavior: smooth; */
+	align-items: center;
+	overscroll-behavior-inline: contain;
 
 	&::-webkit-scrollbar {
 		display: none;

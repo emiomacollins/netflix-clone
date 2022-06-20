@@ -1,7 +1,6 @@
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import { Breakpoints } from '../constants/breakpoints';
 import { Movie } from '../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../constants/urls/apis';
 import { setModalMovie } from '../lib/redux/slices/ui/uiSlice';
@@ -54,9 +53,5 @@ const Container = styled.button`
 	img {
 		object-fit: cover;
 		object-position: top;
-	}
-
-	@media ${Breakpoints.tabletUp} {
-		border-radius: var(--radius-300);
 	}
 `;
