@@ -4,7 +4,6 @@ import { collection, getDocs } from 'firebase/firestore';
 import Head from 'next/head';
 import NextLink from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import Logo from '../../components/Logo';
@@ -24,11 +23,6 @@ interface Props {
 export default function Plans({ plans }: Props) {
 	const router = useRouter();
 	const user = useSelector(getUser);
-	const testCardInfoRef = useRef<HTMLDivElement | any>(null);
-
-	useEffect(() => {
-		testCardInfoRef.current?.scrollIntoView({ behavior: 'smooth' });
-	}, []);
 
 	if (user?.isSubscribed) {
 		router.push(routes.home);
@@ -66,7 +60,7 @@ export default function Plans({ plans }: Props) {
 
 				<PlansGrid plans={plans} />
 			</Content>
-			<TestCardInfo ref={testCardInfoRef}>
+			<TestCardInfo>
 				<TestCardInfoContent>
 					<TestCardInfoHeading>
 						USE THE FOLLOWING TEST CARD DETAILS TO CHECKOUT

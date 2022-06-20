@@ -1,5 +1,5 @@
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { QueryKey, useMutation, useQuery, useQueryClient } from 'react-query';
 import { useSelector } from 'react-redux';
 import { Movie } from '../constants/home/types';
 import { firestore } from '../lib/firebase/firebase';
@@ -10,27 +10,55 @@ export function useMyList() {
 	const queryClient = useQueryClient();
 	const fetchListQueryKey = [`fetchMyList`, user?.uid];
 
-	const query = useQuery<Movie[]>(fetchListQueryKey, async () => {
-		const myListRef = doc(firestore, `myList/${user?.uid}`);
-		const snapshot = await getDoc(myListRef);
-		return snapshot.data()?.list;
-	});
+	const query = useQuery<Movie[] | null>(
+		fetchListQueryKey,
+		async () => {
+			const myListRef = doc(firestore, `myList/${user?.uid}`);
+			const snapshot = await getDoc(myListRef);
+			return snapshot.data()?.list;
+		},
+		{
+			staleTime: Infinity,
+		}
+	);
+
+	function toggleFromList(list: Movie[] | null | undefined, movie: Movie) {
+		const isModalMovie = ({ id }: Movie) => id === movie?.id;
+		const isNotModalMovie = ({ id }: Movie) => id !== movie?.id;
+
+		const newList = list?.find(isModalMovie)
+			? list.filter(isNotModalMovie)
+			: [movie, ...(list || [])];
+
+		return newList;
+	}
 
 	const toggleMutation = useMutation(
 		`toggleFromList-${user?.uid}`,
-		async (modalMovie: Movie | null) => {
-			const myList = query.data;
+		async (modalMovie: Movie) => {
+			const { data: myList } = query;
 			const ref = doc(firestore, `myList/${user?.uid}`);
-			const index = myList?.findIndex(({ id }) => id === modalMovie?.id) ?? -1;
 			await setDoc(ref, {
-				list:
-					index >= 0
-						? myList?.filter((_, i) => i !== index)
-						: [modalMovie, ...(myList || [])],
+				list: toggleFromList(myList, modalMovie),
 			});
 		},
 		{
-			onSuccess: () => {
+			onMutate(modalMovie: Movie) {
+				const prevListQuery = queryClient.getQueriesData(fetchListQueryKey)[0];
+				const [_, prevList] = (prevListQuery || []) as [QueryKey, Movie[]];
+				queryClient.setQueriesData(
+					fetchListQueryKey,
+					toggleFromList(prevList, modalMovie)
+				);
+				return { prevList };
+			},
+			onError(_, __, context) {
+				queryClient.setQueriesData(fetchListQueryKey, {
+					prevList: context?.prevList,
+				});
+			},
+			onSettled() {
+				// sync with server regardless of the outcome
 				queryClient.invalidateQueries(fetchListQueryKey);
 			},
 		}

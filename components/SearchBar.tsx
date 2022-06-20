@@ -34,6 +34,7 @@ export default function SearchBar() {
 		timer && clearTimeout(timer);
 		setTimer(
 			setTimeout(() => {
+				// TODO: make searchQuery state global
 				router.push(`${routes.search}?searchQuery=${query}`);
 			}, 500)
 		);

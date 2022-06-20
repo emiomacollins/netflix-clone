@@ -4,10 +4,12 @@ import { RootState } from '../../store';
 
 interface State {
 	modalMovie: Movie | null;
+	searchQuery: string;
 }
 
 const initialState: State = {
 	modalMovie: null,
+	searchQuery: '',
 };
 
 const uiSlice = createSlice({
@@ -16,6 +18,9 @@ const uiSlice = createSlice({
 	reducers: {
 		setModalMovie(state, { payload: movie }: PayloadAction<Movie | null>) {
 			state.modalMovie = movie;
+		},
+		setSearchQuery(state, { payload: query }: PayloadAction<string>) {
+			state.searchQuery = query;
 		},
 	},
 });
@@ -26,3 +31,4 @@ export default uiReducer;
 
 const getState = (store: RootState) => store.ui;
 export const getModalMovie = createSelector(getState, ({ modalMovie }) => modalMovie);
+export const getSearchQuery = createSelector(getState, ({ searchQuery }) => searchQuery);

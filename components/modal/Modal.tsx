@@ -31,7 +31,7 @@ export default function Modal() {
 
 	const {
 		query: { data: myList, isLoading: loadingMyList },
-		toggleMutation: { mutate: toggleFromListMutation, isLoading: togglingFromList },
+		toggleMutation: { mutate: toggleFromListMutation },
 	} = useMyList();
 
 	const { data: extraInfo, isLoading: loadingExtraInfo } = useQuery(
@@ -55,6 +55,7 @@ export default function Modal() {
 	const { video, genres } = extraInfo || {};
 
 	const percentageMatch = vote_average * 10;
+
 	const isInMyList = useMemo(
 		() => (myList?.find(({ id }) => id === modalMovie?.id) ? true : false),
 		[modalMovie?.id, myList]
@@ -110,13 +111,11 @@ export default function Modal() {
 							</Button>
 						)}
 
-						{/* TODO DEBUG: sometimes this does not work */}
 						{!loadingMyList && modalMovie && (
 							<Button
 								icon
 								toolTip={isInMyList ? 'Remove from List' : 'Add to List'}
 								onClick={() => toggleFromListMutation(modalMovie)}
-								disabled={togglingFromList}
 							>
 								{isInMyList ? (
 									<Icon as={CheckIcon} />
@@ -211,7 +210,7 @@ const Content = styled.div<Props>`
 	transition: 0.2s;
 	font-size: var(--size-350);
 	letter-spacing: 0.03em;
-	overflow: hidden;
+	/* overflow: hidden; */
 
 	${(p) =>
 		p.visible &&
@@ -247,17 +246,28 @@ const CloseIcon = styled(XIcon)`
 	aspect-ratio: 1;
 `;
 
+const borderRadiusStyles = css`
+	border-top-left-radius: var(--radius-400);
+	border-top-right-radius: var(--radius-400);
+`;
+
 const VideoContainer = styled.div`
 	background: var(--black);
 	aspect-ratio: 16/9;
 	width: 100%;
 	position: relative;
+
+	${borderRadiusStyles}
+	iframe {
+		${borderRadiusStyles}
+	}
 `;
 
 const PlaceholderImage = styled.div`
 	img {
 		object-fit: cover;
 		object-position: top;
+		${borderRadiusStyles}
 	}
 `;
 
