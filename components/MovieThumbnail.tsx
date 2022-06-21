@@ -12,16 +12,14 @@ interface Props {
 
 export default function MovieThumbnail({ movie, className }: Props) {
 	const dispatch = useDispatch();
-	const { id, backdrop_path, poster_path } = movie;
+	const { backdrop_path, poster_path } = movie;
 
 	function handleSetModalMovie() {
 		dispatch(setModalMovie(movie));
 	}
 
-	// TODO: add loading animation
-
 	return (
-		<Container key={id} onClick={handleSetModalMovie} className={className}>
+		<Container onClick={handleSetModalMovie} className={className}>
 			<Image
 				src={`${TMDB_IMAGE_BASE_URL}/w500${backdrop_path || poster_path}`}
 				alt=''
@@ -37,10 +35,10 @@ const Container = styled.button`
 	aspect-ratio: 16/9;
 	border-radius: 0;
 	border: 0;
-	background: transparent;
 	transition: 0.2s;
 	overflow: hidden;
 	background: var(--black);
+	max-width: 500px;
 
 	&:hover {
 		transform: scale(1.05);
