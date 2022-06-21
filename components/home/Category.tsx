@@ -1,5 +1,5 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/outline';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { MovieCategory } from '../../constants/home/types';
@@ -11,7 +11,6 @@ interface Props extends MovieCategory {
 
 export default function Category({ id, title, movies }: Props) {
 	const galleryRef = useRef<any>();
-	const [scrollPosition, setScrollPosition] = useState(0);
 
 	function handleScroll(increment: number) {
 		const widthOfVisibleSlider = galleryRef.current?.offsetWidth;
@@ -28,7 +27,7 @@ export default function Category({ id, title, movies }: Props) {
 			<Heading>{title}</Heading>
 
 			<GalleryContainer>
-				<LeftBtn onClick={() => handleScroll(-1)} visible={scrollPosition > 0}>
+				<LeftBtn onClick={() => handleScroll(-1)}>
 					<BtnIcon as={ChevronLeftIcon} />
 				</LeftBtn>
 
@@ -55,37 +54,23 @@ const Heading = styled.h2`
 	font-weight: 700;
 `;
 
-interface NavigationBtnProps {
-	visible?: boolean;
-}
-
-const navigationBtnStyles = css<NavigationBtnProps>`
+const navigationBtnStyles = css`
 	border: 0;
-	position: absolute;
-	color: inherit;
-	top: 50%;
-	z-index: 3;
-	height: calc(100% - (2 * var(--gallery-padding-block)) + 2px);
-	padding: 0 0.75rem;
 	background: transparent;
+	color: inherit;
+	padding: 0 0.75rem;
+
+	position: absolute;
+	top: 50%;
+	height: calc(100% - (2 * var(--gallery-padding-block)) + 2px);
 	transform: translateY(-50%);
+	z-index: 3;
+
+	opacity: 0;
 	transition: 0.2s;
 
 	&:hover {
 		background: var(--dark-transparent);
-	}
-
-	${(p) =>
-		p.visible === false &&
-		css`
-			opacity: 0 !important;
-			pointer-events: none;
-		`}
-
-	@media ${Breakpoints.tabletUp} {
-		opacity: 0; // only show when hovering on desktop
-		padding: 0;
-		background: transparent;
 	}
 `;
 
