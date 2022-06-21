@@ -14,18 +14,14 @@ export default function MovieThumbnail({ movie, className }: Props) {
 	const dispatch = useDispatch();
 	const { id, backdrop_path, poster_path } = movie;
 
-	function handleSetModalMovie(movie: Movie) {
+	function handleSetModalMovie() {
 		dispatch(setModalMovie(movie));
 	}
 
 	// TODO: add loading animation
 
 	return (
-		<Container
-			key={id}
-			onClick={() => handleSetModalMovie(movie)}
-			className={className}
-		>
+		<Container key={id} onClick={handleSetModalMovie} className={className}>
 			<Image
 				src={`${TMDB_IMAGE_BASE_URL}/w500${backdrop_path || poster_path}`}
 				alt=''

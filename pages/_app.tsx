@@ -13,16 +13,16 @@ import { setUser } from '../lib/redux/slices/user/userSlice';
 import store from '../lib/redux/store';
 import '../styles/globals.css';
 
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			refetchOnWindowFocus: false,
+		},
+	},
+});
+
 // this is your index.ts (providers go here)
 export default function MyApp({ Component, pageProps }: IndexProps) {
-	const queryClient = new QueryClient({
-		defaultOptions: {
-			queries: {
-				refetchOnWindowFocus: false,
-			},
-		},
-	});
-
 	return (
 		<Provider store={store}>
 			<QueryClientProvider client={queryClient}>
