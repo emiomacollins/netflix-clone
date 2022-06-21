@@ -5,7 +5,6 @@ import {
 	VolumeUpIcon,
 	XIcon,
 } from '@heroicons/react/solid';
-import Image from 'next/image';
 import { Fragment, MouseEvent, useEffect, useMemo } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { useQuery } from 'react-query';
@@ -16,6 +15,7 @@ import { TMDB_IMAGE_BASE_URL, YOUTUBE_VIDEO_BASE_URL } from '../../constants/url
 import { useMyList } from '../../hooks/useMyList';
 import { useToggle } from '../../hooks/useToggle';
 import { getModalMovie, setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
+import ImageLoader from '../ImageLoader';
 import Button from '../styled components/Button';
 import { contentStyles } from '../styled components/Content';
 import { Flex, flexStyles } from '../styled components/Flex';
@@ -93,15 +93,11 @@ export default function Modal() {
 						</Fragment>
 					) : (
 						!loadingExtraInfo && (
-							<PlaceholderImage>
-								<Image
-									src={`${TMDB_IMAGE_BASE_URL}/original${
-										backdrop_path || poster_path
-									}`}
-									alt=''
-									layout='fill'
-								/>
-							</PlaceholderImage>
+							<PlaceholderImage
+								src={`${TMDB_IMAGE_BASE_URL}/original${
+									backdrop_path || poster_path
+								}`}
+							/>
 						)
 					)}
 					<Buttons>
@@ -257,6 +253,7 @@ const VideoContainer = styled.div`
 	aspect-ratio: 16/9;
 	width: 100%;
 	position: relative;
+	display: grid;
 
 	${borderRadiusStyles}
 	iframe {
@@ -264,10 +261,8 @@ const VideoContainer = styled.div`
 	}
 `;
 
-const PlaceholderImage = styled.div`
+const PlaceholderImage = styled(ImageLoader)`
 	img {
-		object-fit: cover;
-		object-position: top;
 		${borderRadiusStyles}
 	}
 `;
