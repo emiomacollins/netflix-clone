@@ -19,7 +19,7 @@ export default function SearchBar() {
 		state: focused,
 		setState: setFocused,
 		ref,
-	} = useToggle(searchQuery ? true : false);
+	} = useToggle(searchQuery && router.asPath.includes(routes.search) ? true : false);
 
 	function openSearchBox() {
 		if (!focused) setFocused(true);
@@ -71,7 +71,6 @@ interface FocusedProps {
 const Container = styled.form<FocusedProps>`
 	display: flex;
 	gap: 1rem;
-
 	padding: 0.1em 0.25em 0.1em 0.5em;
 	border: 2px solid transparent;
 	border-radius: var(--radius-200);
@@ -84,8 +83,6 @@ const Container = styled.form<FocusedProps>`
 
 			${Input} {
 				width: 80px;
-				margin-bottom: 0.1em;
-
 				@media ${Breakpoints.desktopUp} {
 					width: 200px;
 				}
