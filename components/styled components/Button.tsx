@@ -75,7 +75,7 @@ const Container = styled.button<Props>`
 	}
 
 	&:disabled {
-		opacity: 0.5 !important;
+		opacity: 0.4 !important;
 	}
 
 	${(p) =>

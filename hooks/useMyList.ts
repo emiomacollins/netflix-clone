@@ -22,40 +22,24 @@ export function useMyList() {
 		}
 	);
 
-	function toggleFromList(list: Movie[] | null | undefined, movie: Movie) {
-		const isModalMovie = ({ id }: Movie) => id === movie?.id;
-		const isNotModalMovie = ({ id }: Movie) => id !== movie?.id;
-
-		const newList = list?.find(isModalMovie)
-			? list.filter(isNotModalMovie)
-			: [movie, ...(list || [])];
-
-		return newList;
-	}
-
 	const toggleMutation = useMutation(
 		`toggleFromList-${user?.uid}`,
-		async (modalMovie: Movie) => {
+		async (movie: Movie) => {
 			const { data: myList } = query;
 			const ref = doc(firestore, `myList/${user?.uid}`);
+			const isModalMovie = ({ id }: Movie) => id === movie?.id;
+			const isNotModalMovie = ({ id }: Movie) => id !== movie?.id;
+
+			const newList = myList?.find(isModalMovie)
+				? myList.filter(isNotModalMovie)
+				: [movie, ...(myList || [])];
+
 			await setDoc(ref, {
-				list: toggleFromList(myList, modalMovie),
+				list: newList,
 			});
 		},
 		{
-			onMutate(modalMovie: Movie) {
-				const { data: prevList } = query;
-				queryClient.setQueriesData(
-					fetchListQueryKey,
-					toggleFromList(prevList, modalMovie)
-				);
-				return { prevList };
-			},
-			onError(_, __, context) {
-				queryClient.setQueriesData(fetchListQueryKey, context?.prevList);
-			},
-			onSettled() {
-				// sync with server regardless of the outcome
+			onSuccess() {
 				queryClient.invalidateQueries(fetchListQueryKey);
 			},
 		}

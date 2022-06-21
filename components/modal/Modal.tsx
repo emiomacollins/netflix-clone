@@ -116,6 +116,7 @@ export default function Modal() {
 								icon
 								toolTip={isInMyList ? 'Remove from List' : 'Add to List'}
 								onClick={() => toggleFromListMutation(modalMovie)}
+								disabled={togglingFromList}
 							>
 								{isInMyList ? (
 									<Icon as={CheckIcon} />
