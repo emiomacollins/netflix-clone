@@ -215,6 +215,7 @@ const SearchContainer = styled(Grid)`
 	grid-template-columns: 1fr auto;
 	justify-self: right;
 	gap: 1rem;
+	align-items: center;
 `;
 
 interface ExpandedProps {

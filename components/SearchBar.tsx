@@ -70,7 +70,6 @@ interface FocusedProps {
 
 const Container = styled.form<FocusedProps>`
 	display: flex;
-	align-items: center;
 	gap: 1rem;
 
 	padding: 0.1em 0.25em 0.1em 0.5em;
