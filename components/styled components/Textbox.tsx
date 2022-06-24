@@ -11,6 +11,8 @@ export const Textbox = styled.input<Props>`
 	background: var(--gray-dark);
 	color: var(--light);
 	outline: none;
+	min-width: 0;
+
 	${(p) =>
 		p.error &&
 		css`
