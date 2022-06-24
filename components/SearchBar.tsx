@@ -33,7 +33,7 @@ export default function SearchBar() {
 		const query = e.target.value;
 		dispatch(setSearchQuery(query));
 
-		// don't search if user just cleared search
+		// stop search if user just cleared search
 		if (!query) return;
 
 		timer && clearTimeout(timer);
