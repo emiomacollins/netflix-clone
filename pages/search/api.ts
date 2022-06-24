@@ -12,13 +12,15 @@ export default async function searchMovie(
 ): Promise<Movie[]> {
 	const url = `search/multi?query=${query}`;
 	const maxTotalPages = 2;
+	const resultsPerPage = 20;
 
-	const { data } = await baseAxios.request<Data>({
+	const { data: pageOneData } = await baseAxios.request<Data>({
 		url,
 	});
 
-	let totalPages = Math.ceil(data.total_results / 20);
+	let totalPages = Math.ceil(pageOneData.total_results / resultsPerPage);
 	totalPages = totalPages > maxTotalPages ? maxTotalPages : totalPages;
+	// pages left to fetch
 	const otherPagesLength = totalPages - 1;
 
 	const otherPagesRoutes = Array(otherPagesLength > 0 ? otherPagesLength : 0)
@@ -31,5 +33,5 @@ export default async function searchMovie(
 
 	const otherPages = otherPagesResult.map(({ data: { results } }) => results);
 
-	return [...data.results, ...otherPages.flat()];
+	return [...pageOneData.results, ...otherPages.flat()];
 }

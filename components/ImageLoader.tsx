@@ -14,7 +14,7 @@ export default function ImageLoader({ className, delay, ...imageProps }: Props) 
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);
-		}, 5000);
+		}, 10000);
 	}, []);
 
 	function handleUpdateLoad() {

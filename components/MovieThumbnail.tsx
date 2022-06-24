@@ -1,6 +1,6 @@
-import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { Breakpoints } from '../constants/breakpoints';
 import { Movie } from '../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../constants/urls/apis';
 import { setModalMovie } from '../lib/redux/slices/ui/uiSlice';
@@ -20,32 +20,35 @@ export default function MovieThumbnail({ movie, className }: Props) {
 
 	return (
 		<Container onClick={handleSetModalMovie} className={className}>
-			<Image
+			<Thumbnail
 				src={`${TMDB_IMAGE_BASE_URL}/w500${backdrop_path || poster_path}`}
 				alt=''
-				layout='fill'
 			/>
 		</Container>
 	);
 }
 
 const Container = styled.button`
-	position: relative;
-	min-width: 250px;
-	aspect-ratio: 16/9;
 	border-radius: 0;
 	border: 0;
 	transition: 0.2s;
-	overflow: hidden;
 	background: var(--black);
+	display: flex;
+	overflow: hidden;
+	min-width: 250px;
 	max-width: 500px;
 
 	&:hover {
 		transform: scale(1.05);
 	}
 
-	img {
-		object-fit: cover;
-		object-position: top;
+	@media ${Breakpoints.tabletUp} {
+		border-radius: var(--radius-300);
 	}
+`;
+
+const Thumbnail = styled.img`
+	aspect-ratio: 16/9;
+	object-fit: cover;
+	object-position: top;
 `;
