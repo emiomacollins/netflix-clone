@@ -49,6 +49,7 @@ const App = ({ children }: AppProps) => {
 		const unsuscribe = auth.onAuthStateChanged(async (user) => {
 			if (!user) dispatch(setUser(null));
 			else {
+				await user.getIdToken();
 				const tokenObj = await user.getIdTokenResult();
 				const isSubscribed = tokenObj?.claims?.stripeRole ? true : false;
 				dispatch(
