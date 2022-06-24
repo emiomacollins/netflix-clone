@@ -51,6 +51,7 @@ const App = ({ children }: AppProps) => {
 			if (!user) dispatch(setUser(null));
 			else {
 				const currentSubscription = await fetchSubscription(user.uid);
+				console.log(currentSubscription);
 				dispatch(
 					setUser({
 						uid: user.uid,
