@@ -15,9 +15,10 @@ export default function WithSubscription({ children, exclude }: Props) {
 
 	if (exclude?.includes(router.pathname)) return <Fragment>{children}</Fragment>;
 
-	if (!user?.isSubscribed) {
+	if (!user?.currentSubscription) {
 		router.push(routes.plans);
+		return null;
 	}
 
-	return <Fragment>{user?.isSubscribed ? children : null}</Fragment>;
+	return <Fragment>{children}</Fragment>;
 }

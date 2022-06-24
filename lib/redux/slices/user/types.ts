@@ -1,7 +1,9 @@
+import { DocumentData } from 'firebase/firestore';
+
 export interface User {
 	uid: string;
 	email: string | null;
-	isSubscribed: boolean;
+	currentSubscription: DocumentData | undefined;
 	createdAt: string;
 }
 

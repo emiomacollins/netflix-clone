@@ -24,7 +24,7 @@ export default function Plans({ plans }: Props) {
 	const router = useRouter();
 	const user = useSelector(getUser);
 
-	if (user?.isSubscribed) {
+	if (user?.currentSubscription) {
 		router.push(routes.home);
 		return null;
 	}

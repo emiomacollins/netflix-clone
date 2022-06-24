@@ -8,6 +8,7 @@ import ProgressBar from '../components/ProgressBar';
 import ProtectRoutes from '../components/ProtectRoutes';
 import WithSubscription from '../components/WithSubscription';
 import { noSubscriptionRoutes, unProctectedRoutes } from '../constants/routes';
+import { fetchSubscription } from '../hooks/useSubscription/api';
 import { auth } from '../lib/firebase/firebase';
 import { setUser } from '../lib/redux/slices/user/userSlice';
 import store from '../lib/redux/store';
@@ -49,14 +50,12 @@ const App = ({ children }: AppProps) => {
 		const unsuscribe = auth.onAuthStateChanged(async (user) => {
 			if (!user) dispatch(setUser(null));
 			else {
-				await user.getIdToken();
-				const tokenObj = await user.getIdTokenResult();
-				const isSubscribed = tokenObj?.claims?.stripeRole ? true : false;
+				const currentSubscription = await fetchSubscription(user.uid);
 				dispatch(
 					setUser({
 						uid: user.uid,
 						email: user.email,
-						isSubscribed,
+						currentSubscription,
 						createdAt: user.metadata.creationTime || '',
 					})
 				);

@@ -20,4 +20,4 @@ export const userReducer = userSlice.reducer;
 export const { setUser } = userSlice.actions;
 
 const getState = (store: RootState) => store.user;
-export const getUser = createSelector(getState, ({ user }) => user);
+export const getUser = createSelector(getState, ({ user }: State) => user);

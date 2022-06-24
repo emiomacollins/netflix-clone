@@ -29,6 +29,6 @@ export const { setModalMovie, setSearchQuery } = uiSlice.actions;
 const uiReducer = uiSlice.reducer;
 export default uiReducer;
 
-const getState = (store: RootState) => store.ui;
+const getState = (store: RootState): State => store.ui;
 export const getModalMovie = createSelector(getState, ({ modalMovie }) => modalMovie);
 export const getSearchQuery = createSelector(getState, ({ searchQuery }) => searchQuery);

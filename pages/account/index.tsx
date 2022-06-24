@@ -12,16 +12,14 @@ import { Link } from '../../components/styled components/Link';
 import { Breakpoints } from '../../constants/breakpoints';
 import { routes } from '../../constants/routes';
 import { memberSinceIconPath } from '../../constants/urls/images';
-import { useSubscription } from '../../hooks/useSubscription';
 import { getUser } from '../../lib/redux/slices/user/userSlice';
 import redirectToManageSubscription from './api';
 
 export default function Account() {
 	const user = useSelector(getUser);
-	const { data: subscription } = useSubscription();
 
-	const { createdAt, email } = user || {};
-	const { role, current_period_end, cancel_at: canceledAt } = subscription || {};
+	const { createdAt, email, currentSubscription } = user || {};
+	const { role, current_period_end, cancel_at: canceledAt } = currentSubscription || {};
 
 	const nextBillingPeriod = new Date(current_period_end?.seconds * 1000).toDateString();
 	const memberSince = new Intl.DateTimeFormat(navigator.language, {
