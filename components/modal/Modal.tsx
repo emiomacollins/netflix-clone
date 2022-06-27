@@ -54,7 +54,7 @@ export default function Modal() {
 	} = modalMovie || {};
 	const { video, genres } = extraInfo || {};
 
-	const percentageMatch = vote_average * 10;
+	const percentageMatch = Math.round(vote_average * 10);
 
 	const isInMyList = useMemo(
 		() => (myList?.find(({ id }) => id === modalMovie?.id) ? true : false),

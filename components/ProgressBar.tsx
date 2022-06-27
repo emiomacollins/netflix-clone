@@ -4,9 +4,14 @@ import styled from 'styled-components';
 
 export default function ProgressBar() {
 	const [progress, setprogress] = useState(0);
+	const maxProgress = 80;
+	const progressIncrement = 5;
 
 	const updateProgress = () => {
-		setprogress((progress) => (progress + 5 <= 100 ? progress + 5 : 100));
+		setprogress((progress) => {
+			const newProgress = progress + progressIncrement;
+			return newProgress <= maxProgress ? newProgress : maxProgress;
+		});
 	};
 
 	useEffect(() => {
