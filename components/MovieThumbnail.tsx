@@ -36,7 +36,7 @@ const Container = styled.button`
 	display: flex;
 	overflow: hidden;
 	min-width: 250px;
-	max-width: 500px;
+	width: 250px;
 
 	&:hover {
 		transform: scale(1.05);

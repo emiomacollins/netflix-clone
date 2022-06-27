@@ -58,11 +58,13 @@ const Container = styled.div`
 const Movies = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-	gap: 4rem 1rem;
+	gap: 3rem 1.5rem;
 `;
 
 const StyledThumbnail = styled(MovieThumbnail)`
 	max-width: 500px;
+	width: auto;
+
 	&:hover {
 		z-index: 1;
 	}
