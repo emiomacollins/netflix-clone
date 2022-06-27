@@ -62,7 +62,7 @@ const Movies = styled.div`
 `;
 
 const StyledThumbnail = styled(MovieThumbnail)`
-	max-width: 500px;
+	max-width: 400px;
 	width: auto;
 
 	&:hover {
