@@ -7,6 +7,7 @@ import MovieThumbnail from '../../components/MovieThumbnail';
 import Nav from '../../components/nav/Nav';
 import { Content } from '../../components/styled components/Content';
 import { Grid } from '../../components/styled components/Grid';
+import { Breakpoints } from '../../constants/breakpoints';
 import { Movie } from '../../constants/home/types';
 import searchMovie from './api';
 
@@ -59,6 +60,10 @@ const Movies = styled.div`
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	gap: 3rem 1.5rem;
+
+	@media ${Breakpoints.tabletDown} {
+		justify-items: center;
+	}
 `;
 
 const StyledThumbnail = styled(MovieThumbnail)`
