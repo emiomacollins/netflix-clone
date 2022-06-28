@@ -21,6 +21,7 @@ export default function Home({ categories, randomMovie }: Props) {
 		<Container>
 			<Head>
 				<title>Home</title>
+				<link rel='icon' href='/logo.ico' />
 			</Head>
 			<Nav />
 			<Modal />
