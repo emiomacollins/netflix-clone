@@ -78,11 +78,11 @@ export default function Nav() {
 
 					<ExpandedLinks expanded={expanded} paddingLeft={expandedLinksPadding}>
 						<Grid gap={0}>
-							<Link href={routes.account} onClick={handleClose}>
-								<BoldLink>Account</BoldLink>
+							<Link href={routes.account}>
+								<BoldLink onClick={handleClose}>Account</BoldLink>
 							</Link>
-							<Link href={routes.login} onClick={handleClose}>
-								<BoldLink>Sign Out</BoldLink>
+							<Link href={routes.login}>
+								<BoldLink onClick={handleClose}>Sign Out</BoldLink>
 							</Link>
 						</Grid>
 
