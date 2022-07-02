@@ -8,9 +8,9 @@ import { useMutation } from 'react-query';
 import * as yup from 'yup';
 import Textbox from '../../components/formik/Textbox';
 import Logo from '../../components/Logo';
-import { ErrorMessage } from '../../components/styled components/ErrorMessage';
-import { Grid } from '../../components/styled components/Grid';
-import { Link } from '../../components/styled components/Link';
+import { ErrorMessage } from '../../components/styled-components/ErrorMessage';
+import { Grid } from '../../components/styled-components/Grid';
+import { Link } from '../../components/styled-components/Link';
 import {
 	BgImage,
 	Container,
@@ -21,7 +21,7 @@ import {
 	StyledOverlay,
 	SubmitBtn,
 	Text,
-} from '../../components/styled components/shared-styles/AuthPages';
+} from '../../components/styled-components/shared-styles/AuthPages';
 import { routes } from '../../constants/routes';
 import { AuthPagesBgPath } from '../../constants/urls/images';
 import { auth } from '../../lib/firebase/firebase';

@@ -13,7 +13,7 @@ export default function Category(category: Props) {
 	const { id, title, movies } = category;
 	// styled components has a ref bug that hasn't been fixed.
 	// that's the reason for the any type
-	const galleryRef = useRef<HTMLDivElement | any>(null);
+	const galleryRef = useRef<HTMLDivElement>(null);
 	const [isScrollable, setIsScrollable] = useState(false);
 
 	function handleScroll(increment: number) {
@@ -44,7 +44,7 @@ export default function Category(category: Props) {
 					<BtnIcon as={ChevronLeftIcon} />
 				</LeftBtn>
 
-				<Gallery ref={galleryRef}>
+				<Gallery ref={galleryRef as any}>
 					{movies?.map((movie) => {
 						return <MovieThumbnail key={movie.id} movie={movie} />;
 					})}

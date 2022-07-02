@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { ReactNode } from 'react';
 import styled, { css } from 'styled-components';
 import { useToggle } from '../hooks/useToggle';
-import { flexStyles } from './styled components/Flex';
+import { flexStyles } from './styled-components/Flex';
 
 interface Option {
 	label: string;

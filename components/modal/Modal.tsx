@@ -16,11 +16,11 @@ import { useMyList } from '../../hooks/useMyList';
 import { useToggle } from '../../hooks/useToggle';
 import { getModalMovie, setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
 import ImageLoader from '../ImageLoader';
-import Button from '../styled components/Button';
-import { contentStyles } from '../styled components/Content';
-import { Flex, flexStyles } from '../styled components/Flex';
-import { Grid } from '../styled components/Grid';
-import { Overlay } from '../styled components/Overlay';
+import Button from '../styled-components/Button';
+import { contentStyles } from '../styled-components/Content';
+import { Flex, flexStyles } from '../styled-components/Flex';
+import { Grid } from '../styled-components/Grid';
+import { Overlay } from '../styled-components/Overlay';
 import { fetchExtraInfo } from './api';
 
 export default function Modal() {

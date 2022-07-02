@@ -1,7 +1,7 @@
 import { FieldHookConfig, useField } from 'formik';
 import styled from 'styled-components';
-import { ErrorMessage } from '../styled components/ErrorMessage';
-import { Textbox as StyledTextbox } from '../styled components/Textbox';
+import { ErrorMessage } from '../styled-components/ErrorMessage';
+import { Textbox as StyledTextbox } from '../styled-components/Textbox';
 
 export default function Textbox(props: FieldHookConfig<string> & any) {
 	const [fields, meta] = useField(props);

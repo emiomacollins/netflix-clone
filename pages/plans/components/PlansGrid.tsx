@@ -2,7 +2,7 @@ import { CheckIcon } from '@heroicons/react/solid';
 import { Product } from '@stripe/firestore-stripe-payments';
 import { useState } from 'react';
 import styled from 'styled-components';
-import Button from '../../../components/styled components/Button';
+import Button from '../../../components/styled-components/Button';
 import { Breakpoints } from '../../../constants/breakpoints';
 import checkout from '../api';
 

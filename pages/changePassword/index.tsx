@@ -9,8 +9,8 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { useMutation } from 'react-query';
 import styled from 'styled-components';
 import Logo from '../../components/Logo';
-import { ErrorMessage } from '../../components/styled components/ErrorMessage';
-import { Grid } from '../../components/styled components/Grid';
+import { ErrorMessage } from '../../components/styled-components/ErrorMessage';
+import { Grid } from '../../components/styled-components/Grid';
 import {
 	BgImage,
 	Container,
@@ -19,9 +19,9 @@ import {
 	Heading,
 	StyledOverlay,
 	SubmitBtn,
-} from '../../components/styled components/shared-styles/AuthPages';
-import { SuccessMessage } from '../../components/styled components/SuccessMessgae';
-import { Textbox } from '../../components/styled components/Textbox';
+} from '../../components/styled-components/shared-styles/AuthPages';
+import { SuccessMessage } from '../../components/styled-components/SuccessMessgae';
+import { Textbox } from '../../components/styled-components/Textbox';
 import { AuthPagesBgPath } from '../../constants/urls/images';
 import { auth } from '../../lib/firebase/firebase';
 

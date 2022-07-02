@@ -7,7 +7,7 @@ import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
 import { useToggle } from '../hooks/useToggle';
 import { getSearchQuery, setSearchQuery } from '../lib/redux/slices/ui/uiSlice';
-import Button from './styled components/Button';
+import Button from './styled-components/Button';
 
 export default function SearchBar() {
 	const router = useRouter();

@@ -11,10 +11,10 @@ import Logo from '../Logo';
 import ProfileDropdown from '../ProfileDropdown';
 import SearchBar from '../SearchBar';
 import Show from '../Show';
-import Button from '../styled components/Button';
-import { contentStyles, contentWidthPercent } from '../styled components/Content';
-import { Grid } from '../styled components/Grid';
-import { Overlay } from '../styled components/Overlay';
+import Button from '../styled-components/Button';
+import { contentStyles, contentWidthPercent } from '../styled-components/Content';
+import { Grid } from '../styled-components/Grid';
+import { Overlay } from '../styled-components/Overlay';
 
 const links = [
 	{ label: 'Home', route: routes.home },
@@ -78,10 +78,10 @@ export default function Nav() {
 
 					<ExpandedLinks expanded={expanded} paddingLeft={expandedLinksPadding}>
 						<Grid gap={0}>
-							<Link href={routes.account}>
+							<Link href={routes.account} onClick={handleClose}>
 								<BoldLink>Account</BoldLink>
 							</Link>
-							<Link href={routes.login}>
+							<Link href={routes.login} onClick={handleClose}>
 								<BoldLink>Sign Out</BoldLink>
 							</Link>
 						</Grid>

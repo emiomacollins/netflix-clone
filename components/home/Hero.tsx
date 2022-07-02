@@ -7,9 +7,9 @@ import { Breakpoints } from '../../constants/breakpoints';
 import { Movie } from '../../constants/home/types';
 import { TMDB_IMAGE_BASE_URL } from '../../constants/urls/apis';
 import { setModalMovie } from '../../lib/redux/slices/ui/uiSlice';
-import Button from '../styled components/Button';
-import { contentStyles } from '../styled components/Content';
-import { flexStyles } from '../styled components/Flex';
+import Button from '../styled-components/Button';
+import { contentStyles } from '../styled-components/Content';
+import { flexStyles } from '../styled-components/Flex';
 
 interface Props {
 	randomMovie: Movie;

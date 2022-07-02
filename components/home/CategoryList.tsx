@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Breakpoints } from '../../constants/breakpoints';
 import { MovieCategory } from '../../constants/home/types';
 import { useMyList } from '../../hooks/useMyList';
-import { contentStyles } from '../styled components/Content';
+import { contentStyles } from '../styled-components/Content';
 import Category from './Category';
 
 interface Props {
