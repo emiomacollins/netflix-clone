@@ -46,7 +46,13 @@ export default function Category(category: Props) {
 
 				<Gallery ref={galleryRef as any}>
 					{movies?.map((movie) => {
-						return <MovieThumbnail key={movie.id} movie={movie} />;
+						return (
+							<MovieThumbnail
+								key={movie.id}
+								movie={movie}
+								optimized={true}
+							/>
+						);
 					})}
 				</Gallery>
 
