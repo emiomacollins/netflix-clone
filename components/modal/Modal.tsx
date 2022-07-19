@@ -182,6 +182,10 @@ const StyledOverlay = styled(Overlay)<Props>`
 	transition: 0.15s;
 	overflow: auto;
 
+	::-webkit-scrollbar {
+		display: none;
+	}
+
 	${(p) =>
 		p.visible &&
 		css`
