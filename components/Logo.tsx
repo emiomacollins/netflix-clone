@@ -1,20 +1,20 @@
 import Link from 'next/link';
 import styled from 'styled-components';
+import logoPath from '../assets/images/logo.svg';
 import { Breakpoints } from '../constants/breakpoints';
 import { routes } from '../constants/routes';
-import { logoPath } from '../constants/urls/images';
 
 export default function Logo() {
 	return (
 		<Link href={routes.home} passHref>
 			<a>
-				<Container src={logoPath} alt='' />
+				<Image src={logoPath} alt='' />
 			</a>
 		</Link>
 	);
 }
 
-const Container = styled.img`
+const Image = styled.img`
 	height: var(--size-600);
 
 	@media ${Breakpoints.tabletUp} {
