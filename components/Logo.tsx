@@ -8,7 +8,7 @@ export default function Logo() {
 	return (
 		<Link href={routes.home} passHref>
 			<a>
-				<Image src={logoPath} alt='' />
+				<Image src={logoPath.src} alt='' />
 			</a>
 		</Link>
 	);
